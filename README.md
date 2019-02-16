@@ -1,2 +1,2 @@
 # Eventspace
-Tarkvaratehnika projekt
+Tarkvaratehnika projekt.
