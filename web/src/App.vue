@@ -1,13 +1,27 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view/>
+    <HelloWorld v-bind:msg="hello"/>
   </div>
 </template>
 
 <script>
+import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    HelloWorld
+  },
+  data () {
+    return {
+      hello: null
+    }
+  },
+  mounted () {
+    axios.get('http://localhost:8080/api/hello').then(response => (this.hello = response.data))
+  }
 }
 </script>
 
