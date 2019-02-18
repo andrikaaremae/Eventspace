@@ -12,4 +12,9 @@ public class TestController {
     public String getHello() {
         return "Hello from controller";
     }
+
+    @GetMapping("/about")
+    public String getAbout() {
+        return "This controller is " + this;
+    }
 }

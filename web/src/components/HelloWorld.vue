@@ -5,10 +5,17 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: 'App',
+  data () {
+    return {
+      msg: null
+    }
+  },
+  mounted () {
+    axios.get('http://localhost:8080/api/hello').then(response => (this.msg = response.data))
   }
 }
 </script>
