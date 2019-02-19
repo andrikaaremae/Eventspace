@@ -1,5 +1,13 @@
 package ee.ttu.eventspace;
 
+import ee.ttu.eventspace.model.Address;
+import ee.ttu.eventspace.model.Name;
+import ee.ttu.eventspace.model.Place;
+import ee.ttu.eventspace.model.User;
+import ee.ttu.eventspace.repository.PlaceRepository;
+import ee.ttu.eventspace.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -9,10 +17,18 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collections;
 
 @SpringBootApplication
-public class EventspaceApplication {
+public class EventspaceApplication implements CommandLineRunner {
+
+	@Autowired
+	private PlaceRepository placeRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EventspaceApplication.class, args);
@@ -32,6 +48,18 @@ public class EventspaceApplication {
 		FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
+	}
+
+	//For testing
+	@Override
+	public void run(String... args) throws Exception {
+		Name name = new Name("Alala", "Bebebe");
+		Place place = new Place("Name?", "A house.", new Address("Estonia", "Harjumaa",
+				"Tallinn", "Ehitajate tee", "5", "12616"), Date.valueOf(LocalDate.now()),
+				Date.valueOf(LocalDate.of(2019, 4, 3)));
+		User user = new User(name);
+		placeRepository.save(place);
+		user.setRentedOutPlace(place);
 	}
 }
 
