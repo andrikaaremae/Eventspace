@@ -10,7 +10,7 @@ public class TestController {
 
     @GetMapping("/hello")
     public String getHello() {
-        return "Hello from controller";
+        return "Find your perfect event space";
     }
 
     @GetMapping("/about")

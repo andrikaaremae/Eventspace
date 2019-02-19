@@ -1,6 +1,7 @@
 <template>
   <div id="app">
       <ul>
+        <img src="./assets/logo.png" height="50" width="160"/>
         <li class="home"><router-link class="router" to="/about">About</router-link></li>
         <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
       </ul>
@@ -15,18 +16,25 @@ export default {
 </script>
 
 <style>
+  template {
+    height: 100%;
+  }
+
+  body {
+    margin:0;
+  }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 0;
 }
 
   .router {
     color: whitesmoke;
-    font-family: arial;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     align-content: center;
     font-size: large;
   }
@@ -41,6 +49,11 @@ export default {
 
   li {
     float: right;
+  }
+
+  img {
+    float: left;
+    margin: 5px 0 0 30px;
   }
 
   .router {
