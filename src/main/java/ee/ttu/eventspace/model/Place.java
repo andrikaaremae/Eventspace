@@ -1,30 +1,33 @@
 package ee.ttu.eventspace.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import java.util.List;
 
 @Entity
 public class Place {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
     @Embedded
     private Address address;
-    // TODO: private Map<Booking> bookings;
-    private Date startDate;
-    private Date endDate;
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
+    @OneToOne(cascade = CascadeType.ALL)
+    private User owner;
 
-    public Place(String name, String description, Address address, Date startDate, Date endDate) {
+    public Place(String name, String description, Address address) {
         this.name = name;
         this.description = description;
         this.address = address;
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
 
     public Place() {
@@ -62,20 +65,20 @@ public class Place {
         this.address = address;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     @Override
@@ -85,8 +88,8 @@ public class Place {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", address=" + address +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                ", bookings=" + bookings +
+                ", ownerId=" + owner +
                 '}';
     }
 }

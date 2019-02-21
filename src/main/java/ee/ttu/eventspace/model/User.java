@@ -1,32 +1,34 @@
 package ee.ttu.eventspace.model;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import java.util.List;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Embedded
-    private Name name;
-    // TODO: Multiple places
-    @OneToOne
-    private Place rentedOutPlace; // pakkujana
-    @OneToOne
-    private Place chosenPlace; // rentnikuna
-//    @ElementCollection
-//    private List<Place> rentedOutPlaces;
-//    @ElementCollection
-//    private List<Place> chosenPlaces; // rentnikuna
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phoneNumber;
 
-    public User(Name name) {
-        this.name = name;
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(String username, String password, String firstName, String lastName, String email, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public User() {
@@ -40,37 +42,64 @@ public class User {
         this.id = id;
     }
 
-    public Name getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Place getRentedOutPlace() {
-        return rentedOutPlace;
+    public String getPassword() {
+        return password;
     }
 
-    public void setRentedOutPlace(Place rentedOutPlace) {
-        this.rentedOutPlace = rentedOutPlace;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Place getChosenPlace() {
-        return chosenPlace;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setChosenPlace(Place chosenPlace) {
-        this.chosenPlace = chosenPlace;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name=" + name +
-                ", rentedOutPlace=" + rentedOutPlace +
-                ", chosenPlace=" + chosenPlace +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
