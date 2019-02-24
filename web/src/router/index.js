@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import About from '@/components/About'
-import Categories from '@/components/Categories'
-
+import Save from '@/components/Save'
+import Categories from "@/components/Categories";
 Vue.use(Router)
 
 export default new Router({
@@ -19,10 +19,14 @@ export default new Router({
       component: About
     },
     {
+      path: '/save',
+      name: 'Save',
+      component: Save
+    },
+    {
       path: '/categories',
       name: 'Categories',
       component: Categories
     }
-
   ]
 })
