@@ -5,7 +5,6 @@
       <input id="timeInput" type="date" name="myTime" placeholder="When?"/>
       <input id="peopleInput" type="number" name="myPeople" placeholder="How many people?"/>
       <input id="priceInput" type="number" name="myPrice" placeholder="Price per hour"/>
-
     </div>
   </div>
 </template>
@@ -21,12 +20,12 @@
       }
     },
     mounted () {
-      axios.get('http://localhost:8080/api/about').then(response => (this.msg = response.data))
+      axios.get('http://localhost:8080/api/categories').then(response => (this.msg = response.data))
     }
   }
 </script>
 
-<style>
+<style scoped>
   h1 {
     font-size: 50px;
   }

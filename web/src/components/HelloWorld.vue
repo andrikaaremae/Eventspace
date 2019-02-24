@@ -11,7 +11,7 @@
       <h1 class="categoriesHeading">Event categories</h1>
       <div>
         <li>
-          <router-link class="router" to="/categories">
+          <router-link class="router" :to="{ name: 'Categories' }">
         <ul><img src="../assets/Birthday.jpg"/></ul>
         <ul><h2 class="categoriesHeading">Birthday Party</h2></ul>
           </router-link>

@@ -3,7 +3,7 @@
       <ul>
         <img src="./assets/logo.png" height="50" width="160"/>
         <li class="home"><router-link class="router" to="/about">About</router-link></li>
-        <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
+        <li><router-link class="router" to="/">Home</router-link></li>
       </ul>
     <router-view/>
   </div>
