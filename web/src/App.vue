@@ -41,7 +41,7 @@ export default {
 
   ul {
     list-style-type: none;
-    margin: 0;
+    margin: 0px;
     padding: 0;
     overflow: hidden;
     background-color: #333;
@@ -60,7 +60,7 @@ export default {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 18px 16px;
     text-decoration: none;
   }
 

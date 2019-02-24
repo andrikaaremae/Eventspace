@@ -7,42 +7,41 @@
           <input id="countryInput" type="text" name="myCountry" placeholder="Where?">
       </div>
     </div>
-    <div>
+    <div class="background">
       <h1 class="categoriesHeading">Event categories</h1>
       <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
+        <li>
+          <router-link class="router" to="/categories">
+        <ul><img src="../assets/Birthday.jpg"/></ul>
+        <ul><h2 class="categoriesHeading">Birthday Party</h2></ul>
+          </router-link>
+        </li>
       </div>
       <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
+        <li>
+          <router-link class="router" to="/categories">
+          <ul><img src="../assets/Meeting.jpg"/></ul>
+          <ul><h2 class="categoriesHeading">Meeting</h2></ul>
+          </router-link>
+        </li>
       </div>
       <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
+        <li>
+          <router-link class="router" to="/categories">
+          <ul><img src="../assets/Performance.jpg"/></ul>
+          <ul><h2 class="categoriesHeading">Performance</h2></ul>
+          </router-link>
+        </li>
       </div>
       <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
-      </div>
-      <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
-      </div>
-      <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
-      </div>
-      <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
-      </div>
-      <div>
-        <img src="../assets/background.jpg"/>
-        <h2 class="categoriesHeading">Pealkiri</h2>
+        <li>
+          <router-link class="router" to="/categories">
+          <ul><img src="../assets/Wedding.jpg"/></ul>
+          <ul><h2 class="categoriesHeading">Wedding</h2></ul>
+          </router-link>
+        </li>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -75,28 +74,15 @@ export default {
   h1.categoriesHeading {
     color: black;
     padding-top: 75px;
-    margin-bottom: 100px;
+    padding-bottom: 70px;
+    text-decoration: none;
   }
   h2 {
     font-weight: bolder;
     font-size: 38px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     color: black;
-    position: relative;
-    float: left;
-    margin: 260px 0 30px -190px;
-    padding-bottom: 40px;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
+    padding-left: 27px;
   }
   input {
     height: 40px;
@@ -107,13 +93,22 @@ export default {
     padding: 5px 0 5px 20px;
   }
   img {
-    height: 250px;
+    height: 200px;
     width: 250px;
-    margin-left: 100px;
     border-radius: 20px;
   }
+  li {
+    list-style: none;
+    float: left;
+    margin-right: 0;
+  }
+  ul {
+    margin-left:45px;
+    margin-right: 0;
+    background-color: white;
+  }
   .searchboxes {
-    margin-top: 30px;
+    padding-top: 30px;
   }
   .hello {
     height: 500px;
@@ -121,5 +116,11 @@ export default {
     background-size: cover;
     background-size: 100%;
     background-position: center;
+  }
+  .router {
+    text-decoration: none;
+  }
+  .router:hover {
+    background-color: white;
   }
 </style>
