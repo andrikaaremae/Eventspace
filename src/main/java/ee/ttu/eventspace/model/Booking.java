@@ -26,6 +26,7 @@ public class Booking {
     private Place place;
 
     public Booking(Date startDate, Date endDate, BigDecimal price) {
+//        this.place = place;
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;

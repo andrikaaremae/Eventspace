@@ -29,6 +29,7 @@ public class TestController {
     @GetMapping("/about")
     public String getAbout() {
         return "This controller is " + this + ", first place in repository: " + placeRepository.findById(1L) + ", first" +
-                " user: " + userRepository.findById(1L) + ", first booking: " + bookingRepository.findById(1L);
+                " user: " + userRepository.findById(1L) + ", first booking: " + bookingRepository.findById(1L) + " all users: " +
+                userRepository.findAll();
     }
 }

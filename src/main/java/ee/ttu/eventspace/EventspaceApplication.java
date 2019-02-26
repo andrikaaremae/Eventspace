@@ -7,6 +7,9 @@ import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.repository.BookingRepository;
 import ee.ttu.eventspace.repository.PlaceRepository;
 import ee.ttu.eventspace.repository.UserRepository;
+import ee.ttu.eventspace.service.BookingService;
+import ee.ttu.eventspace.service.PlaceService;
+import ee.ttu.eventspace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,13 +30,13 @@ import java.util.Collections;
 public class EventspaceApplication implements CommandLineRunner {
 
 	@Autowired
-	private PlaceRepository placeRepository;
+	private PlaceService placeService;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
-	private BookingRepository bookingRepository;
+	private BookingService bookingService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EventspaceApplication.class, args);
@@ -58,19 +61,17 @@ public class EventspaceApplication implements CommandLineRunner {
 	//For testing
 	@Override
 	public void run(String... args) throws Exception {
-		Place place = new Place("Name?", "A house.", new Address("Estonia", "Harjumaa",
-				"Tallinn", "Ehitajate tee", "5", "12616"));
-		User user = new User("Aaa", "Bbb");
-		Booking booking = new Booking(Date.valueOf(LocalDate.of(2019, 2, 22)), Date.valueOf(LocalDate.of(2019, 2, 23)),
-				BigDecimal.valueOf(300L));
-		User owner = new User("Owns", "This");
-		place.setOwner(owner);
-		booking.setCustomer(user);
-		User abc = new User("Noone", "N");
-		userRepository.save(abc);
-		placeRepository.save(place);
-		bookingRepository.save(booking);
-		booking.setCustomer(abc);
+//		Place place = new Place("Name?", "A house.", new Address("Estonia", "Harjumaa",
+//				"Tallinn", "Ehitajate tee", "5", "12616"));
+//
+//		Booking booking = new Booking(Date.valueOf(LocalDate.of(2019, 2, 22)), Date.valueOf(LocalDate.of(2019, 2, 23)),
+//				BigDecimal.valueOf(300L));
+//		Booking booking2 = new Booking(Date.valueOf(LocalDate.of(2019, 2, 22)), Date.valueOf(LocalDate.of(2019, 2, 23)),
+//				BigDecimal.valueOf(300L));
+//
+//		placeService.save(place);
+//		bookingService.save(place, booking);
+//		bookingService.save(place, booking2);
 	}
 }
 

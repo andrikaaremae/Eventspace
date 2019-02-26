@@ -3,6 +3,7 @@ package ee.ttu.eventspace.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ public class Place {
     private String description;
     @Embedded
     private Address address;
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "place", cascade = CascadeType.ALL)
     private List<Booking> bookings;
     @OneToOne(cascade = CascadeType.ALL)
     private User owner;
@@ -28,6 +29,11 @@ public class Place {
         this.name = name;
         this.description = description;
         this.address = address;
+    }
+
+    public Place(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public Place() {
