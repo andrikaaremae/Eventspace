@@ -19,8 +19,12 @@ public class BookingService {
     @Autowired
     private PlaceRepository placeRepository;
 
-    public Booking save(Place place, Booking booking) {
-        place.getBookings().add(booking);
+    public Booking save(Long placeId, Booking booking) {
+        booking.setPlace(placeRepository.findById(placeId).get());
+        return bookingRepository.save(booking);
+    }
+
+    public Booking saveTest(Booking booking) {
         return bookingRepository.save(booking);
     }
 

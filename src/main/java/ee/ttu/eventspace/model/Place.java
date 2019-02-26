@@ -15,14 +15,14 @@ import java.util.List;
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String name;
     private String description;
     @Embedded
     private Address address;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "place", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Booking> bookings;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private User owner;
 
     public Place(String name, String description, Address address) {
@@ -39,11 +39,11 @@ public class Place {
     public Place() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

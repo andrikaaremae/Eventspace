@@ -1,5 +1,7 @@
 package ee.ttu.eventspace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,48 +17,39 @@ import java.sql.Date;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Date startDate;
-    private Date endDate;
+    private long id;
+    private Date date;
     private BigDecimal price;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private User customer;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private Place place;
 
-    public Booking(Date startDate, Date endDate, BigDecimal price) {
+    public Booking(Date date, BigDecimal price) {
 //        this.place = place;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.date = date;
         this.price = price;
     }
 
     public Booking() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public BigDecimal getPrice() {
@@ -83,14 +76,5 @@ public class Booking {
         this.place = place;
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", price=" + price +
-                ", customer=" + customer +
-                '}';
-    }
+
 }

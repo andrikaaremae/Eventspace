@@ -27,9 +27,9 @@ public class PlaceController {
     private BookingService bookingService;
 
     @GetMapping("/get/{id}")
-    public Optional<Place> findById(@PathVariable Long id) {
+    public Optional<Place> findById(@PathVariable long id) {
         return placeService.findById(id);
-    };
+    }
 
     @GetMapping("/getAll")
     public List<Place> findAll() {
@@ -39,5 +39,5 @@ public class PlaceController {
     @PostMapping("/add")
     public Place add(@RequestBody Place place) {
         return placeService.save(place);
-    };
+    }
 }
