@@ -1,34 +1,34 @@
 <template>
   <div class="save">
     <body>
-    <form action="/action_page.php">
+    <form method="post" class="" @submit.prevent="postNow">
       <div class="container">
         <h1>Earn money as a Eventspace host</h1>
         <p>Join thousands of hosts renting their space for meetings, events, and film and photo shoots.</p>
         <hr>
         <div>
-          <h1>Address</h1>
+          <h1>Place</h1>
+          <div><b>Place Name</b></div>
+          <input type="text" placeholder="Enter Name" v-model="name" required>
+          <div><b>Description</b></div>
+          <input type="text" placeholder="Enter Description" v-model="description" required>
           <div><b>Country</b></div>
-          <input type="text" placeholder="Enter Country" name="Address" required>
-          <br>
+          <input type="text" placeholder="Enter Country" v-model="country" required>
           <div><b>State</b></div>
-          <input type="text" placeholder="Enter State" name="State" required>
-          <br>
+          <input type="text" placeholder="Enter State" v-model="state" required>
           <div><b>City</b></div>
-          <input type="text" placeholder="Enter City" name="City" required>
-          <br>
+          <input type="text" placeholder="Enter City" v-model="city" required>
           <div><b>Street</b></div>
-          <input type="text" placeholder="Enter Street" name="Street" required>
-          <br>
+          <input type="text" placeholder="Enter Street" v-model="street" required>
           <div><b>House number</b></div>
-          <input type="number" placeholder="Enter House number" name="HouseNumber" required>
-          <br>
-          <div><b>Zipcode</b></div>
-          <input type="number" placeholder="Enter Zipcode" name="ZipCode" required>
-        </div>
-        <hr>
-        <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="button" class="savebtn">Add Address</button>
+          <input type="text" placeholder="Enter House number" v-model="houseNumber" required>
+          <div><b>Zip Code</b></div>
+          <input type="text" placeholder="Enter Zip Code" v-model="zipCode" required>
+
+          </div>
+          <hr>
+          <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
+        <button type="submit" class="savebtn">Add Address</button>
       </div>
     </form>
     </body>
@@ -39,12 +39,28 @@
   import axios from 'axios'
   export default {
     name: 'App',
-    data () {
+    data() {
       return {
-        msg: null
-      }
+        name: '',
+        show: true,
+      };
     },
-    mounted () {axios.get('http://localhost:8080/api/save').then(response => (this.msg = response.data))
+    methods: {
+      postNow() {
+        axios.post('http://localhost:8080/places/add',
+          {name: this.name,
+          description: this.description,
+          address:{country: this.country,
+            state: this.state,
+            city: this.city,
+            street: this.street,
+          houseNumber: this.houseNumber,
+            zipCode: this.zipCode}},  // the data to post
+          { headers: {
+              'Content-type': 'application/json',
+            }
+          })
+      }
     }
   }
 </script>

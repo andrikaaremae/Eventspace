@@ -2,9 +2,10 @@
   <div id="app">
       <ul>
         <img src="./assets/logo.png" height="50" width="160"/>
-        <li class="home"><router-link class="router" to="/about">About</router-link></li>
+        <li><router-link class="router" :to="{ name: 'Places' }">Places</router-link></li>
+        <li><router-link class="router" :to="{ name: 'Save' }">Add Place</router-link></li>
+        <li><router-link class="router" :to="{ name: 'About' }">About</router-link></li>
         <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
-        <li><router-link class="router" :to="{ name: 'Save' }">Save</router-link></li>
       </ul>
     <router-view/>
   </div>
@@ -63,10 +64,6 @@ export default {
     text-align: center;
     padding: 18px 16px;
     text-decoration: none;
-  }
-
-  .home {
-    margin-right: 30px;
   }
 
   /* Change the link color to #111 (black) on hover */

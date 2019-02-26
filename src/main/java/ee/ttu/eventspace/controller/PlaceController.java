@@ -29,7 +29,7 @@ public class PlaceController {
     @GetMapping("/get/{id}")
     public Optional<Place> findById(@PathVariable Long id) {
         return placeService.findById(id);
-    };
+    }
 
     @GetMapping("/getAll")
     public List<Place> findAll() {
@@ -37,7 +37,5 @@ public class PlaceController {
     }
 
     @PostMapping("/add")
-    public Place add(@RequestBody Place place) {
-        return placeService.save(place);
-    };
+    public Place add(@RequestBody Place place) { return placeService.save(place); };
 }
