@@ -1,42 +1,18 @@
 <template>
   <div class="place">
-    <div class="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
-    <div class="name"><strong>{{ name }}</strong></div>
-    <div class="address">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
-    <div class="description">{{ description }}</div>
-    <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
-    <div class="addBookingForm">
-      <form method="post" @submit.prevent="addBooking">
-        <label>
-          Date:
-          <input type="date" v-model="date" required>
-        </label>
-        <label>
-          Price:
-          <input type="number" name="price" min="0" v-model="price" required>
-        </label>
-        <button class="addBookingButton">Add booking</button>
-      </form>
-    </div>
+    <div id="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
+    <div id="name"><strong>{{ name }}</strong></div>
+    <div id="address">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
+    <div id="category">{{ category }}</div>
+    <div id="description">{{ description }}</div>
   </div>
 </template>
 
 <script>
-import BookingBox from './BookingBox'
-import axios from 'axios'
 
 export default {
   name: 'App',
-  components: {BookingBox},
-  props: ['id', 'name', 'description', 'address', 'bookings'],
-  methods: {
-    addBooking () {
-      axios.post('http://localhost:8080/bookings/save/' + this.id, {
-        date: this.date,
-        price: this.price},
-      {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
-    }
-  }
+  props: ['name','category', 'description', 'address']
 }
 </script>
 
@@ -48,8 +24,7 @@ export default {
     margin-bottom: 10px;
   }
 
-  .name {
+  #name {
     font-size: 20px;
   }
-
 </style>
