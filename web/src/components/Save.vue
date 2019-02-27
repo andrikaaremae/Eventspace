@@ -1,6 +1,5 @@
 <template>
   <div class="save">
-    <body>
     <form method="post" class="" @submit.prevent="postNow">
       <div class="container">
         <h1>Earn money as a Eventspace host</h1>
@@ -31,38 +30,37 @@
         <button type="submit" class="savebtn">Add Address</button>
       </div>
     </form>
-    </body>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
-  export default {
-    name: 'App',
-    data() {
-      return {
-        name: '',
-        show: true,
-      };
-    },
-    methods: {
-      postNow() {
-        axios.post('http://localhost:8080/places/add',
-          {name: this.name,
+import axios from 'axios'
+export default {
+  name: 'App',
+  data () {
+    return {
+      name: '',
+      show: true
+    }
+  },
+  methods: {
+    postNow () {
+      axios.post('http://localhost:8080/places/add',
+        {name: this.name,
           description: this.description,
-          address:{country: this.country,
+          address: {country: this.country,
             state: this.state,
             city: this.city,
             street: this.street,
-          houseNumber: this.houseNumber,
-            zipCode: this.zipCode}},  // the data to post
-          { headers: {
-              'Content-type': 'application/json',
-            }
-          })
-      }
+            houseNumber: this.houseNumber,
+            zipCode: this.zipCode}}, // the data to post
+        { headers: {
+          'Content-type': 'application/json'
+        }
+        })
     }
   }
+}
 </script>
 <style scoped>
   body {
@@ -77,7 +75,6 @@
     text-align: left;
   }
 
-
   /*Add padding to containers */
   .container {
     padding: 16px;
@@ -88,7 +85,7 @@
   input[type=text], input[type=number]{
     width: 50%;
     padding: 15px;
-    margin: 0px 0 22px 0;
+    margin: 0 0 22px 0;
     /*display: inline-block;*/
     border: none;
     background: #f1f1f1;

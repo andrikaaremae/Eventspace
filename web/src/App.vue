@@ -27,7 +27,7 @@ export default {
   }
 
   #app {
-    font-family: 'Avenir', Helvetica, Arial;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -43,7 +43,7 @@ export default {
 
   ul {
     list-style-type: none;
-    margin: 0px;
+    margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;

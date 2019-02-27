@@ -11,19 +11,19 @@
 </template>
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
 
-  export default {
-    name: 'App',
-    data () {
-      return {
-        msg: null
-      }
-    },
-    mounted () {
-      axios.get('http://localhost:8080/places/get/1').then(response => (this.msg = response.data))
+export default {
+  name: 'App',
+  data () {
+    return {
+      msg: null
     }
+  },
+  mounted () {
+    axios.get('http://localhost:8080/places/get/1').then(response => (this.msg = response.data))
   }
+}
 </script>
 
 <style scoped>

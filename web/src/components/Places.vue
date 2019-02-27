@@ -1,21 +1,25 @@
 <template>
   <div class="places">
-    <h1>{{ msg }}</h1>
+    <PlaceBox v-for="place in places" v-bind="place" v-bind:key="place.id"></PlaceBox>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
+import PlaceBox from './PlaceBox'
 
-  export default {
-    name: 'App',
-    data () {
-      return {
-        msg: null
-      }
-    },
-    mounted () {
-      axios.get('http://localhost:8080/places/getAll').then(response => (this.msg = response.data))
+export default {
+  name: 'App',
+  components: {
+    PlaceBox
+  },
+  data () {
+    return {
+      places: []
     }
+  },
+  mounted () {
+    axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
   }
+}
 </script>

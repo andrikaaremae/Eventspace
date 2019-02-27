@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import About from '@/components/About'
 import Save from '@/components/Save'
-import Categories from "@/components/Categories";
-import Places from "@/components/Places";
+import Categories from '@/components/Categories'
+import Places from '@/components/Places'
 Vue.use(Router)
 
 export default new Router({
