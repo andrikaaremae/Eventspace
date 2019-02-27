@@ -3,7 +3,9 @@
     <div id="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
     <div id="name"><strong>{{ name }}</strong></div>
     <div id="address">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
+    <div id="category">{{ category }}</div>
     <div id="description">{{ description }}</div>
+
   </div>
 </template>
 
@@ -11,7 +13,7 @@
 
 export default {
   name: 'App',
-  props: ['name', 'description', 'address']
+  props: ['name', 'description', 'address','category']
 }
 </script>
 
