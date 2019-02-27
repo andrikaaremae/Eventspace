@@ -28,7 +28,6 @@ public class Booking {
     private Place place;
 
     public Booking(Date date, BigDecimal price) {
-//        this.place = place;
         this.date = date;
         this.price = price;
     }
