@@ -3,7 +3,9 @@
     <div class="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
     <div class="name"><strong>{{ name }}</strong></div>
     <div class="address">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
-    <div class="description">{{ description }}</div>
+    <div class="description"><i>{{ description }}</i></div>
+    <div class="categories"><b>Available for: </b>{{ categories }}</div>
+    <b>Bookings</b>
     <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
     <div class="addBookingForm">
       <form method="post" @submit.prevent="addBooking">
@@ -28,7 +30,7 @@ import axios from 'axios'
 export default {
   name: 'App',
   components: {BookingBox},
-  props: ['id', 'name', 'description', 'address', 'bookings'],
+  props: ['id', 'name', 'description', 'address', 'categories', 'bookings'],
   methods: {
     addBooking () {
       axios.post('http://localhost:8080/bookings/save/' + this.id, {

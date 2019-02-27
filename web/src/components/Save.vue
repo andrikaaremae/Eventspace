@@ -10,7 +10,7 @@
           <div><b>Place Name</b></div>
           <input type="text" placeholder="Enter Name" v-model="name" required>
           <div><b>Category</b></div>
-          <select v-model="selected">
+          <select v-model="category">
             <option disabled value="">Please select one</option>
             <option>Birthday Party</option>
             <option>Meeting</option>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
 export default {
   name: 'App',
   data () {
@@ -62,7 +62,8 @@ export default {
             city: this.city,
             street: this.street,
             houseNumber: this.houseNumber,
-            zipCode: this.zipCode}}, // the data to post
+            zipCode: this.zipCode},
+          categories: this.category}, // the data to post
         { headers: {
           'Content-type': 'application/json'
         }

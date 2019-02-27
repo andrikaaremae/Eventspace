@@ -2,6 +2,7 @@ package ee.ttu.eventspace.controller;
 
 import ee.ttu.eventspace.model.Booking;
 import ee.ttu.eventspace.model.Place;
+import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -44,8 +45,8 @@ public class BookingController {
         return bookingService.findAll();
     }
 
-    @PatchMapping("/setCustomer")
-    public void setCustomer(@Param("bookingId") Long bookingId, @Param("customerId") Long customerId) {
-        bookingService.setCustomer(bookingId, customerId);
+    @PatchMapping("/setCustomer/{id}")
+    public void setCustomer(@PathVariable Long id, @RequestBody User customer) {
+        bookingService.book(id, customer);
     }
 }

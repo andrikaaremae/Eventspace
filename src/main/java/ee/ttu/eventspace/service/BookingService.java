@@ -2,6 +2,7 @@ package ee.ttu.eventspace.service;
 
 import ee.ttu.eventspace.model.Booking;
 import ee.ttu.eventspace.model.Place;
+import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.repository.BookingRepository;
 import ee.ttu.eventspace.repository.PlaceRepository;
 import ee.ttu.eventspace.repository.UserRepository;
@@ -40,7 +41,10 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public void setCustomer(Long bookingId, Long customerId) {
-        bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new).setCustomer(userRepository.findById(customerId).orElseThrow(IllegalArgumentException::new));
+    public void book(Long bookingId, User customer) {
+        userRepository.save(customer);
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new);
+        booking.setCustomer(customer);
+        bookingRepository.save(booking);
     }
 }
