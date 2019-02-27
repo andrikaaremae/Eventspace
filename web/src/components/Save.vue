@@ -6,9 +6,17 @@
         <p>Join thousands of hosts renting their space for meetings, events, and film and photo shoots.</p>
         <hr>
         <div>
-          <h1>Place</h1>
+          <h1>Rent your place</h1>
           <div><b>Place Name</b></div>
           <input type="text" placeholder="Enter Name" v-model="name" required>
+          <div><b>Category</b></div>
+          <select v-model="selected">
+            <option disabled value="">Please select one</option>
+            <option>Birthday Party</option>
+            <option>Meeting</option>
+            <option>Performance</option>
+            <option>Wedding</option>
+          </select>
           <div><b>Description</b></div>
           <input type="text" placeholder="Enter Description" v-model="description" required>
           <div><b>Country</b></div>
@@ -34,11 +42,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
 export default {
   name: 'App',
   data () {
     return {
+      selected: '',
       name: '',
       show: true
     }
@@ -68,7 +77,7 @@ export default {
     background-color: black;
   }
   h1, p, button {
-    text-align: center;
+    text-align: left;
   }
   * {
     box-sizing: border-box;
@@ -82,7 +91,7 @@ export default {
   }
 
   /*Full-width input fields */
-  input[type=text], input[type=number]{
+  select, input[type=text], input[type=number]{
     width: 50%;
     padding: 15px;
     margin: 0 0 22px 0;
@@ -91,7 +100,7 @@ export default {
     background: #f1f1f1;
   }
 
-  input[type=text]:focus, input[type=password]:focus {
+  select, input[type=text]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
   }
