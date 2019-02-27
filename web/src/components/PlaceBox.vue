@@ -5,6 +5,7 @@
     <div id="address">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
     <div id="category">{{ category }}</div>
     <div id="description">{{ description }}</div>
+
   </div>
 </template>
 
@@ -12,7 +13,7 @@
 
 export default {
   name: 'App',
-  props: ['name','category', 'description', 'address']
+  props: ['name', 'description', 'address','category']
 }
 </script>
 

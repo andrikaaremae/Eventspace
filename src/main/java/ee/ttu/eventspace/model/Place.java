@@ -15,7 +15,7 @@ import java.util.List;
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private String description;
     private String category;
@@ -26,27 +26,26 @@ public class Place {
     @OneToOne
     private User owner;
 
-    public Place(String name, String category, String description, Address address) {
+    public Place(String name, String description, Address address, String category) {
         this.name = name;
-        this.category = category;
         this.description = description;
         this.address = address;
+        this.category = category;
     }
 
-    public Place(String name, String category, String description) {
+    public Place(String name, String description) {
         this.name = name;
-        this.category = category;
         this.description = description;
     }
 
     public Place() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,6 +63,14 @@ public class Place {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Address getAddress() {
@@ -90,21 +97,16 @@ public class Place {
         this.bookings = bookings;
     }
 
-    public String getCategory() { return category; }
-
-    public void setCategory(String category) { this.category = category; }
-
     @Override
     public String toString() {
         return "Place{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
                 ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
                 ", address=" + address +
                 ", bookings=" + bookings +
-                ", ownerId=" + owner +
+                ", owner=" + owner +
                 '}';
     }
-
 }

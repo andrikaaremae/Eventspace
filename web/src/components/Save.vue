@@ -11,7 +11,7 @@
           <input type="text" placeholder="Enter Name" v-model="name" required>
           <div><b>Category</b></div>
           <select v-model="category">
-            <option v-for="category in categories" :value="category">{{ category.text }}</option>
+            <option  v-for="category in categories" :value="category">{{category.text}}</option>
           </select>
           <div><b>Description</b></div>
           <input type="text" placeholder="Enter Description" v-model="description" required>
@@ -43,23 +43,21 @@ export default {
   name: 'App',
   data () {
     return {
-      categories: [
-        { value: 1, text: 'some text' },
-        { value: 2, text: 'some other text' },
-        { value: 3, text: 'some more text' },
-        { value: 4, text: 'text' },
+      categories:[
+        {value: 1, text: 'Birthday Party'},
+        {value: 2, text: 'Meeting'},
+        {value: 2, text: 'Performance'},
+        {value: 2, text: 'Wedding'},
       ],
-
       name: '',
       show: true
     }
   },
   methods: {
     postNow () {
-      console.log(this.category.text)
       axios.post('http://localhost:8080/places/add',
         {name: this.name,
-          category: this.category.text,
+           category: this.category.text,
           description: this.description,
           address: {country: this.country,
             state: this.state,
