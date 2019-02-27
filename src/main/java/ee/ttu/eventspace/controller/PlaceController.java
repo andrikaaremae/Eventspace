@@ -27,7 +27,7 @@ public class PlaceController {
     private BookingService bookingService;
 
     @GetMapping("/get/{id}")
-    public Optional<Place> findById(@PathVariable long id) {
+    public Optional<Place> findById(@PathVariable Long id) {
         return placeService.findById(id);
     }
 

@@ -17,7 +17,7 @@ import java.sql.Date;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private Date date;
     private BigDecimal price;
     @OneToOne
@@ -36,11 +36,11 @@ public class Booking {
     public Booking() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -5,6 +5,7 @@ import About from '@/components/About'
 import Save from '@/components/Save'
 import Categories from '@/components/Categories'
 import Places from '@/components/Places'
+import PlaceBox from '../components/PlaceBox'
 Vue.use(Router)
 
 export default new Router({
