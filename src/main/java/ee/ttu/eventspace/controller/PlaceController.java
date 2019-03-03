@@ -6,12 +6,7 @@ import ee.ttu.eventspace.repository.PlaceRepository;
 import ee.ttu.eventspace.service.BookingService;
 import ee.ttu.eventspace.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,5 +34,9 @@ public class PlaceController {
     @PostMapping("/add")
     public Place add(@RequestBody Place place) {
         return placeService.save(place);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deletePlace (@PathVariable ("id") Long id){placeService.deleteById(id);
     }
 }

@@ -19,6 +19,7 @@
         </label>
         <button class="addBookingButton">Add booking</button>
       </form>
+      <button v-on:click="deletePlace"  class="deleteButton">Delete</button>
     </div>
   </div>
 </template>
@@ -32,12 +33,20 @@ export default {
   components: {BookingBox},
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
   methods: {
-    addBooking () {
+    addBooking() {
       axios.post('http://localhost:8080/bookings/save/' + this.id, {
-        date: this.date,
-        price: this.price},
-      {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
+          date: this.date,
+          price: this.price
+        },
+        {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
+    },
+
+    deletePlace() {
+      axios.delete('http://localhost:8080/places/delete/' + this.id,
+        {headers: {'Content-type': 'application/json'}})
+
     }
+
   }
 }
 </script>

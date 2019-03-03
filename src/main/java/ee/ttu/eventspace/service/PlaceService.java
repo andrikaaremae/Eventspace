@@ -25,4 +25,8 @@ public class PlaceService {
     public List<Place> findAll() {
         return placeRepository.findAll();
     }
+
+    public void deleteById(Long id){placeRepository.deleteById(id);}
+
 }
+
