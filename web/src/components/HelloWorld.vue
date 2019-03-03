@@ -11,7 +11,7 @@
       <h1 class="categoriesHeading">Event categories</h1>
       <div>
         <li>
-          <router-link class="router" :to="{ name: 'Categories' }">
+          <router-link class="router" :to="{ name: 'Categories', query: {category: 'Birthday Party'}}">
         <ul><img src="../assets/Birthday.jpg"/></ul>
         <ul><h2 class="categoriesHeading">Birthday Party</h2></ul>
           </router-link>
@@ -19,7 +19,7 @@
       </div>
       <div>
         <li>
-          <router-link class="router" to="/categories">
+          <router-link class="router" :to="{ name: 'Categories', query: {category: 'Meeting'}}">
           <ul><img src="../assets/Meeting.jpg"/></ul>
           <ul><h2 class="categoriesHeading">Meeting</h2></ul>
           </router-link>
@@ -27,7 +27,7 @@
       </div>
       <div>
         <li>
-          <router-link class="router" to="/categories">
+          <router-link class="router" :to="{ name: 'Categories', query: {category: 'Performance'}}">
           <ul><img src="../assets/Performance.jpg"/></ul>
           <ul><h2 class="categoriesHeading">Performance</h2></ul>
           </router-link>
@@ -35,7 +35,7 @@
       </div>
       <div>
         <li>
-          <router-link class="router" to="/categories">
+          <router-link class="router" :to="{ name: 'Categories', query: {category: 'Wedding'}}">
           <ul><img src="../assets/Wedding.jpg"/></ul>
           <ul><h2 class="categoriesHeading">Wedding</h2></ul>
           </router-link>

@@ -6,22 +6,27 @@
       <input id="peopleInput" type="number" name="myPeople" placeholder="How many people?"/>
       <input id="priceInput" type="number" name="myPrice" placeholder="Price per hour"/>
     </div>
-    <h1>{{ msg }}</h1>
+    <PlaceBox v-for="place in places" v-if="place.category==category" v-bind="place" v-bind:key="place.id"></PlaceBox>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import PlaceBox from './PlaceBox'
 
 export default {
   name: 'App',
+  components: {
+    PlaceBox
+  },
   data () {
     return {
-      msg: null
+      places: [],
+      category: this.$route.query.category,
     }
   },
   mounted () {
-    axios.get('http://localhost:8080/places/get/1').then(response => (this.msg = response.data))
+    axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
   }
 }
 </script>

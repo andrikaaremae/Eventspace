@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '/categories',
       name: 'Categories',
-      component: Categories
+      component: Categories,
     },
     {
       path: '/places',
