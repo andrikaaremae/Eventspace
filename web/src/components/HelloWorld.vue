@@ -2,10 +2,15 @@
   <div>
     <div class="hello">
       <h1>{{ msg }}</h1>
-      <div class="searchboxes">
-          <input id="eventInput" type="text" name="myEvent" placeholder="What are you planning?">
-          <input id="countryInput" type="text" name="myCountry" placeholder="Where?">
-      </div>
+      <form>
+        <div class="searchboxes">
+          <input ref="categoryInput" type="text" placeholder="What are you planning?">
+          <input ref="cityInput" type="text" placeholder="Where?">
+          <router-link class="router" :to="{ name: 'CategoryCitySearch', query: {category: category, city:city}}">
+            <div v-on:click="getFormValues"> Peksa lahti</div>
+          </router-link>
+        </div>
+      </form>
     </div>
     <div class="background">
       <h1 class="categoriesHeading">Event categories</h1>
@@ -52,11 +57,20 @@ export default {
   name: 'App',
   data () {
     return {
-      msg: null
+      msg: null,
+      category: '',
+      location: '',
+    }
+  },
+  methods: {
+    getFormValues () {
+      console.log(this.$refs.categoryInput.value, this.$refs.cityInput.value);
+      this.category = this.$refs.categoryInput.value;
+      this.city = this.$refs.cityInput.value;
     }
   },
   mounted () {
-    axios.get('http://localhost:8080/api/hello').then(response => (this.msg = response.data))
+    axios.get('http://localhost:8080/api/hello').then(response => (this.msg = response.data));
   }
 }
 </script>

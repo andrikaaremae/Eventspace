@@ -6,6 +6,7 @@ import Save from '@/components/Save'
 import Categories from '@/components/Categories'
 import Places from '@/components/Places'
 import PlaceBox from '../components/PlaceBox'
+import CategoryCitySearch from '@/components/CategoryCitySearch'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,11 @@ export default new Router({
       path: '/categories',
       name: 'Categories',
       component: Categories,
+    },
+    {
+      path: '/search',
+      name: 'CategoryCitySearch',
+      component: CategoryCitySearch,
     },
     {
       path: '/places',
