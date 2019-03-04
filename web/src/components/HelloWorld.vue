@@ -4,10 +4,16 @@
       <h1>{{ msg }}</h1>
       <form>
         <div class="searchboxes">
-          <input ref="categoryInput" type="text" placeholder="What are you planning?">
-          <input ref="cityInput" type="text" placeholder="Where?">
-          <router-link class="router" :to="{ name: 'CategoryCitySearch', query: {category: category, city:city}}">
-            <div v-on:click="getFormValues"> Peksa lahti</div>
+          <select id="categoryInput" ref="categoryInput" type="text" placeholder="What are you planning?" @change="onChange($event)">
+            <option value="">Choose event category</option>
+            <option  v-for="place in places" :value="place.category">{{place.category}}</option>
+          </select>
+          <select id="cityInput" ref="cityInput" type="text" placeholder="Where?">
+            <option value="">Choose city</option>
+            <option  v-for="place in places"  v-if="place.category==change" :value="place.address.city">{{place.address.city}}</option>
+          </select>
+          <router-link class="router" :to="{ name: 'CategoryCitySearch', query: {category: change, city:city}}">
+            <div v-on:click="getFormValues">Search</div>
           </router-link>
         </div>
       </form>
@@ -57,19 +63,24 @@ export default {
   name: 'App',
   data () {
     return {
+      change: '',
+      places: [],
       msg: null,
       category: '',
-      location: '',
+      city: '',
     }
   },
   methods: {
     getFormValues () {
       console.log(this.$refs.categoryInput.value, this.$refs.cityInput.value);
-      this.category = this.$refs.categoryInput.value;
       this.city = this.$refs.cityInput.value;
+    },
+    onChange () {
+      this.change = event.target.value;
     }
   },
   mounted () {
+    axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
     axios.get('http://localhost:8080/api/hello').then(response => (this.msg = response.data));
   }
 }
@@ -98,7 +109,7 @@ export default {
     color: black;
     padding-left: 27px;
   }
-  input {
+  select {
     height: 40px;
     background-color: whitesmoke;
     width: 400px;

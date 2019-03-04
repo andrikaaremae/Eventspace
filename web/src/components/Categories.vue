@@ -22,6 +22,7 @@ export default {
   data () {
     return {
       places: [],
+      categories: [],
       category: this.$route.query.category
     }
   },
