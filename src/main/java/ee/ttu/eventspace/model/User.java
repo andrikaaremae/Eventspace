@@ -1,20 +1,43 @@
 package ee.ttu.eventspace.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Pattern(regexp = "[\\p{L}\\d-_]+")
+    @Length(min = 4, max = 18)
     private String username;
+
+    @NotNull
     private String password;
+
+    @NotNull
+    @Pattern(regexp = "\\p{L}+")
     private String firstName;
+
+    @NotNull
+    @Pattern(regexp = "\\p{L}+")
     private String lastName;
+
+    @NotNull
+    @Email
     private String email;
+
+    @NotNull
+    @Pattern(regexp = "[0-9]+")
     private String phoneNumber;
 
     public User(String username) {
