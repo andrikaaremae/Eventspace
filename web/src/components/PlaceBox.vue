@@ -31,20 +31,26 @@ import axios from 'axios'
 export default {
   name: 'App',
   components: {BookingBox},
+  data () {
+    return {
+      price: 0,
+      date: null,
+      customer: null
+    }
+  },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
   methods: {
-    addBooking() {
+    addBooking () {
       axios.post('http://localhost:8080/bookings/save/' + this.id, {
-          date: this.date,
-          price: this.price
-        },
-        {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
+        date: this.date,
+        price: this.price
+      },
+      {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
     },
 
-    deletePlace() {
+    deletePlace () {
       axios.delete('http://localhost:8080/places/delete/' + this.id,
         {headers: {'Content-type': 'application/json'}})
-
     }
 
   }

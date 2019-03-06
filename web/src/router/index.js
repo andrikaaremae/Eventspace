@@ -6,7 +6,7 @@ import Save from '@/components/Save'
 import Categories from '@/components/Categories'
 import Places from '@/components/Places'
 import CategoryCitySearch from '@/components/CategoryCitySearch'
-import Registration from '@/components/Registration'
+import RegistrationPage from '@/components/RegistrationPage'
 Vue.use(Router)
 
 export default new Router({
@@ -44,7 +44,7 @@ export default new Router({
     {
       path: '/register',
       name: 'Register',
-      component: Registration
+      component: RegistrationPage
     }
   ]
 })
