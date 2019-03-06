@@ -6,6 +6,7 @@
         <li><router-link class="router" :to="{ name: 'Save' }">Add Place</router-link></li>
         <li><router-link class="router" :to="{ name: 'About' }">About</router-link></li>
         <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
+        <li><router-link class="router" :to="{ name: 'Register' }">Register</router-link></li>
       </ul>
     <router-view/>
   </div>
