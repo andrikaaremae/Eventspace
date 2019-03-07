@@ -7,6 +7,7 @@ import Categories from '@/components/Categories'
 import Places from '@/components/Places'
 import CategoryCitySearch from '@/components/CategoryCitySearch'
 import RegistrationPage from '@/components/RegistrationPage'
+import LoginPage from '../components/LoginPage'
 Vue.use(Router)
 
 export default new Router({
@@ -14,7 +15,7 @@ export default new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
+      component: HelloWorld,
     },
     {
       path: '/about',
@@ -45,6 +46,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: RegistrationPage
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: LoginPage
     }
   ]
 })

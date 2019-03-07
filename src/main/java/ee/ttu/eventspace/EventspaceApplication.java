@@ -27,7 +27,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 
 @SpringBootApplication
-public class EventspaceApplication implements CommandLineRunner {
+public class EventspaceApplication {
 
 	@Autowired
 	private PlaceService placeService;
@@ -56,22 +56,6 @@ public class EventspaceApplication implements CommandLineRunner {
 		FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
-	}
-
-	//For testing
-	@Override
-	public void run(String... args) throws Exception {
-//		Place place = new Place("Name?", "A house.", new Address("Estonia", "Harjumaa",
-//				"Tallinn", "Ehitajate tee", "5", "12616"));
-//
-//		Booking booking = new Booking(Date.valueOf(LocalDate.of(2019, 2, 22)), Date.valueOf(LocalDate.of(2019, 2, 23)),
-//				BigDecimal.valueOf(300L));
-//		Booking booking2 = new Booking(Date.valueOf(LocalDate.of(2019, 2, 22)), Date.valueOf(LocalDate.of(2019, 2, 23)),
-//				BigDecimal.valueOf(300L));
-//
-//		placeService.save(place);
-//		bookingService.save(place, booking);
-//		bookingService.save(place, booking2);
 	}
 }
 

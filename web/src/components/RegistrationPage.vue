@@ -1,7 +1,5 @@
 <template>
     <div class="registrationBox">
-      <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
       <ul>
           <li v-bind:key="error" v-for="error in errors">{{ error }}</li>
         </ul>
