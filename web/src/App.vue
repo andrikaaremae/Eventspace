@@ -6,8 +6,8 @@
         <li><router-link class="router" :to="{ name: 'Save' }">Add Place</router-link></li>
         <li><router-link class="router" :to="{ name: 'About' }">About</router-link></li>
         <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
-        <li><router-link class="router" :to="{ name: 'Register' }">Register</router-link></li>
-        <li><router-link class="router" :to="{ name: 'Login' }">Login</router-link></li>
+        <li v-if="!isAuthenticated"><router-link class="router" :to="{ name: 'Register' }">Register</router-link></li>
+        <li v-if="!isAuthenticated"><router-link class="router" :to="{ name: 'Login' }">Login</router-link></li>
       </ul>
     <router-view/>
   </div>
@@ -15,7 +15,20 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'App',
+  data () {
+    return {
+      isAuthenticated: false
+    }
+  },
+  created () {
+    this.isAuthenticated = localStorage.getItem('auth')
+  },
+  methods: {
+    userSignOut () {
+      this.$store.dispatch('userSignOut')
+    }
+  }
 }
 </script>
 

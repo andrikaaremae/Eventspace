@@ -10,17 +10,19 @@ import RegistrationPage from '@/components/RegistrationPage'
 import LoginPage from '../components/LoginPage'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld,
+      meta: {nonRequiresAuth: true}
     },
     {
       path: '/about',
       name: 'About',
-      component: About
+      component: About,
+      meta: {nonRequiresAuth: true}
     },
     {
       path: '/save',
@@ -30,27 +32,46 @@ export default new Router({
     {
       path: '/categories',
       name: 'Categories',
-      component: Categories
+      component: Categories,
+      meta: {nonRequiresAuth: true}
     },
     {
       path: '/search',
       name: 'CategoryCitySearch',
-      component: CategoryCitySearch
+      component: CategoryCitySearch,
+      meta: {nonRequiresAuth: true}
     },
     {
       path: '/places',
       name: 'Places',
-      component: Places
+      component: Places,
+      meta: {nonRequiresAuth: true}
     },
     {
       path: '/register',
       name: 'Register',
-      component: RegistrationPage
+      component: RegistrationPage,
+      meta: {nonRequiresAuth: true}
     },
     {
       path: '/login',
       name: 'Login',
-      component: LoginPage
+      component: LoginPage,
+      meta: {loginPage: true, nonRequiresAuth: true}
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = !to.matched.some(record => record.meta.nonRequiresAuth)
+  const isLoginPage = to.matched.some(record => record.meta.loginPage)
+  const isAuthenticated = localStorage.getItem('auth')
+  if (requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else if (isLoginPage && isAuthenticated) {
+    router.push('/')
+  }
+  next()
+})
+
+export default router

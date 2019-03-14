@@ -1,13 +1,13 @@
 <template>
     <div class="modal">
-      <form id="loginForm" @submit.prevent="login">
+      <form id="loginForm" @submit.prevent="userLogin">
         <label>
           Username
-          <input type="text" name="username">
+          <input type="text" name="username" v-model="username" required>
         </label>
         <label>
           Password
-          <input type="password" name="password">
+          <input type="password" name="password" v-model="password" required>
         </label>
         <button :disabled='errors.any()' type="submit" class="loginButton">Login</button>
       </form>
@@ -20,7 +20,33 @@ export default {
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      alert: ''
+    }
+  },
+  computed: {
+    error () {
+      return this.$store.getters.getError
+    },
+    loading () {
+      return this.$store.getters.getLoading
+    }
+  },
+  watch: {
+    error (value) {
+      if (value) {
+        this.alert = true
+      }
+    },
+    alert (value) {
+      if (!value) {
+        this.$store.dispatch('setError', false)
+      }
+    }
+  },
+  methods: {
+    userLogin () {
+      this.$store.dispatch('userLogin', {username: this.username, password: this.password})
     }
   }
 }
