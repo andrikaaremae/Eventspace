@@ -4,11 +4,11 @@
       <h1>{{ msg }}</h1>
       <form>
         <div class="searchboxes">
-          <select id="categoryInput" ref="categoryInput" type="text" placeholder="What are you planning?" @change="onChange($event)">
+          <select id="categoryInput" ref="categoryInput" type="text" @change="onChange($event)">
             <option value="">Choose event category</option>
             <option  v-for="place in places" :value="place.category">{{place.category}}</option>
           </select>
-          <select id="cityInput" ref="cityInput" type="text" placeholder="Where?">
+          <select id="cityInput" ref="cityInput" type="text">
             <option value="">Choose city</option>
             <option  v-for="place in places"  v-if="place.category==change" :value="place.address.city">{{place.address.city}}</option>
           </select>

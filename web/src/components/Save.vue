@@ -8,7 +8,7 @@
         <div>
           <h1>Rent your place</h1>
           <div><b>Place Name</b></div>
-          <input type="text" placeholder="Enter Name" v-model="name" required>
+          <input placeholder="Enter Name" type="text" v-model="name" required>
           <div><b>Category</b></div>
           <select v-model="category">
             <option  v-for="category in categories" :value="category" :key="category.text">{{category.text}}</option>
@@ -31,24 +31,25 @@
           </div>
           <hr>
           <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="submit" class="savebtn">Add Address</button>
+        <button type="submit" class="registerbtn">Add Address</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
 export default {
   name: 'App',
   data () {
     return {
-      categories: [
+      categories:[
         {value: 1, text: 'Birthday Party'},
         {value: 2, text: 'Meeting'},
         {value: 2, text: 'Performance'},
-        {value: 2, text: 'Wedding'}
+        {value: 2, text: 'Wedding'},
       ],
+      place: '',
       category: '',
       name: '',
       description: '',
@@ -65,7 +66,7 @@ export default {
     postNow () {
       axios.post('http://localhost:8080/places/add',
         {name: this.name,
-          category: this.category.text,
+           category: this.category.text,
           description: this.description,
           address: {country: this.country,
             state: this.state,
@@ -78,6 +79,20 @@ export default {
         }
         })
     }
+  },
+  mounted () {
+    axios.get('http://localhost:8080/places/get/' + this.$route.query.id).then(response => {
+        this.place = response.data,
+        this.name = this.place.name,
+        this.category = this.place.category,
+        this.description = this.place.description,
+        this.country = this.place.address.country,
+        this.state = this.place.address.state,
+        this.city = this.place.address.city,
+        this.street = this.place.address.street,
+        this.houseNumber = this.place.address.houseNumber,
+        this.zipCode = this.place.address.zipCode
+      })
   }
 }
 </script>
@@ -131,6 +146,7 @@ export default {
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+    width: 125px;
   }
 
   .registerbtn:hover {
