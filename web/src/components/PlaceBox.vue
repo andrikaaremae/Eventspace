@@ -20,7 +20,7 @@
         <button class="placeButton">Add booking</button>
       </form>
       <button v-on:click="deletePlace"  class="placeButton">Delete</button>
-      <router-link class="placeButton" :to="{ name: 'Save', query: {id: id}} ">Edit</router-link>
+      <router-link class="placeButton" :to="{ name: 'Edit', query: {id: id}} ">Edit</router-link>
     </div>
   </div>
 </template>
@@ -53,10 +53,6 @@ export default {
       axios.delete('http://localhost:8080/places/delete/' + this.id,
         {headers: {'Content-type': 'application/json'}})
     },
-    editPlace() {
-      axios.delete('http://localhost:8080/places/delete/' + this.id,
-        {headers: {'Content-type': 'application/json'}})
-    }
 
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="save">
-    <form method="post" class="" @submit.prevent="postNow">
+    <form method="post" class="" @submit.prevent="editNow">
       <div class="container">
         <h1>Earn money as a Eventspace host</h1>
         <p>Join thousands of hosts renting their space for meetings, events, and film and photo shoots.</p>
@@ -28,10 +28,10 @@
           <div><b>Zip Code</b></div>
           <input type="text" placeholder="Enter Zip Code" v-model="zipCode" required>
 
-          </div>
-          <hr>
-          <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="submit" class="registerbtn">Add Address</button>
+        </div>
+        <hr>
+        <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
+        <button type="submit" class="registerbtn">Edit</button>
       </div>
     </form>
   </div>
@@ -39,51 +39,63 @@
 
 <script>
   import axios from 'axios'
-export default {
-  name: 'App',
-  data () {
-    return {
-      categories:[
-        {value: 1, text: 'Birthday Party'},
-        {value: 2, text: 'Meeting'},
-        {value: 2, text: 'Performance'},
-        {value: 2, text: 'Wedding'},
-      ],
-      place: '',
-      category: '',
-      name: '',
-      description: '',
-      country: '',
-      state: '',
-      city: '',
-      street: '',
-      houseNumber: '',
-      zipCode: '',
-      show: true
+  export default {
+    name: 'App',
+    data () {
+      return {
+        categories:[
+          {value: 1, text: 'Birthday Party'},
+          {value: 2, text: 'Meeting'},
+          {value: 2, text: 'Performance'},
+          {value: 2, text: 'Wedding'},
+        ],
+        place: '',
+        category: '',
+        name: '',
+        description: '',
+        country: '',
+        state: '',
+        city: '',
+        street: '',
+        houseNumber: '',
+        zipCode: '',
+        show: true
+      }
+    },
+    methods: {
+      editNow () {
+        axios.post('http://localhost:8080/places/edit',
+          {   id: this.$route.query.id,
+              name: this.name,
+              category: this.category.text,
+              description: this.description,
+              address: {country: this.country,
+              state: this.state,
+              city: this.city,
+              street: this.street,
+              houseNumber: this.houseNumber,
+              zipCode: this.zipCode}},
+          { headers: {
+              'Content-type': 'application/json'
+            }
+          })
+      }
+    },
+    mounted () {
+      axios.get('http://localhost:8080/places/get/' + this.$route.query.id).then(response => {
+        this.place = response.data,
+          this.name = this.place.name,
+          this.category = this.place.category,
+          this.description = this.place.description,
+          this.country = this.place.address.country,
+          this.state = this.place.address.state,
+          this.city = this.place.address.city,
+          this.street = this.place.address.street,
+          this.houseNumber = this.place.address.houseNumber,
+          this.zipCode = this.place.address.zipCode
+      })
     }
-  },
-  methods: {
-    postNow () {
-      axios.post('http://localhost:8080/places/edit',
-        {   name: this.name,
-            category: this.category.text,
-            description: this.description,
-            address: {country: this.country,
-            state: this.state,
-            city: this.city,
-            street: this.street,
-            houseNumber: this.houseNumber,
-            zipCode: this.zipCode}},
-        { headers: {
-          'Content-type': 'application/json'
-        }
-        })
-    }
-  },
-  mounted () {
-
   }
-}
 </script>
 <style scoped>
   body {

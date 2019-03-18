@@ -3,7 +3,7 @@
   <span class="date"><b>Date:</b> {{ date }}</span>
   <span class="price"><b>Price:</b> {{ price }}€</span>
   <span class="canBeBooked" v-if="customer == null">Can be booked.</span>
-  <span class="alreadyBooked" v-if="customer != null">Booked by {{ this.localCustomer.username }}</span>
+  <span class="alreadyBooked" v-if="localCustomer != null">Booked by {{ this.localCustomer.username }}</span>
   <form v-if="customer == null" @submit.prevent="book">
     <input type="text" placeholder="Username" v-model="username">
     <button type="submit">Book</button>
@@ -24,7 +24,7 @@ export default {
   props: ['id', 'date', 'price', 'customer'],
   methods: {
     book () {
-      this.localCustomer = {username: 'Hello'}
+      this.localCustomer = {username: this.username}
     }
   }
 }

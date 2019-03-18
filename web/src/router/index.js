@@ -8,6 +8,7 @@ import Places from '@/components/Places'
 import CategoryCitySearch from '@/components/CategoryCitySearch'
 import RegistrationPage from '@/components/RegistrationPage'
 import LoginPage from '../components/LoginPage'
+import Edit from '../components/Edit'
 Vue.use(Router)
 
 export default new Router({
@@ -51,6 +52,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: LoginPage
+    },
+    {
+      path: '/edit',
+      name: 'Edit',
+      component: Edit
     }
   ]
 })

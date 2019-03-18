@@ -36,6 +36,9 @@ public class PlaceController {
         return placeService.save(place);
     }
 
+    @PostMapping("/edit")
+    public Place update(@RequestBody Place place) {return placeService.save(place);}
+
     @DeleteMapping("/delete/{id}")
     public void deletePlace (@PathVariable ("id") Long id){placeService.deleteById(id);
     }
