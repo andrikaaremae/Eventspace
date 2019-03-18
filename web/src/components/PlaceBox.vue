@@ -1,9 +1,9 @@
 <template>
   <div class="place">
     <div class="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
-    <div class="name"><strong>{{ name }}</strong></div>
-    <div class="address">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
-    <div class="description"><i>{{ description }}</i></div>
+    <div class="name"><strong>Name: {{ name }}</strong></div>
+    <div class="address"><b>Address: </b>{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
+    <div class="description"><i><b>Description: </b>{{ description }}</i></div>
     <div class="category"><b>Available for: </b>{{ category }}</div>
     <b>Bookings</b>
     <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
@@ -51,7 +51,7 @@ export default {
 
     deletePlace() {
       axios.delete('http://localhost:8080/places/delete/' + this.id,
-        {headers: {'Content-type': 'application/json'}})
+        {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
     },
 
   }

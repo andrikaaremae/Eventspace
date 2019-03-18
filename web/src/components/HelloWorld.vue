@@ -12,7 +12,7 @@
             <option value="">Choose city</option>
             <option  v-for="place in places"  v-if="place.category==change" :value="place.address.city">{{place.address.city}}</option>
           </select>
-          <router-link class="router" :to="{ name: 'CategoryCitySearch', query: {category: change, city:city}}">
+          <router-link class="searchBtn" :to="{ name: 'CategoryCitySearch', query: {category: change, city:city}}">
             <div v-on:click="getFormValues">Search</div>
           </router-link>
         </div>
@@ -147,5 +147,23 @@ export default {
   }
   .router:hover {
     background-color: white;
+  }
+
+  .searchBtn {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    border: solid 1px #000000;
+    background: #FFFFFF;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    font: 14px/100% Arial, Helvetica, sans-serif;
+    padding: .5em 2em .55em;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    border-radius: .3em;
+  }
+  .searchBtn:hover {
+    background: lightgrey;
   }
 </style>

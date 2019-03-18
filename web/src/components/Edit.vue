@@ -78,7 +78,7 @@
           { headers: {
               'Content-type': 'application/json'
             }
-          })
+          }).then(response => window.location="http://localhost:8081/#/places")
       }
     },
     mounted () {

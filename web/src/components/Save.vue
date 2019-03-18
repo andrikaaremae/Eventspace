@@ -77,7 +77,7 @@ export default {
         { headers: {
           'Content-type': 'application/json'
         }
-        })
+        }).then(reponse => window.location="http://localhost:8081/#/places")
     }
   },
   mounted () {
