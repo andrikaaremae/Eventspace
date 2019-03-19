@@ -5,6 +5,14 @@
     <div class="address"><b>Address: </b>{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
     <div class="description"><i><b>Description: </b>{{ description }}</i></div>
     <div class="category"><b>Available for: </b>{{ category }}</div>
+    <div class="category"><b>Rating: </b>{{ ratingToShow }}</div>
+    <form method="post" @submit.prevent="addRating">
+      <label>
+        Rating:
+        <input  type="number" v-model="rating">
+      </label>
+      <button class="placeButton">Add rating</button>
+    </form>
     <b>Bookings</b>
     <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
     <div class="addBookingForm">
@@ -37,6 +45,9 @@ export default {
       price: 0,
       date: null,
       customer: null,
+      rating:null,
+      ratingToShow: null,
+      place:''
     }
   },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
@@ -47,6 +58,27 @@ export default {
           price: this.price,
         },
         {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
+    },
+    addRating() {
+      axios.post('http://localhost:8080/places/edit', {
+          id: this.id,
+          name: this.name,
+          category: this.category,
+          description: this.description,
+          address: {country: this.address.country,
+            state: this.address.state,
+            city: this.address.city,
+            street: this.address.street,
+            houseNumber: this.address.houseNumber,
+            zipCode: this.address.zipCode},
+          rating: this.rating
+        },
+        {headers: {'Content-type': 'application/json'}})
+
+        axios.get('http://localhost:8080/places/get/' + this.id).then(response => {
+            this.place = response.data,
+            this.ratingToShow = this.place.rating
+        })
     },
 
     deletePlace() {
@@ -75,7 +107,7 @@ export default {
     outline: none;
     cursor: pointer;
     border: solid 1px #000000;
-    background: #FFFFFF;
+    background: lightgray;
     text-align: center;
     color: black;
     text-decoration: none;
