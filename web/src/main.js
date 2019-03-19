@@ -5,7 +5,6 @@ import VeeValidate from 'vee-validate'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
-import store from './store'
 import * as axios from 'axios'
 
 axios.defaults.withCredentials = true
@@ -17,7 +16,6 @@ Vue.use(Vuex)
 new Vue({
   el: '#app',
   router,
-  store,
   components: { App },
   template: '<App/>'
 })

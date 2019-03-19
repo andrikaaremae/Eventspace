@@ -8,6 +8,7 @@ import Places from '@/components/Places'
 import CategoryCitySearch from '@/components/CategoryCitySearch'
 import RegistrationPage from '@/components/RegistrationPage'
 import LoginPage from '../components/LoginPage'
+import Edit from '../components/Edit'
 Vue.use(Router)
 
 const router = new Router({
@@ -15,14 +16,12 @@ const router = new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld,
-      meta: {nonRequiresAuth: true}
+      component: HelloWorld
     },
     {
       path: '/about',
       name: 'About',
-      component: About,
-      meta: {nonRequiresAuth: true}
+      component: About
     },
     {
       path: '/save',
@@ -32,46 +31,34 @@ const router = new Router({
     {
       path: '/categories',
       name: 'Categories',
-      component: Categories,
-      meta: {nonRequiresAuth: true}
+      component: Categories
     },
     {
       path: '/search',
       name: 'CategoryCitySearch',
-      component: CategoryCitySearch,
-      meta: {nonRequiresAuth: true}
+      component: CategoryCitySearch
     },
     {
       path: '/places',
       name: 'Places',
-      component: Places,
-      meta: {nonRequiresAuth: true}
+      component: Places
     },
     {
       path: '/register',
       name: 'Register',
-      component: RegistrationPage,
-      meta: {nonRequiresAuth: true}
+      component: RegistrationPage
     },
     {
       path: '/login',
       name: 'Login',
-      component: LoginPage,
-      meta: {loginPage: true, nonRequiresAuth: true}
+      component: LoginPage
+    },
+    {
+      path: '/edit',
+      name: 'Edit',
+      component: Edit
     }
   ]
-})
-
-router.beforeEach((to, from, next) => {
-  const requiresAuth = !to.matched.some(record => record.meta.nonRequiresAuth)
-  const isLoginPage = to.matched.some(record => record.meta.loginPage)
-  const isAuthenticated = localStorage.getItem('auth')
-  if (requiresAuth && !isAuthenticated) {
-    next('/login')
-  } else if (isLoginPage && isAuthenticated) {
-    router.push('/')
-  }
-  next()
 })
 
 export default router

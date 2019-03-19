@@ -15,8 +15,10 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'LoginModal',
+  name: 'LoginPage',
   data () {
     return {
       username: '',
@@ -24,29 +26,14 @@ export default {
       alert: ''
     }
   },
-  computed: {
-    error () {
-      return this.$store.getters.getError
-    },
-    loading () {
-      return this.$store.getters.getLoading
-    }
-  },
-  watch: {
-    error (value) {
-      if (value) {
-        this.alert = true
-      }
-    },
-    alert (value) {
-      if (!value) {
-        this.$store.dispatch('setError', false)
-      }
-    }
-  },
   methods: {
     userLogin () {
-      this.$store.dispatch('userLogin', {username: this.username, password: this.password})
+      axios.post('http://localhost:8080/user/login/', {username: this.username, password: this.password})
+        .then(response => {
+          console.log(response)
+        }).catch(error => {
+          console.log(error)
+        })
     }
   }
 }
