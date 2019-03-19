@@ -19,6 +19,7 @@ public class Place {
     private String name;
     private String description;
     private String category;
+    private Long rating;
     @Embedded
     private Address address;
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
@@ -26,11 +27,12 @@ public class Place {
     @OneToOne
     private User owner;
 
-    public Place(String name, String description, Address address, String category) {
+    public Place(String name, String description, Address address, String category, Long rating) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.category = category;
+        this.rating = rating;
     }
 
     public Place(String name, String description) {
@@ -97,6 +99,14 @@ public class Place {
         this.bookings = bookings;
     }
 
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "Place{" +
@@ -107,6 +117,7 @@ public class Place {
                 ", address=" + address +
                 ", bookings=" + bookings +
                 ", owner=" + owner +
+                ", rating=" + rating +
                 '}';
     }
 }
