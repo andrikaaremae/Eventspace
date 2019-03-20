@@ -1,13 +1,13 @@
 <template>
     <div class="modal">
-      <form id="loginForm" @submit.prevent="login">
+      <form id="loginForm" @submit.prevent="userLogin">
         <label>
           Username
-          <input type="text" name="username">
+          <input type="text" name="username" v-model="username" required>
         </label>
         <label>
           Password
-          <input type="password" name="password">
+          <input type="password" name="password" v-model="password" required>
         </label>
         <button :disabled='errors.any()' type="submit" class="loginButton">Login</button>
       </form>
@@ -15,12 +15,25 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'LoginModal',
+  name: 'LoginPage',
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      alert: ''
+    }
+  },
+  methods: {
+    userLogin () {
+      axios.post('http://localhost:8080/user/login/', {username: this.username, password: this.password})
+        .then(response => {
+          console.log(response)
+        }).catch(error => {
+          console.log(error)
+        })
     }
   }
 }

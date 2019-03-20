@@ -11,12 +11,12 @@ import LoginPage from '../components/LoginPage'
 import Edit from '../components/Edit'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld,
+      component: HelloWorld
     },
     {
       path: '/about',
@@ -60,3 +60,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

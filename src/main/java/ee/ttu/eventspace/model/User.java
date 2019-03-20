@@ -2,13 +2,16 @@ package ee.ttu.eventspace.model;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 public class User {
@@ -39,6 +42,9 @@ public class User {
     @NotNull
     @Pattern(regexp = "[0-9]+")
     private String phoneNumber;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<Role> roles;
 
     public User(String username) {
         this.username = username;
@@ -110,6 +116,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
