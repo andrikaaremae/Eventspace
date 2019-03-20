@@ -61,15 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser("admin").password("{noop}password").authorities("USER", "ADMIN")
-            .and()
-            .withUser("user").password("{noop}password").authorities("USER");
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
