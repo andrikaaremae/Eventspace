@@ -1,6 +1,6 @@
 <template>
     <div class="modal">
-      <form id="loginForm" @submit.prevent="userLogin">
+      <form id="loginForm" @submit.prevent="handleSubmit">
         <label>
           Username
           <input type="text" name="username" v-model="username" required>
@@ -15,28 +15,35 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
-  name: 'LoginPage',
   data () {
     return {
       username: '',
       password: '',
-      alert: ''
+      submitted: false
     }
   },
+  computed: {
+    loggingIn () {
+      return this.$store.state.authentication.status.loggingIn
+    }
+  },
+  created () {
+    this.$store.dispatch('authentication/logout')
+  },
   methods: {
-    userLogin () {
-      axios.post('http://localhost:8080/user/login/', {username: this.username, password: this.password})
-        .then(response => {
-          console.log(response)
-        }).catch(error => {
-          console.log(error)
-        })
+    handleSubmit (e) {
+      this.submitted = true
+      const { username, password } = this
+      const { dispatch } = this.$store
+      if (username && password) {
+        dispatch('authentication/login', { username, password })
+      }
     }
   }
 }
+
 </script>
 
 <style scoped>

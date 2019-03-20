@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import Vuex from 'vuex'
 import * as axios from 'axios'
+import store from './store'
 
 axios.defaults.withCredentials = true
 
@@ -16,6 +17,7 @@ Vue.use(Vuex)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

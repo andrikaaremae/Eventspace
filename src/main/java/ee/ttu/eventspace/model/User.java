@@ -46,10 +46,6 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    public User(String username) {
-        this.username = username;
-    }
-
     public User(String username, String password, String firstName, String lastName, String email, String phoneNumber) {
         this.username = username;
         this.password = password;
