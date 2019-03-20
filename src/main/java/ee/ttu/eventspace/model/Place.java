@@ -3,7 +3,6 @@ package ee.ttu.eventspace.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +18,7 @@ public class Place {
     private String name;
     private String description;
     private String category;
-    private Long rating;
+    private Long[] ratingList;
     @Embedded
     private Address address;
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
@@ -27,12 +26,12 @@ public class Place {
     @OneToOne
     private User owner;
 
-    public Place(String name, String description, Address address, String category, Long rating) {
+    public Place(String name, String description, Address address, String category, Long[] ratingList) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.category = category;
-        this.rating = rating;
+        this.ratingList = ratingList;
     }
 
     public Place(String name, String description) {
@@ -99,12 +98,12 @@ public class Place {
         this.bookings = bookings;
     }
 
-    public Long getRating() {
-        return rating;
+    public Long[] getRatingList() {
+        return ratingList;
     }
 
-    public void setRating(Long rating) {
-        this.rating = rating;
+    public void setRatingList(Long[] ratingList) {
+        this.ratingList = ratingList;
     }
 
     @Override
@@ -117,7 +116,7 @@ public class Place {
                 ", address=" + address +
                 ", bookings=" + bookings +
                 ", owner=" + owner +
-                ", rating=" + rating +
+                ", ratingList=" + ratingList +
                 '}';
     }
 }
