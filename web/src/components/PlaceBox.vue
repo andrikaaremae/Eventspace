@@ -9,7 +9,8 @@
     <form method="post" @submit.prevent="addRating">
       <label>
         Rating:
-        <input  type="number" v-model="rating">
+        <input min="1" max="5" type="number" v-model="rating">
+
       </label>
       <button class="placeButton">Add rating</button>
     </form>
@@ -45,12 +46,34 @@ export default {
       price: 0,
       date: null,
       customer: null,
-      rating:null,
+      rating: null,
       ratingToShow: null,
+      ratingList: null,
       place:''
     }
   },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
+  mounted() {
+    axios.get('http://localhost:8080/places/get/' + this.id).then(response => {
+      this.place = response.data,
+        this.ratingList = this.place.ratingList
+
+      console.log(this.ratingList)
+
+      if (this.ratingList && this.ratingList.length) {
+        let total = 0;
+        for (let i = 0; i < this.ratingList.length; i++) {
+          total += this.ratingList[i];
+        }
+        let avg = total / this.ratingList.length;
+
+        this.ratingToShow = avg.toFixed(0);
+      }else {
+        this.ratingToShow = 0
+      }
+
+    })
+  },
   methods: {
     addBooking() {
       axios.post('http://localhost:8080/bookings/save/' + this.id, {
@@ -60,6 +83,7 @@ export default {
         {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
     },
     addRating() {
+      this.ratingList.push(this.rating),
       axios.post('http://localhost:8080/places/edit', {
           id: this.id,
           name: this.name,
@@ -71,14 +95,10 @@ export default {
             street: this.address.street,
             houseNumber: this.address.houseNumber,
             zipCode: this.address.zipCode},
-          rating: this.rating
+          ratingList: this.ratingList
         },
-        {headers: {'Content-type': 'application/json'}})
-
-        axios.get('http://localhost:8080/places/get/' + this.id).then(response => {
-            this.place = response.data,
-            this.ratingToShow = this.place.rating
-        })
+        console.log(this.ratingList),
+        {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
     },
 
     deletePlace() {
