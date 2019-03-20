@@ -1,8 +1,5 @@
 <template>
     <div class="registrationBox">
-      <ul>
-          <li v-bind:key="error" v-for="error in errors">{{ error }}</li>
-        </ul>
     <form id="registrationForm" @submit.prevent="register">
       <label>
         First name
