@@ -2,6 +2,7 @@ package ee.ttu.eventspace.model;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +23,7 @@ public class User {
     @NotNull
     @Pattern(regexp = "[\\p{L}\\d-_]+")
     @Length(min = 4, max = 18)
+    @Column(unique = true)
     private String username;
 
     @NotNull
@@ -37,6 +39,7 @@ public class User {
 
     @NotNull
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotNull
