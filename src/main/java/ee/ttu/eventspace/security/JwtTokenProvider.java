@@ -3,6 +3,7 @@ package ee.ttu.eventspace.security;
 import ee.ttu.eventspace.exception.CustomException;
 import ee.ttu.eventspace.model.Role;
 import ee.ttu.eventspace.service.UserDetailsService;
+import ee.ttu.eventspace.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -35,6 +36,9 @@ public class JwtTokenProvider {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Autowired
+    UserService userService;
+
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
@@ -43,7 +47,10 @@ public class JwtTokenProvider {
     public String createToken(String username, List<Role> roles) {
 
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("auth", roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull).collect(Collectors.toList()));
+        claims.put("auth", roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).collect(Collectors.toList()));
+
+        Long id = userService.findByUsername(username).get().getId();
+        claims.put("id", id);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
