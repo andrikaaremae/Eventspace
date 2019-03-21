@@ -38,16 +38,18 @@
 </template>
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
+import authHeader from '../services/auth-header.js'
+
 export default {
   name: 'App',
   data () {
     return {
-      categories:[
+      categories: [
         {value: 1, text: 'Birthday Party'},
         {value: 2, text: 'Meeting'},
         {value: 2, text: 'Performance'},
-        {value: 2, text: 'Wedding'},
+        {value: 2, text: 'Wedding'}
       ],
       place: '',
       category: '',
@@ -64,20 +66,19 @@ export default {
   },
   methods: {
     postNow () {
+      console.log(authHeader())
       axios.post('http://localhost:8080/places/edit',
-        {   name: this.name,
-            category: this.category.text,
-            description: this.description,
-            address: {country: this.country,
+        { name: this.name,
+          category: this.category.text,
+          description: this.description,
+          address: {country: this.country,
             state: this.state,
             city: this.city,
             street: this.street,
             houseNumber: this.houseNumber,
             zipCode: this.zipCode}},
-        { headers: {
-          'Content-type': 'application/json'
-        }
-        }).then(reponse => window.location="http://localhost:8081/#/places")
+        { headers: authHeader()
+        }).then(response => window.location = 'http://localhost:8081/#/places')
     }
   },
   mounted () {

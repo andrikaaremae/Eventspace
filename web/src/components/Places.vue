@@ -7,6 +7,7 @@
 <script>
 import axios from 'axios'
 import PlaceBox from './PlaceBox'
+import authHeader from '../services/auth-header'
 
 export default {
   name: 'App',
@@ -19,7 +20,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
+    axios.get('http://localhost:8080/places/getAll', { headers: authHeader() }).then(response => { this.places = response.data })
   }
 }
 </script>

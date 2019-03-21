@@ -1,8 +1,8 @@
 export default function authHeader () {
-  let user = JSON.parse(localStorage.getItem('user'))
-
-  if (user && user.token) {
-    return { 'Authorization': 'Bearer ' + user.token }
+  let token = localStorage.getItem('user')
+  let user = token.replace(/"/g, '') // it has quote marks for some reason
+  if (user) {
+    return { 'Authorization': 'Bearer ' + user }
   } else {
     return {}
   }

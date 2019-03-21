@@ -1,5 +1,8 @@
 package ee.ttu.eventspace.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.security.UserCredentials;
 import ee.ttu.eventspace.service.UserService;
@@ -23,7 +26,9 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestBody UserCredentials userCredentials) {
-        return userService.login(userCredentials.getUsername(), userCredentials.getPassword());
+        ObjectNode token = JsonNodeFactory.instance.objectNode();
+        token.put("token", userService.login(userCredentials.getUsername(), userCredentials.getPassword()));
+        return token.toString();
     }
 
     @PostMapping("/register")
