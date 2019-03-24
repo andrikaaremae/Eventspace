@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const user = {
   login,
-  logout,
+  logout
 }
 
 function login (username, password) {
