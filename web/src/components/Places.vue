@@ -20,7 +20,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://localhost:8080/places/getAll', { headers: authHeader() }).then(response => { this.places = response.data })
+    axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
   }
 }
 </script>

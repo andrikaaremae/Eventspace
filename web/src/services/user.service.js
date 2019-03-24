@@ -1,10 +1,9 @@
-import authHeader from './auth-header.js'
 import axios from 'axios'
 
 export const userService = {
   login,
-  logout
-  // getAll
+  logout,
+  getAll
 }
 
 function login (username, password) {
@@ -22,14 +21,9 @@ function logout () {
   localStorage.removeItem('user')
 }
 
-// function getAll () {
-//   const requestOptions = {
-//     method: 'GET',
-//     headers: authHeader()
-//   }
-//
-//   return axios(`http://localhost:8080/user/getAll`, requestOptions).then(handleResponse)
-// }
+function getAll () {
+  return axios(`http://localhost:8080/user/getAll`, requestOptions).then(handleResponse)
+}
 
 function handleResponse (response) {
   if (!(response.status >= 200 && response.status <= 299)) {
