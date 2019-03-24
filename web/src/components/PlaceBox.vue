@@ -44,67 +44,67 @@ export default {
   data () {
     return {
       price: 0,
+      owner: null,
       date: null,
       customer: null,
       rating: null,
       ratingToShow: null,
       ratingList: null,
-      place:''
+      place: ''
     }
   },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
-  mounted() {
+  mounted () {
     axios.get('http://localhost:8080/places/get/' + this.id).then(response => {
-      this.place = response.data,
-        this.ratingList = this.place.ratingList
+      this.place = response.data
+      this.ratingList = this.place.ratingList
 
       console.log(this.ratingList)
 
       if (this.ratingList && this.ratingList.length) {
-        let total = 0;
+        let total = 0
         for (let i = 0; i < this.ratingList.length; i++) {
-          total += this.ratingList[i];
+          total += this.ratingList[i]
         }
-        let avg = total / this.ratingList.length;
+        let avg = total / this.ratingList.length
 
-        this.ratingToShow = avg.toFixed(0);
-      }else {
+        this.ratingToShow = avg.toFixed(0)
+      } else {
         this.ratingToShow = 0
       }
-
     })
   },
   methods: {
-    addBooking() {
+    addBooking () {
       axios.post('http://localhost:8080/bookings/save/' + this.id, {
-          date: this.date,
-          price: this.price,
-        },
-        {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
+        date: this.date,
+        price: this.price
+      },
+      {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
     },
-    addRating() {
-      this.ratingList.push(this.rating),
+    addRating () {
+      this.ratingList.push(this.rating)
       axios.post('http://localhost:8080/places/edit', {
-          id: this.id,
-          name: this.name,
-          category: this.category,
-          description: this.description,
-          address: {country: this.address.country,
-            state: this.address.state,
-            city: this.address.city,
-            street: this.address.street,
-            houseNumber: this.address.houseNumber,
-            zipCode: this.address.zipCode},
-          ratingList: this.ratingList
-        },
-        console.log(this.ratingList),
-        {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
+        id: this.id,
+        name: this.name,
+        category: this.category,
+        description: this.description,
+        address: {country: this.address.country,
+          state: this.address.state,
+          city: this.address.city,
+          street: this.address.street,
+          houseNumber: this.address.houseNumber,
+          zipCode: this.address.zipCode},
+        ratingList: this.ratingList
+      },
+      console.log(this.ratingList),
+      {headers: {'Content-type': 'application/json'}}).then(response => window.location.reload())
     },
 
-    deletePlace() {
+    deletePlace () {
       axios.delete('http://localhost:8080/places/delete/' + this.id,
-        {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
-    },
+        {headers: {'Content-type': 'application/json'}}).then(response => window.location.reload())
+    }
 
   }
 }
