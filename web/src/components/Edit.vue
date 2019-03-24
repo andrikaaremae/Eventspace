@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import authHeader from '../services/auth-header'
   import axios from 'axios'
   export default {
     name: 'App',
@@ -75,14 +76,12 @@
               street: this.street,
               houseNumber: this.houseNumber,
               zipCode: this.zipCode}},
-          { headers: {
-              'Content-type': 'application/json'
-            }
+          { headers: authHeader()
           }).then(response => window.location="http://localhost:8081/#/places")
       }
     },
     mounted () {
-      axios.get('http://localhost:8080/places/get/' + this.$route.query.id).then(response => {
+      axios.get('http://localhost:8080/places/get/' + this.$route.query.id,{ headers: authHeader() }).then(response => {
         this.place = response.data,
           this.name = this.place.name,
           this.category = this.place.category,
