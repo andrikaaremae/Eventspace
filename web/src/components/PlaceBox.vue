@@ -37,6 +37,7 @@
 <script>
 import BookingBox from './BookingBox'
 import axios from 'axios'
+import authHeader from '../services/auth-header'
 
 export default {
   name: 'App',
@@ -44,6 +45,7 @@ export default {
   data () {
     return {
       price: 0,
+      owner: null,
       date: null,
       customer: null,
       rating: null,
@@ -54,7 +56,7 @@ export default {
   },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
   mounted() {
-    axios.get('http://localhost:8080/places/get/' + this.id).then(response => {
+    axios.get('http://localhost:8080/places/get/' + this.id, { headers: authHeader() }).then(response => {
       this.place = response.data,
         this.ratingList = this.place.ratingList
 
@@ -80,7 +82,7 @@ export default {
           date: this.date,
           price: this.price,
         },
-        {headers: {'Content-type': 'application/json'}}).then(response => response.data).then(response => this.bookings.push(response))
+        {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
     },
     addRating() {
       this.ratingList.push(this.rating),
@@ -98,12 +100,12 @@ export default {
           ratingList: this.ratingList
         },
         console.log(this.ratingList),
-        {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
+        {headers: authHeader()}).then(response=>window.location.reload())
     },
 
     deletePlace() {
       axios.delete('http://localhost:8080/places/delete/' + this.id,
-        {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
+        {headers: authHeader()}).then(response=>window.location.reload())
     },
 
   }

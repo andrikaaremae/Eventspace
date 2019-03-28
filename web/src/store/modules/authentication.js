@@ -1,8 +1,8 @@
-import { userService } from '../services/user.service'
-import router from '../router'
+import { user } from '../../services/user'
+import router from '../../router'
 
-const user = JSON.parse(localStorage.getItem('user'))
-const initialState = user
+const token = JSON.parse(localStorage.getItem('user'))
+const initialState = token
   ? { status: { loggedIn: true }, user }
   : { status: {}, user: null }
 
@@ -13,7 +13,7 @@ export const authentication = {
     login ({ dispatch, commit }, { username, password }) {
       commit('loginRequest', { username })
 
-      userService.login(username, password)
+      user.login(username, password)
         .then(
           user => {
             commit('loginSuccess', user)
@@ -26,7 +26,7 @@ export const authentication = {
         )
     },
     logout ({ commit }) {
-      userService.logout()
+      user.logout()
       commit('logout')
     }
   },
