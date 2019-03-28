@@ -17,6 +17,7 @@ public class Place {
     private Long id;
     private String name;
     private String description;
+    private Integer maxCapacity;
     private String category;
     private Long[] ratingList;
     @Embedded
@@ -26,12 +27,23 @@ public class Place {
     @OneToOne
     private User owner;
 
-    public Place(String name, String description, Address address, String category, Long[] ratingList) {
+    public Place(String name, String description, Integer maxCapacity, Address address, String category, Long[] ratingList) {
         this.name = name;
         this.description = description;
+        this.maxCapacity = maxCapacity;
         this.address = address;
         this.category = category;
         this.ratingList = ratingList;
+    }
+
+    // should be used
+    public Place(String name, String description, Integer maxCapacity, Address address, String category, User owner) {
+        this.name = name;
+        this.description = description;
+        this.maxCapacity = maxCapacity;
+        this.address = address;
+        this.category = category;
+        this.owner = owner;
     }
 
     public Place(String name, String description) {
@@ -40,6 +52,14 @@ public class Place {
     }
 
     public Place() {
+    }
+
+    public Integer getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(Integer maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
 
     public Long getId() {

@@ -1,6 +1,7 @@
 package ee.ttu.eventspace.service;
 
 import ee.ttu.eventspace.model.Place;
+import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class PlaceService {
     }
 
     public void deleteById(Long id){placeRepository.deleteById(id);}
+
+    public List<Place>findAllByCategoryAndMaxCapacityLessThanEqual(String category, Integer maxCapacity) {
+        return placeRepository.findAllByCategoryAndMaxCapacityLessThanEqual(category, maxCapacity);
+    };
 
 }
 
