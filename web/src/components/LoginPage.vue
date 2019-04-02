@@ -52,6 +52,7 @@ export default {
     display: inline-block;
     box-sizing: border-box;
     text-align: left;
+    padding-top: 20px;
   }
   label {
     font-weight: bold;

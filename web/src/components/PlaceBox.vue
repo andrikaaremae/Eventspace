@@ -50,30 +50,26 @@ export default {
       customer: null,
       rating: null,
       ratingToShow: null,
-      ratingList: null,
-      place:''
+      place:'',
+      ratingList: [0],
     }
   },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
   mounted() {
-    axios.get('http://localhost:8080/places/get/' + this.id, { headers: authHeader() }).then(response => {
+    axios.get('http://localhost:8080/places/get/' + this.id).then(response => {
       this.place = response.data,
         this.ratingList = this.place.ratingList
-
       console.log(this.ratingList)
-
       if (this.ratingList && this.ratingList.length) {
         let total = 0;
         for (let i = 0; i < this.ratingList.length; i++) {
           total += this.ratingList[i];
         }
         let avg = total / this.ratingList.length;
-
         this.ratingToShow = avg.toFixed(0);
       }else {
         this.ratingToShow = 0
       }
-
     })
   },
   methods: {
@@ -86,21 +82,21 @@ export default {
     },
     addRating() {
       this.ratingList.push(this.rating),
-      axios.post('http://localhost:8080/places/edit', {
-          id: this.id,
-          name: this.name,
-          category: this.category,
-          description: this.description,
-          address: {country: this.address.country,
-            state: this.address.state,
-            city: this.address.city,
-            street: this.address.street,
-            houseNumber: this.address.houseNumber,
-            zipCode: this.address.zipCode},
-          ratingList: this.ratingList
-        },
-        console.log(this.ratingList),
-        {headers: authHeader()}).then(response=>window.location.reload())
+        axios.post('http://localhost:8080/places/edit', {
+            id: this.id,
+            name: this.name,
+            category: this.category,
+            description: this.description,
+            address: {country: this.address.country,
+              state: this.address.state,
+              city: this.address.city,
+              street: this.address.street,
+              houseNumber: this.address.houseNumber,
+              zipCode: this.address.zipCode},
+            ratingList: this.ratingList
+          },
+          console.log(this.ratingList),
+          {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
     },
 
     deletePlace() {

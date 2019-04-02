@@ -77,7 +77,8 @@ export default {
     },
     onChange () {
       this.change = event.target.value;
-    }
+    },
+
   },
   mounted () {
     axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })

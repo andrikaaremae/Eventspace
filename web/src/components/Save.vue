@@ -61,7 +61,8 @@ export default {
       street: '',
       houseNumber: '',
       zipCode: '',
-      show: true
+      show: true,
+      ratingList: []
     }
   },
   methods: {
@@ -76,7 +77,8 @@ export default {
             city: this.city,
             street: this.street,
             houseNumber: this.houseNumber,
-            zipCode: this.zipCode}},
+            zipCode: this.zipCode},
+        ratingList: this.ratingList},
         { headers: authHeader()
         }).then(response => window.location = 'http://localhost:8081/#/places')
     }
