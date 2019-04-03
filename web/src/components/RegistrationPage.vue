@@ -67,6 +67,7 @@ export default {
       }).then(response => {
         alert('User successfully registered!')
         console.log(response)
+        this.$router.push('/')
       }).catch(error => {
         alert('There has been a problem.')
         console.log(error)
