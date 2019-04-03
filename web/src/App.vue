@@ -6,9 +6,9 @@
         <li><router-link class="router" :to="{ name: 'AllPlaces' }">Places</router-link></li>
         <li><router-link class="router" :to="{ name: 'Save' }">Add Place</router-link></li>
         <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
-        <li><router-link v-if="!loggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>
-        <li><router-link v-if="!loggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
-        <li><router-link v-if="loggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>
+        <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>
+        <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
+        <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>
       </ul>
     <router-view/>
   </div>
@@ -17,14 +17,9 @@
 <script>
 export default {
   name: 'App',
-  data () {
-    return {
-      loggedIn: localStorage.getItem('user')
-    }
-  },
   computed: {
-    alert () {
-      return this.$store.state.alert
+    isLoggedIn () {
+      return this.$store.state.authentication.status.loggedIn
     }
   },
   watch: {
