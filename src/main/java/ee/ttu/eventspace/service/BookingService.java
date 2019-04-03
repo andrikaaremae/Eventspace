@@ -38,7 +38,7 @@ public class BookingService {
     }
 
     public List<Booking> findBookingsByPlace(Long id) {
-        return placeRepository.findById(id).orElseThrow(IllegalArgumentException::new).getBookings();
+        return bookingRepository.findBookingsByPlace(placeRepository.findById(id).get());
     }
 
     public List<Booking> findAll() {
