@@ -15,7 +15,8 @@ export default {
   },
   data () {
     return {
-      places: []
+      places: [],
+      id: this.$route.query.id
     }
   },
   mounted () {

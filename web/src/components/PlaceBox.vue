@@ -7,11 +7,7 @@
     <div class="category"><b>Available for: </b>{{ category }}</div>
     <div class="category"><b>Rating: </b>{{ ratingToShow }}</div>
     <form method="post" @submit.prevent="addRating">
-      <label>
-        Rating:
-        <input min="1" max="5" type="number" v-model="rating">
-
-      </label>
+        <star-rating onclick="submit" v-model="rating"></star-rating>
       <button class="placeButton">Add rating</button>
     </form>
     <b>Bookings</b>
@@ -35,13 +31,16 @@
 </template>
 
 <script>
-import BookingBox from './BookingBox'
-import axios from 'axios'
-import authHeader from '../services/auth-header'
+  import StarRating from 'vue-star-rating'
+  import BookingBox from './BookingBox'
+  import axios from 'axios'
+  import authHeader from '../services/auth-header'
 
 export default {
   name: 'App',
-  components: {BookingBox},
+  components: {
+    BookingBox,
+    StarRating},
   data () {
     return {
       price: 0,
@@ -143,8 +142,8 @@ export default {
   .placeButton:hover {
     background: whitesmoke;
   }
-  router-link {
-    background-color: darkred;
+  .rating {
+    float: right;
   }
 
 </style>

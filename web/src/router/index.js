@@ -9,6 +9,7 @@ import CategoryCitySearch from '@/components/CategoryCitySearch'
 import RegistrationPage from '@/components/RegistrationPage'
 import LoginPage from '../components/LoginPage'
 import Edit from '../components/Edit'
+import PlaceBox from "../components/PlaceBox";
 Vue.use(Router)
 
 const router = new Router({
@@ -57,7 +58,7 @@ const router = new Router({
       path: '/edit',
       name: 'Edit',
       component: Edit
-    }
+    },
   ]
 })
 
