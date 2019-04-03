@@ -24,6 +24,10 @@ public class BookingService {
     @Autowired
     private UserRepository userRepository;
 
+    public Booking findById(Long id) {
+        return bookingRepository.findById(id).get();
+    }
+
     public Booking save(Long placeId, Booking booking) {
         booking.setPlace(placeRepository.findById(placeId).orElseThrow(IllegalArgumentException::new));
         return bookingRepository.save(booking);
