@@ -3,7 +3,7 @@
       <ul>
         <router-link class="imgclick" :to="{ name: 'HelloWorld' }"><img src="./assets/logo.png" height="50" width="160"/></router-link>
         <li><router-link class="router" :to="{ name: 'About' }">About</router-link></li>
-        <li><router-link class="router" :to="{ name: 'Places' }">Places</router-link></li>
+        <li><router-link class="router" :to="{ name: 'AllPlaces' }">Places</router-link></li>
         <li><router-link class="router" :to="{ name: 'Save' }">Add Place</router-link></li>
         <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
         <li><router-link v-if="!loggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>

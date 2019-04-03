@@ -1,0 +1,132 @@
+<template>
+  <div class="place">
+    <div class="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
+    <div class="name"><h1>{{ name }}</h1></div>
+    <div class="address"> <h4>{{ address.country }}, {{ address.state}}, {{ address.city}}</h4></div>
+
+    <router-link class="placeButton" :to="{ name: 'PlaceDetails', query: {id: id}} ">Details</router-link>
+  </div>
+</template>
+
+<script>
+  import BookingBox from './BookingBox'
+  import axios from 'axios'
+  import authHeader from '../services/auth-header'
+
+  export default {
+    name: 'App',
+    components: {BookingBox},
+    data () {
+      return {
+        price: 0,
+        owner: null,
+        date: null,
+        customer: null,
+        rating: null,
+        ratingToShow: null,
+        ratingList: [],
+        place:''
+      }
+    },
+    props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
+    mounted() {
+      axios.get('http://localhost:8080/places/get/' + this.id, { headers: authHeader() }).then(response => {
+        this.place = response.data,
+          this.ratingList = this.place.ratingList
+
+        console.log(this.ratingList)
+
+        if (this.ratingList && this.ratingList.length) {
+          let total = 0;
+          for (let i = 0; i < this.ratingList.length; i++) {
+            total += this.ratingList[i];
+          }
+          let avg = total / this.ratingList.length;
+
+          this.ratingToShow = avg.toFixed(0);
+        }else {
+          this.ratingToShow = 0
+        }
+
+      })
+    },
+    methods: {
+      addBooking() {
+        axios.post('http://localhost:8080/bookings/save/' + this.id, {
+            date: this.date,
+            price: this.price,
+          },
+          {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
+      },
+      addRating() {
+        this.ratingList.push(5),
+          axios.post('http://localhost:8080/places/edit', {
+              id: this.id,
+              name: this.name,
+              category: this.category,
+              description: this.description,
+              address: {country: this.address.country,
+                state: this.address.state,
+                city: this.address.city,
+                street: this.address.street,
+                houseNumber: this.address.houseNumber,
+                zipCode: this.address.zipCode},
+              ratingList: this.ratingList
+            },
+            console.log(this.ratingList),
+            {headers: authHeader()}).then(response=>window.location.reload())
+      },
+
+      deletePlace() {
+        axios.delete('http://localhost:8080/places/delete/' + this.id,
+          {headers: authHeader()}).then(response=>window.location.reload())
+      },
+
+    }
+  }
+</script>
+
+<style scoped>
+  .place {
+    border: 1px solid;
+    display: inline-block;
+    width: 60%;
+    margin-bottom: 10px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .placeButton {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    border: solid 1px #000000;
+    background: lightgray;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    font: 14px/100% Arial, Helvetica, sans-serif;
+    padding: .5em 2em .55em;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    border-radius: .3em;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    margin: 10px 0 10px 5px;
+  }
+  .placeButton:hover {
+    background: whitesmoke;
+  }
+  router-link {
+    background-color: darkred;
+  }
+  h1{
+    color: black;
+  }
+
+</style>
+

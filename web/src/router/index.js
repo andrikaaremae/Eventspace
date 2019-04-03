@@ -4,12 +4,13 @@ import HelloWorld from '@/components/HelloWorld'
 import About from '@/components/About'
 import Save from '@/components/Save'
 import Categories from '@/components/Categories'
-import Places from '@/components/Places'
+import AllPlaces from '@/components/AllPlaces'
 import CategoryCitySearch from '@/components/CategoryCitySearch'
 import RegistrationPage from '@/components/RegistrationPage'
 import LoginPage from '../components/LoginPage'
 import Edit from '../components/Edit'
-import PlaceBox from "../components/PlaceBox";
+import PlaceDetails from '../components/PlaceDetails'
+import PlaceBoxes from '../components/PlaceBoxes'
 Vue.use(Router)
 
 const router = new Router({
@@ -41,8 +42,8 @@ const router = new Router({
     },
     {
       path: '/places',
-      name: 'Places',
-      component: Places
+      name: 'AllPlaces',
+      component: AllPlaces
     },
     {
       path: '/register',
@@ -59,6 +60,16 @@ const router = new Router({
       name: 'Edit',
       component: Edit
     },
+    {
+      path: '/place',
+      name: 'PlaceDetails',
+      component: PlaceDetails
+    },
+    {
+      path: '/placeBoxes',
+      name: 'PlaceBoxes',
+      component: PlaceBoxes
+    }
   ]
 })
 

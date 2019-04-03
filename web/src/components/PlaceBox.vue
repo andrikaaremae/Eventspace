@@ -1,35 +1,58 @@
 <template>
   <div class="place">
-    <div class="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
-    <div class="name"><strong>Name: {{ name }}</strong></div>
-    <div class="address"><b>Address: </b>{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}, {{ address.zipCode }}</div>
-    <div class="description"><i><b>Description: </b>{{ description }}</i></div>
-    <div class="category"><b>Available for: </b>{{ category }}</div>
-    <div class="category"><b>Rating: </b>{{ ratingToShow }}</div>
-    <form method="post" @submit.prevent="addRating">
-        <star-rating onclick="submit" v-model="rating"></star-rating>
-      <button class="placeButton">Add rating</button>
-    </form>
-    <b>Bookings</b>
-    <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
-    <div class="addBookingForm">
-      <form method="post" @submit.prevent="addBooking">
-        <label>
-          Date:
-          <input type="date" v-model="date" required>
-        </label>
-        <label>
-          Price:
-          <input type="number" name="price" min="0" v-model="price" required>
-        </label>
-        <button class="placeButton">Add booking</button>
-      </form>
-      <button v-on:click="deletePlace"  class="placeButton">Delete</button>
-      <router-link class="placeButton" :to="{ name: 'Edit', query: {id: id}} ">Edit</router-link>
-    </div>
+
+      <img src="../assets/placepic.jpg"  >
+
+
+    <section>
+      <div class="name" align="left"><h1>{{ name }}</h1></div>
+      <section>
+        <span class="address"  style="float:left">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}</span>
+        <span style="float:right"><star-rating :show-rating="false" :star-size="20" :rating="this.ratingToShow" :read-only="true" :increment="1"></star-rating></span>
+      </section>
+
+      <section>
+        <hr width="120%">
+        <div class="description" align="left"><h3>About the Space</h3>{{ description }}</div>
+        <div class="category" align="left"><h3>Available for </h3>{{ category }}</div>
+        <div align="left">
+        <form method="post" @submit.prevent="addRating"><h4>Rate your stay</h4>
+          <star-rating star-size="20" onclick="submit" v-model="rating"></star-rating>
+          <button class="placeButton">Add rating</button>
+        </form>
+        </div>
+      </section>
+      <section>
+        <div align="right">
+        <button  v-on:click="deletePlace"  class="placeButton">Delete</button>
+        <router-link  class="placeButton" :to="{ name: 'Edit', query: {id: id}} ">Edit</router-link>
+        </div>
+      </section>
+    </section>
+    <aside>
+      <h1>Book your stay</h1>
+      <hr>
+      <section >
+      <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
+      <div class="addBookingForm">
+        <form method="post" @submit.prevent="addBooking">
+          <label>
+            Start Date:
+            <input type="date" v-model="startDate" required>
+          </label>
+          <br>
+          <label>
+            End Date:
+            <input type="date" v-model="endDate" required>
+          </label>
+          <br>
+          <button class="placeButton">Add booking</button>
+        </form>
+      </div>
+      </section>
+    </aside>
   </div>
 </template>
-
 <script>
   import StarRating from 'vue-star-rating'
   import BookingBox from './BookingBox'
@@ -45,7 +68,8 @@ export default {
     return {
       price: 0,
       owner: null,
-      date: null,
+      startDate: null,
+      endDate: null,
       customer: null,
       rating: null,
       ratingToShow: null,
@@ -73,8 +97,12 @@ export default {
   },
   methods: {
     addBooking() {
+      if (this.endDate < this.startDate)
+      return alert("Start date can not be greater than end date! ");
+      else
       axios.post('http://localhost:8080/bookings/save/' + this.id, {
-          date: this.date,
+          startDate: this.startDate,
+          endDate: this.endDate,
           price: this.price,
         },
         {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
@@ -109,15 +137,25 @@ export default {
 
 <style scoped>
   .place {
-    border: 1px solid;
+    border: none;
     display: inline-block;
-    width: 60%;
-    margin-bottom: 10px;
+    width: 70%;
+    margin-top: 50px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 80px;
+
+  }
+  img{
+    width: 100%;
+
   }
 
   .name {
     font-size: 20px;
+    align:left;
   }
+
 
   .placeButton {
     display: inline-block;
@@ -142,8 +180,18 @@ export default {
   .placeButton:hover {
     background: whitesmoke;
   }
-  .rating {
+
+  section {
+    float: left;
+    margin: 0 1.5%;
+    width: 63%;
+  }
+  aside {
+    border: 1px solid;
     float: right;
+    margin: 0 1.5%;
+    width: 30%;
+    margin-top: 20px;
   }
 
 </style>
