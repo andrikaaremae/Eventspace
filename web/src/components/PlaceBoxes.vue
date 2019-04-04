@@ -2,8 +2,8 @@
   <div class="place">
     <div class="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
     <div class="name"><h1>{{ name }}</h1></div>
+    <div class="category"> <h4>{{ category }}</h4></div>
     <div class="address"> <h4>{{ address.country }}, {{ address.state}}, {{ address.city}}</h4></div>
-
     <router-link class="placeButton" :to="{ name: 'PlaceDetails', query: {id: id}} ">Details</router-link>
   </div>
 </template>
@@ -59,7 +59,7 @@
           {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
       },
       addRating() {
-        this.ratingList.push(5),
+        this.ratingList.push(this.rating),
           axios.post('http://localhost:8080/places/edit', {
               id: this.id,
               name: this.name,

@@ -1,8 +1,8 @@
 <template>
 <div class="booking">
-  <span class="date"><b>Date:</b> {{ date }}</span>
+  <span class="date"><b>Date:</b> {{ startDate }} - {{ endDate }}</span><br>
   <span class="price"><b>Price:</b> {{ price }}€</span>
-  <span class="canBeBooked" v-if="customer == null">Can be booked.</span>
+  <span class="canBeBooked" v-if="customer == null">Can be booked.</span><br>
   <span class="alreadyBooked" v-if="localCustomer != null">Booked by {{ this.localCustomer.username }}</span>
   <form v-if="customer == null" @submit.prevent="book">
     <input type="text" placeholder="Username" v-model="username">
@@ -21,7 +21,7 @@ export default {
       localCustomer: this.customer
     }
   },
-  props: ['id', 'date', 'price', 'customer'],
+  props: ['id', 'startDate','endDate', 'price', 'customer'],
   methods: {
     book () {
       this.localCustomer = {username: this.username}

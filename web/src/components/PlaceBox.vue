@@ -128,7 +128,7 @@ export default {
 
     deletePlace() {
       axios.delete('http://localhost:8080/places/delete/' + this.id,
-        {headers: authHeader()}).then(response=>window.location.reload())
+        {headers: authHeader()}).then(response=>window.location="http://localhost:8081/#/places")
     },
 
   }

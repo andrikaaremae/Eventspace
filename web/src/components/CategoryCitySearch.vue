@@ -6,18 +6,18 @@
       <input id="peopleInput" type="number" name="myPeople" placeholder="How many people?"/>
       <input id="priceInput" type="number" name="myPrice" placeholder="Price per hour"/>
     </div>
-    <PlaceBox v-for="place in places" v-if="place.category==category && place.address.city==city" v-bind="place" v-bind:key="place.id"></PlaceBox>
+    <PlaceBoxes v-for="place in places" v-if="place.category==category && place.address.city==city" v-bind="place" v-bind:key="place.id"></PlaceBoxes>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import PlaceBox from './PlaceBox'
+  import PlaceBoxes from './PlaceBoxes'
 
   export default {
     name: 'App',
     components: {
-      PlaceBox
+      PlaceBoxes
     },
     data () {
       return {
