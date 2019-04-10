@@ -10,4 +10,6 @@ import java.util.List;
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     List<Place> findAllByCategoryAndMaxCapacityLessThanEqual(String category, Integer maxCapacity);
+
+    List<Place> findAllByCategoryAndAddressCity(String category, String city);
 }

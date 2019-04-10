@@ -20,7 +20,8 @@ public class Place {
     private String description;
     private Integer maxCapacity;
     private String category;
-    private Long[] ratingList;
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private List<Rating> ratings;
     @Embedded
     private Address address;
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
@@ -28,13 +29,13 @@ public class Place {
     @OneToOne
     private User owner;
 
-    public Place(String name, String description, Integer maxCapacity, Address address, String category, Long[] ratingList) {
+    public Place(String name, String description, Integer maxCapacity, Address address, String category, List<Rating> ratings) {
         this.name = name;
         this.description = description;
         this.maxCapacity = maxCapacity;
         this.address = address;
         this.category = category;
-        this.ratingList = ratingList;
+        this.ratings = ratings;
     }
 
     // should be used
@@ -119,12 +120,12 @@ public class Place {
         this.bookings = bookings;
     }
 
-    public Long[] getRatingList() {
-        return ratingList;
+    public List<Rating> getratings() {
+        return ratings;
     }
 
-    public void setRatingList(Long[] ratingList) {
-        this.ratingList = ratingList;
+    public void setratings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 
     @Override
@@ -137,7 +138,7 @@ public class Place {
                 ", address=" + address +
                 ", bookings=" + bookings +
                 ", owner=" + owner +
-                ", ratingList=" + ratingList +
+                ", ratings=" + ratings +
                 '}';
     }
 }
