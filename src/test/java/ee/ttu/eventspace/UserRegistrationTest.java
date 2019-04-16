@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class UserRegistrationTests {
+public class UserRegistrationTest {
 
     @Autowired
     private UserService userService;

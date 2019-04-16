@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class BookingTests {
+public class BookingTest {
 
     @Autowired
     private UserService userService;

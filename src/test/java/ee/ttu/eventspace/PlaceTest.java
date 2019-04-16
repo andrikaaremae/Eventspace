@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class PlaceTests {
+public class PlaceTest {
 
     @Autowired
     private UserService userService;
