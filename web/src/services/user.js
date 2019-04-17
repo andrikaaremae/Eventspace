@@ -6,7 +6,7 @@ export const user = {
 }
 
 function login (username, password) {
-  return axios.post(`http://localhost:8080/user/login`, {username: username, password: password})
+  return axios.post(process.env.API_URL + '/user/login', {username: username, password: password})
     .then(handleResponse)
     .then(data => {
       if (data.token) {

@@ -68,7 +68,7 @@ export default {
   methods: {
     postNow () {
       console.log(authHeader())
-      axios.post('http://localhost:8080/places/edit',
+      axios.post(process.env.API_URL + '/places/edit',
         { name: this.name,
           category: this.category.text,
           description: this.description,
@@ -80,7 +80,7 @@ export default {
             zipCode: this.zipCode},
         ratingList: this.ratingList},
         { headers: authHeader()
-        }).then(response => window.location = 'http://localhost:8081/#/places')
+        }).then(response => window.location = '/#/places')
     }
   },
   mounted () {

@@ -11,25 +11,25 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import PlaceBoxes from './PlaceBoxes'
+import axios from 'axios'
+import PlaceBoxes from './PlaceBoxes'
 
-  export default {
-    name: 'App',
-    components: {
-      PlaceBoxes
-    },
-    data () {
-      return {
-        places: [],
-        category: this.$route.query.category,
-        city: this.$route.query.city,
-      }
-    },
-    mounted () {
-      axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
+export default {
+  name: 'App',
+  components: {
+    PlaceBoxes
+  },
+  data () {
+    return {
+      places: [],
+      category: this.$route.query.category,
+      city: this.$route.query.city
     }
+  },
+  mounted () {
+    axios.get(process.env.API_URL + '/places/getAll').then(response => { this.places = response.data })
   }
+}
 </script>
 
 <style scoped>

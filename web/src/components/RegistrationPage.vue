@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     register () {
-      axios.post('http://localhost:8080/user/register', {
+      axios.post(process.env.API_URL + '/user/register', {
         firstName: this.firstName,
         lastName: this.lastName,
         username: this.username,

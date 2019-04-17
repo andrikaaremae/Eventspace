@@ -9,81 +9,80 @@
 </template>
 
 <script>
-  import BookingBox from './BookingBox'
-  import axios from 'axios'
-  import authHeader from '../services/auth-header'
+import BookingBox from './BookingBox'
+import axios from 'axios'
+import authHeader from '../services/auth-header'
 
-  export default {
-    name: 'App',
-    components: {BookingBox},
-    data () {
-      return {
-        price: 0,
-        owner: null,
-        date: null,
-        customer: null,
-        rating: null,
-        ratingToShow: null,
-        ratingList: [],
-        place:''
-      }
-    },
-    props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
-    mounted() {
-      axios.get('http://localhost:8080/places/get/' + this.id, { headers: authHeader() }).then(response => {
-        this.place = response.data,
-          this.ratingList = this.place.ratingList
-
-        console.log(this.ratingList)
-
-        if (this.ratingList && this.ratingList.length) {
-          let total = 0;
-          for (let i = 0; i < this.ratingList.length; i++) {
-            total += this.ratingList[i];
-          }
-          let avg = total / this.ratingList.length;
-
-          this.ratingToShow = avg.toFixed(0);
-        }else {
-          this.ratingToShow = 0
-        }
-
-      })
-    },
-    methods: {
-      addBooking() {
-        axios.post('http://localhost:8080/bookings/save/' + this.id, {
-            date: this.date,
-            price: this.price,
-          },
-          {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
-      },
-      addRating() {
-        this.ratingList.push(this.rating),
-          axios.post('http://localhost:8080/places/edit', {
-              id: this.id,
-              name: this.name,
-              category: this.category,
-              description: this.description,
-              address: {country: this.address.country,
-                state: this.address.state,
-                city: this.address.city,
-                street: this.address.street,
-                houseNumber: this.address.houseNumber,
-                zipCode: this.address.zipCode},
-              ratingList: this.ratingList
-            },
-            console.log(this.ratingList),
-            {headers: authHeader()}).then(response=>window.location.reload())
-      },
-
-      deletePlace() {
-        axios.delete('http://localhost:8080/places/delete/' + this.id,
-          {headers: authHeader()}).then(response=>window.location.reload())
-      },
-
+export default {
+  name: 'App',
+  components: {BookingBox},
+  data () {
+    return {
+      price: 0,
+      owner: null,
+      date: null,
+      customer: null,
+      rating: null,
+      ratingToShow: null,
+      ratingList: [],
+      place: ''
     }
+  },
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
+  mounted () {
+    axios.get(process.env.API_URL + '/places/get/' + this.id, { headers: authHeader() }).then(response => {
+      this.place = response.data,
+      this.ratingList = this.place.ratingList
+
+      console.log(this.ratingList)
+
+      if (this.ratingList && this.ratingList.length) {
+        let total = 0
+        for (let i = 0; i < this.ratingList.length; i++) {
+          total += this.ratingList[i]
+        }
+        let avg = total / this.ratingList.length
+
+        this.ratingToShow = avg.toFixed(0)
+      } else {
+        this.ratingToShow = 0
+      }
+    })
+  },
+  methods: {
+    addBooking () {
+      axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
+        date: this.date,
+        price: this.price
+      },
+      {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
+    },
+    addRating () {
+      this.ratingList.push(this.rating),
+      axios.post(process.env.API_URL + '/places/edit', {
+        id: this.id,
+        name: this.name,
+        category: this.category,
+        description: this.description,
+        address: {country: this.address.country,
+          state: this.address.state,
+          city: this.address.city,
+          street: this.address.street,
+          houseNumber: this.address.houseNumber,
+          zipCode: this.address.zipCode},
+        ratingList: this.ratingList
+      },
+      console.log(this.ratingList),
+      {headers: authHeader()}).then(response => window.location.reload())
+    },
+
+    deletePlace () {
+      axios.delete(process.env.API_URL + '/places/delete/' + this.id,
+        {headers: authHeader()}).then(response => window.location.reload())
+    }
+
   }
+}
 </script>
 
 <style scoped>
@@ -129,4 +128,3 @@
   }
 
 </style>
-

@@ -38,66 +38,66 @@
 </template>
 
 <script>
-  import authHeader from '../services/auth-header'
-  import axios from 'axios'
-  export default {
-    name: 'App',
-    data () {
-      return {
-        categories:[
-          {value: 1, text: 'Birthday Party'},
-          {value: 2, text: 'Meeting'},
-          {value: 2, text: 'Performance'},
-          {value: 2, text: 'Wedding'},
-        ],
-        place: '',
-        category: '',
-        name: '',
-        description: '',
-        country: '',
-        state: '',
-        city: '',
-        street: '',
-        houseNumber: '',
-        zipCode: '',
-        show: true
-      }
-    },
-    props: ['ratingList'],
-    methods: {
-      editNow () {
-        axios.post('http://localhost:8080/places/edit',
-          {   id: this.$route.query.id,
-              name: this.name,
-              category: this.category.text,
-              description: this.description,
-              address: {country: this.country,
-              state: this.state,
-              city: this.city,
-              street: this.street,
-              houseNumber: this.houseNumber,
-              zipCode: this.zipCode},
-              ratingList: this.ratingList},
-          { headers: authHeader()
-          }).then(response => window.location="http://localhost:8081/#/place?id=" + this.$route.query.id)
-      }
-    },
-    mounted () {
-      axios.get('http://localhost:8080/places/get/' + this.$route.query.id,{ headers: authHeader() }).then(response => {
-        this.place = response.data,
-          this.name = this.place.name,
-          this.category = this.place.category,
-          this.description = this.place.description,
-          this.country = this.place.address.country,
-          this.state = this.place.address.state,
-          this.city = this.place.address.city,
-          this.street = this.place.address.street,
-          this.houseNumber = this.place.address.houseNumber,
-          this.zipCode = this.place.address.zipCode,
-          this.ratingList = this.place.ratingList
-      })
+import authHeader from '../services/auth-header'
+import axios from 'axios'
+export default {
+  name: 'App',
+  data () {
+    return {
+      categories: [
+        {value: 1, text: 'Birthday Party'},
+        {value: 2, text: 'Meeting'},
+        {value: 2, text: 'Performance'},
+        {value: 2, text: 'Wedding'}
+      ],
+      place: '',
+      category: '',
+      name: '',
+      description: '',
+      country: '',
+      state: '',
+      city: '',
+      street: '',
+      houseNumber: '',
+      zipCode: '',
+      show: true
     }
+  },
+  props: ['ratingList'],
+  methods: {
+    editNow () {
+      axios.post(process.env.API_URL + '/places/edit',
+        { id: this.$route.query.id,
+          name: this.name,
+          category: this.category.text,
+          description: this.description,
+          address: {country: this.country,
+            state: this.state,
+            city: this.city,
+            street: this.street,
+            houseNumber: this.houseNumber,
+            zipCode: this.zipCode},
+          ratingList: this.ratingList},
+        { headers: authHeader()
+        }).then(response => window.location = '/#/place?id=' + this.$route.query.id)
+    }
+  },
+  mounted () {
+    axios.get(process.env.API_URL + '/places/get/' + this.$route.query.id, { headers: authHeader() }).then(response => {
+      this.place = response.data,
+      this.name = this.place.name,
+      this.category = this.place.category,
+      this.description = this.place.description,
+      this.country = this.place.address.country,
+      this.state = this.place.address.state,
+      this.city = this.place.address.city,
+      this.street = this.place.address.street,
+      this.houseNumber = this.place.address.houseNumber,
+      this.zipCode = this.place.address.zipCode,
+      this.ratingList = this.place.ratingList
+    })
   }
+}
 </script>
 <style scoped>
   body {

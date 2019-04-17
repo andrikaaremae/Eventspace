@@ -27,7 +27,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
+    axios.get(process.env.API_URL + '/places/getAll').then(response => { this.places = response.data })
   }
 }
 </script>

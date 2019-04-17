@@ -3,7 +3,6 @@
 
       <img src="../assets/placepic.jpg"  >
 
-
     <section>
       <div class="name" align="left"><h1>{{ name }}</h1></div>
       <section>
@@ -54,10 +53,10 @@
   </div>
 </template>
 <script>
-  import StarRating from 'vue-star-rating'
-  import BookingBox from './BookingBox'
-  import axios from 'axios'
-  import authHeader from '../services/auth-header'
+import StarRating from 'vue-star-rating'
+import BookingBox from './BookingBox'
+import axios from 'axios'
+import authHeader from '../services/auth-header'
 
 export default {
   name: 'App',
@@ -73,63 +72,62 @@ export default {
       customer: null,
       rating: null,
       ratingToShow: null,
-      place:'',
-      ratingList: [0],
+      place: '',
+      ratingList: [0]
     }
   },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
-  mounted() {
-    axios.get('http://localhost:8080/places/get/' + this.id).then(response => {
-      this.place = response.data,
-        this.ratingList = this.place.ratingList
+  mounted () {
+    axios.get(process.env.API_URL + '/places/get/' + this.id).then(response => {
+      this.place = response.data
+      this.ratingList = this.place.ratingList
       console.log(this.ratingList)
       if (this.ratingList && this.ratingList.length) {
-        let total = 0;
+        let total = 0
         for (let i = 0; i < this.ratingList.length; i++) {
-          total += this.ratingList[i];
+          total += this.ratingList[i]
         }
-        let avg = total / this.ratingList.length;
-        this.ratingToShow = avg.toFixed(0);
-      }else {
+        let avg = total / this.ratingList.length
+        this.ratingToShow = avg.toFixed(0)
+      } else {
         this.ratingToShow = 0
       }
     })
   },
   methods: {
-    addBooking() {
-      if (this.endDate < this.startDate)
-      return alert("Start date can not be greater than end date! ");
-      else
-      axios.post('http://localhost:8080/bookings/save/' + this.id, {
+    addBooking () {
+      if (this.endDate < this.startDate) { return alert('Start date can not be greater than end date! ') } else {
+        axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
           startDate: this.startDate,
           endDate: this.endDate,
-          price: this.price,
+          price: this.price
         },
         {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
+      }
     },
-    addRating() {
+    addRating () {
       this.ratingList.push(this.rating),
-        axios.post('http://localhost:8080/places/edit', {
-            id: this.id,
-            name: this.name,
-            category: this.category,
-            description: this.description,
-            address: {country: this.address.country,
-              state: this.address.state,
-              city: this.address.city,
-              street: this.address.street,
-              houseNumber: this.address.houseNumber,
-              zipCode: this.address.zipCode},
-            ratingList: this.ratingList
-          },
-          console.log(this.ratingList),
-          {headers: {'Content-type': 'application/json'}}).then(response=>window.location.reload())
+      axios.post(process.env.API_URL + '/places/edit', {
+        id: this.id,
+        name: this.name,
+        category: this.category,
+        description: this.description,
+        address: {country: this.address.country,
+          state: this.address.state,
+          city: this.address.city,
+          street: this.address.street,
+          houseNumber: this.address.houseNumber,
+          zipCode: this.address.zipCode},
+        ratingList: this.ratingList
+      },
+      console.log(this.ratingList),
+      {headers: {'Content-type': 'application/json'}}).then(response => window.location.reload())
     },
 
-    deletePlace() {
-      axios.delete('http://localhost:8080/places/delete/' + this.id,
-        {headers: authHeader()}).then(response=>window.location="http://localhost:8081/#/places")
-    },
+    deletePlace () {
+      axios.delete(process.env.API_URL + '/places/delete/' + this.id,
+        {headers: authHeader()}).then(response => window.location = 'http://localhost:8081/#/places')
+    }
 
   }
 }
@@ -155,7 +153,6 @@ export default {
     font-size: 20px;
     align:left;
   }
-
 
   .placeButton {
     display: inline-block;

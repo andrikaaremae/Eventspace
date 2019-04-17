@@ -81,8 +81,8 @@ export default {
 
   },
   mounted () {
-    axios.get('http://localhost:8080/places/getAll').then(response => { this.places = response.data })
-    axios.get('http://localhost:8080/api/hello').then(response => (this.msg = response.data));
+    axios.get(process.env.API_URL + '/places/getAll').then(response => { this.places = response.data })
+    axios.get(process.env.API_URL + '/api/hello').then(response => (this.msg = response.data));
   }
 }
 </script>

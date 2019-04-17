@@ -5,23 +5,23 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import PlaceBox from './PlaceBox'
-  import authHeader from '../services/auth-header'
-  export default {
-    name: 'App',
-    components: {
-      PlaceBox
-    },
-    data () {
-      return {
-        places: [],
-        id: this.$route.query.id
-      }
-    },
-    mounted () {
-      axios.get('http://localhost:8080/places/getAll', { headers: authHeader() }).then(response => { this.places = response.data })
-      console.log(this.$route.query.id)
+import axios from 'axios'
+import PlaceBox from './PlaceBox'
+import authHeader from '../services/auth-header'
+export default {
+  name: 'App',
+  components: {
+    PlaceBox
+  },
+  data () {
+    return {
+      places: [],
+      id: this.$route.query.id
     }
+  },
+  mounted () {
+    axios.get(process.env.API_URL + '/places/getAll', { headers: authHeader() }).then(response => { this.places = response.data })
+    console.log(this.$route.query.id)
   }
+}
 </script>
