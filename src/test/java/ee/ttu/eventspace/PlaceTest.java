@@ -28,34 +28,29 @@ public class PlaceTest {
     @Autowired
     private PlaceService placeService;
 
+    User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
+    Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
+    Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
+    Address address2 = new Address("Estonia", "Harjumaa", "Tallinn", "Ehitajate tee", "42", "33333");
+    Place place2 = new Place("Otherplace", "Great place", 4, address2, "Wedding", user1);
+
     @Test
     public void shouldBeRegistered() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         userService.save(user1);
-        Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
-        Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
         placeService.save(place1);
         assertThat(placeService.findById(place1.getId())).get().isEqualTo(place1);
     }
 
     @Test
     public void shouldReturnSavedAddress() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         userService.save(user1);
-        Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
-        Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
         placeService.save(place1);
         assertThat(placeService.findById(place1.getId()).get().getAddress()).isEqualTo(place1.getAddress());
     }
 
     @Test
     public void shouldReturnAllRegisteredPlaces() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         userService.save(user1);
-        Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
-        Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
-        Address address2 = new Address("Estonia", "Harjumaa", "Tallinn", "Ehitajate tee", "42", "33333");
-        Place place2 = new Place("Otherplace", "Great place", 4, address2, "Wedding", user1);
         placeService.save(place1);
         placeService.save(place2);
         assertThat(placeService.findAll()).hasSize(2);
@@ -63,20 +58,14 @@ public class PlaceTest {
 
     @Test
     public void shouldHaveOwner() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         userService.save(user1);
-        Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
-        Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
         placeService.save(place1);
         assertThat(placeService.findById(place1.getId()).get().getOwner().getUsername().equals("Numbaone"));
     }
 
     @Test
     public void shouldBeDeleted() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         userService.save(user1);
-        Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
-        Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
         placeService.save(place1);
         placeService.deleteById(place1.getId());
         assertThat(placeService.findById(place1.getId())).isEmpty();

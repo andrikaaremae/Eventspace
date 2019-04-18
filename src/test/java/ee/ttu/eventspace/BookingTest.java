@@ -36,28 +36,25 @@ public class BookingTest {
     @Autowired
     private BookingService bookingService;
 
+    User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
+    Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
+    Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
+    Booking booking1 = new Booking(Date.valueOf("2019-04-04"), Date.valueOf("2019-04-05"), BigDecimal.valueOf(300));
+    Booking booking2 = new Booking(Date.valueOf("2019-04-05"), Date.valueOf("2019-04-05"), BigDecimal.valueOf(300));
+
     @Test
     public void shouldBeConnectedToPlace() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         userService.save(user1);
-        Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
-        Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
         placeService.save(place1);
-        Booking booking1 = new Booking(Date.valueOf("2019-04-04"), Date.valueOf("2019-04-05"), BigDecimal.valueOf(300));
         bookingService.save(place1.getId(), booking1);
         assertThat(bookingService.findById(booking1.getId()).getPlace()).isEqualTo(place1);
     }
 
     @Test
     public void shouldReturnAllBookingsConntectedToPlace() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         userService.save(user1);
-        Address address1 = new Address("Estonia", "Harjumaa", "Tallinn", "Akadeemia tee", "42", "22222");
-        Place place1 = new Place("A house", "Great place", 4, address1, "Wedding", user1);
         placeService.save(place1);
-        Booking booking1 = new Booking(Date.valueOf("2019-04-04"), Date.valueOf("2019-04-05"), BigDecimal.valueOf(300));
         bookingService.save(place1.getId(), booking1);
-        Booking booking2 = new Booking(Date.valueOf("2019-04-05"), Date.valueOf("2019-04-05"), BigDecimal.valueOf(300));
         bookingService.save(place1.getId(), booking2);
         System.out.println(placeService.findById(place1.getId()).get().getBookings());
         System.out.println(bookingService.findBookingsByPlace(place1.getId()));

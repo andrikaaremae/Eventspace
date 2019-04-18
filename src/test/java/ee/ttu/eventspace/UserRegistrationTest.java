@@ -24,10 +24,12 @@ public class UserRegistrationTest {
     @Autowired
     private UserService userService;
 
+    User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
+    User user2 = new User("Bbbb", "123456", "Other", "Guy", "test@dd.ee", "44566432");
+
+
     @Test
     public void shouldReturnAllRegisteredUsers() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
-        User user2 = new User("Bbbb", "123456", "Other", "Guy", "test@dd.ee", "44566432");
         userService.save(user1);
         userService.save(user2);
         assertThat(userService.findAll()).hasSize(3); // including admin
@@ -35,8 +37,6 @@ public class UserRegistrationTest {
 
     @Test
     public void shouldRejectSameUsername() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
-        User user2 = new User("Numbaone", "123456", "Other", "Guy", "test@dd.ee", "44566432");
         userService.save(user1);
         try {
             userService.save(user2);
@@ -47,8 +47,6 @@ public class UserRegistrationTest {
 
     @Test
     public void shouldRejectSameEmail() throws Exception {
-        User user1 = new User("Numbaone", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
-        User user2 = new User("Numbatwo", "123456", "Other", "Guy", "abc@dd.ee", "44566432");
         userService.save(user1);
         try {
             userService.save(user2);
@@ -59,7 +57,6 @@ public class UserRegistrationTest {
 
     @Test
     public void shouldHaveUsernameLongerThan4Chars() throws Exception {
-        User user1 = new User("abc", "123456", "Some", "Guy", "abc@dd.ee", "34566432");
         try {
             userService.save(user1);
         } catch (Throwable e) {
@@ -69,7 +66,6 @@ public class UserRegistrationTest {
 
     @Test
     public void shouldHavePhoneNumberWithoutLetters() throws Exception {
-        User user1 = new User("Tester", "123456", "Some", "Guy", "abc@dd.ee", "ayylmao");
         try {
             userService.save(user1);
         } catch (Throwable e) {
