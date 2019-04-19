@@ -11,7 +11,7 @@
           <input placeholder="Enter Name" type="text" v-model="name" required>
           <div><b>Category</b></div>
           <select v-model="category">
-            <option v-for="category in categories" :value="category" :key="category.text">{{category.text}}</option>
+            <option v-for="category in categories" >{{category}}</option>
           </select>
           <div><b>Description</b></div>
           <input type="text" placeholder="Enter Description" v-model="description" required>
@@ -40,17 +40,13 @@
 <script>
 import axios from 'axios'
 import authHeader from '../../services/auth-header.js'
+import json from '../../assets/Categories'
 
 export default {
   name: 'App',
   data () {
     return {
-      categories: [
-        {value: 1, text: 'Birthday Party'},
-        {value: 2, text: 'Meeting'},
-        {value: 2, text: 'Performance'},
-        {value: 2, text: 'Wedding'}
-      ],
+      categories: json,
       place: '',
       category: '',
       name: '',
@@ -70,7 +66,7 @@ export default {
       console.log(authHeader())
       axios.post(process.env.API_URL + '/places/edit',
         { name: this.name,
-          category: this.category.text,
+          category: this.category,
           description: this.description,
           address: {country: this.country,
             state: this.state,

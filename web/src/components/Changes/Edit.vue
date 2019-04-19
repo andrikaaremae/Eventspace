@@ -11,7 +11,7 @@
           <input placeholder="Enter Name" type="text" v-model="name" required>
           <div><b>Category</b></div>
           <select v-model="category">
-            <option  v-for="category in categories" :value="category" :key="category.text">{{category.text}}</option>
+            <option  v-for="category in categories">{{category}}</option>
           </select>
           <div><b>Description</b></div>
           <input type="text" placeholder="Enter Description" v-model="description" required>
@@ -27,7 +27,6 @@
           <input type="text" placeholder="Enter House number" v-model="houseNumber" required>
           <div><b>Zip Code</b></div>
           <input type="text" placeholder="Enter Zip Code" v-model="zipCode" required>
-
         </div>
         <hr>
         <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
@@ -39,17 +38,13 @@
 
 <script>
 import authHeader from '../../services/auth-header'
+import json from '../../assets/Categories'
 import axios from 'axios'
 export default {
   name: 'App',
   data () {
     return {
-      categories: [
-        {value: 1, text: 'Birthday Party'},
-        {value: 2, text: 'Meeting'},
-        {value: 2, text: 'Performance'},
-        {value: 2, text: 'Wedding'}
-      ],
+      categories: json,
       place: '',
       category: '',
       name: '',
