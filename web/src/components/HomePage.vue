@@ -6,7 +6,7 @@
         <div class="searchboxes">
           <select id="categoryInput" ref="categoryInput" type="text" @change="onChange($event)">
             <option value="">Choose event category</option>
-            <option  v-for="place in places" :value="place.category">{{place.category}}</option>
+            <option  v-for="category in categories" :value="category">{{category}}</option>
           </select>
           <select id="cityInput" ref="cityInput" type="text">
             <option value="">Choose city</option>
@@ -57,12 +57,13 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-export default {
+import json from '@/assets/Categories'
+  import axios from 'axios'
+  export default {
   name: 'App',
   data () {
     return {
+      categories: json,
       change: '',
       places: [],
       category: '',
