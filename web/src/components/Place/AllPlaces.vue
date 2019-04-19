@@ -7,7 +7,7 @@
 <script>
 import axios from 'axios'
 import PlaceBoxes from './PlaceBoxes'
-import authHeader from '../services/auth-header'
+import authHeader from '../../services/auth-header'
 
 export default {
   name: 'App',

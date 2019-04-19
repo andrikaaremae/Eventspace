@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="hello">
-      <h1>{{ msg }}</h1>
+      <h1>Find your perfect event space</h1>
       <form>
         <div class="searchboxes">
           <select id="categoryInput" ref="categoryInput" type="text" @change="onChange($event)">
@@ -65,7 +65,6 @@ export default {
     return {
       change: '',
       places: [],
-      msg: null,
       category: '',
       city: '',
     }
@@ -82,7 +81,6 @@ export default {
   },
   mounted () {
     axios.get(process.env.API_URL + '/places/getAll').then(response => { this.places = response.data })
-    axios.get(process.env.API_URL + '/api/hello').then(response => (this.msg = response.data));
   }
 }
 </script>

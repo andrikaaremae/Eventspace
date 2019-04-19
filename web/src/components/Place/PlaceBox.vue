@@ -1,7 +1,7 @@
 <template>
   <div class="place">
 
-      <img src="../assets/placepic.jpg"  >
+      <img src="../../assets/placepic.jpg"  >
 
     <section>
       <div class="name" align="left"><h1>{{ name }}</h1></div>
@@ -54,9 +54,9 @@
 </template>
 <script>
 import StarRating from 'vue-star-rating'
-import BookingBox from './BookingBox'
+import BookingBox from '../BookingBox'
 import axios from 'axios'
-import authHeader from '../services/auth-header'
+import authHeader from '../../services/auth-header'
 
 export default {
   name: 'App',

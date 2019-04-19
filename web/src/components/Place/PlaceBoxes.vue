@@ -1,6 +1,6 @@
 <template>
   <div class="place">
-    <div class="photo"><img src="../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
+    <div class="photo"><img src="../../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
     <div class="name"><h1>{{ name }}</h1></div>
     <div class="category"> <h4>{{ category }}</h4></div>
     <div class="address"> <h4>{{ address.country }}, {{ address.state}}, {{ address.city}}</h4></div>
@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import BookingBox from './BookingBox'
+import BookingBox from '../BookingBox'
 import axios from 'axios'
-import authHeader from '../services/auth-header'
+import authHeader from '../../services/auth-header'
 
 export default {
   name: 'App',

@@ -12,7 +12,7 @@
 
 <script>
 import axios from 'axios'
-import PlaceBoxes from './PlaceBoxes'
+import PlaceBoxes from '../Place/PlaceBoxes'
 
 export default {
   name: 'App',
