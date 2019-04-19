@@ -90,7 +90,10 @@ export default {
     border: 1px solid;
     display: inline-block;
     width: 60%;
-    margin-bottom: 10px;
+    margin: 10px 0 10px 0;
+    border-radius: 10px;
+    background-image: url('../../assets/AsfaltBackground.png');
+
   }
 
   .name {
@@ -125,6 +128,10 @@ export default {
   }
   h1{
     color: black;
+  }
+  img {
+    border-radius: 20px;
+    margin-top: 35px;
   }
 
 </style>
