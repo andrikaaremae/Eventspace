@@ -17,7 +17,7 @@
         <div align="left">
         <form method="post" @submit.prevent="addRating"><h4>Rate your stay</h4>
           <star-rating star-size="20" onclick="submit" v-model="rating"></star-rating>
-          <button class="placeButton">Add rating</button>
+          <button class="placeButton">{{statusText}}</button>
         </form>
         </div>
       </section>
@@ -73,7 +73,8 @@ export default {
       rating: null,
       ratingToShow: null,
       place: '',
-      ratingList: [0]
+      ratingList: [0],
+      statusText: 'Add rating',
     }
   },
   props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
@@ -106,6 +107,7 @@ export default {
       }
     },
     addRating () {
+      this.statusText = 'Voted!';
       this.ratingList.push(this.rating),
       axios.post(process.env.API_URL + '/places/edit', {
         id: this.id,
@@ -121,7 +123,7 @@ export default {
         ratingList: this.ratingList
       },
       console.log(this.ratingList),
-      {headers: {'Content-type': 'application/json'}}).then(response => window.location.reload())
+      {headers: {'Content-type': 'application/json'}})
     },
 
     deletePlace () {
@@ -191,4 +193,8 @@ export default {
     margin-top: 20px;
   }
 
+  .status {
+    float: right;
+    color: lightgreen;
+  }
 </style>
