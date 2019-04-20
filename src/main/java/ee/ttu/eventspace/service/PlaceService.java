@@ -27,7 +27,13 @@ public class PlaceService {
         return placeRepository.findAll();
     }
 
+    public List<Place> findByCategory(String category) {
+        return placeRepository.findByCategory(category);
+    }
+
     public void deleteById(Long id){placeRepository.deleteById(id);}
+
+    public Place update(Place place) {return placeRepository.save(place);}
 
     public List<Place>findAllByCategoryAndMaxCapacityLessThanEqual(String category, Integer maxCapacity) {
         return placeRepository.findAllByCategoryAndMaxCapacityLessThanEqual(category, maxCapacity);
