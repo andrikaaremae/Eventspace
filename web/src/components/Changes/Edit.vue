@@ -15,6 +15,8 @@
           </select>
           <div><b>Description</b></div>
           <input type="text" placeholder="Enter Description" v-model="description" required>
+          <div><b>Price</b></div>
+          <input type="number" placeholder="Enter Price" v-model="price" required>
           <div><b>Country</b></div>
           <input type="text" placeholder="Enter Country" v-model="country" required>
           <div><b>State</b></div>
@@ -55,7 +57,8 @@ export default {
       street: '',
       houseNumber: '',
       zipCode: '',
-      show: true
+      show: true,
+      price: '',
     }
   },
   props: ['ratingList'],
@@ -64,7 +67,7 @@ export default {
       axios.post(process.env.API_URL + '/places/edit',
         { id: this.$route.query.id,
           name: this.name,
-          category: this.category.text,
+          category: this.category,
           description: this.description,
           address: {country: this.country,
             state: this.state,
@@ -72,7 +75,8 @@ export default {
             street: this.street,
             houseNumber: this.houseNumber,
             zipCode: this.zipCode},
-          ratingList: this.ratingList},
+          ratingList: this.ratingList,
+          price: this.price},
         { headers: authHeader()
         }).then(response => window.location = '/#/place?id=' + this.$route.query.id)
     }
@@ -89,7 +93,8 @@ export default {
       this.street = this.place.address.street,
       this.houseNumber = this.place.address.houseNumber,
       this.zipCode = this.place.address.zipCode,
-      this.ratingList = this.place.ratingList
+      this.ratingList = this.place.ratingList,
+        this.price = this.place.price
     })
   }
 }

@@ -15,6 +15,8 @@
           </select>
           <div><b>Description</b></div>
           <input type="text" placeholder="Enter Description" v-model="description" required>
+          <div><b>Price</b></div>
+          <input type="number" placeholder="Enter Price" v-model="price" required>
           <div><b>Country</b></div>
           <input type="text" placeholder="Enter Country" v-model="country" required>
           <div><b>State</b></div>
@@ -58,7 +60,8 @@ export default {
       houseNumber: '',
       zipCode: '',
       show: true,
-      ratingList: []
+      ratingList: [],
+      price: '',
     }
   },
   methods: {
@@ -74,7 +77,8 @@ export default {
             street: this.street,
             houseNumber: this.houseNumber,
             zipCode: this.zipCode},
-        ratingList: this.ratingList},
+        ratingList: this.ratingList,
+        price: this.price},
         { headers: authHeader()
         }).then(response => window.location = '/#/places')
     }

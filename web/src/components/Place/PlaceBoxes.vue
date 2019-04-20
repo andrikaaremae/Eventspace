@@ -3,6 +3,7 @@
     <div class="photo"><img src="../../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
     <div class="name"><h1>{{ name }}</h1></div>
     <div class="category"> <h4>{{ category }}</h4></div>
+    <div class="price"> <h4>Price: {{price}}€</h4></div>
     <div class="address"> <h4>{{ address.country }}, {{ address.state}}, {{ address.city}}</h4></div>
     <router-link class="placeButton" :to="{ name: 'PlaceDetails', query: {id: id}} ">Details</router-link>
   </div>
@@ -18,7 +19,6 @@ export default {
   components: {BookingBox},
   data () {
     return {
-      price: 0,
       owner: null,
       date: null,
       customer: null,
@@ -28,13 +28,11 @@ export default {
       place: ''
     }
   },
-  props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price'],
   mounted () {
     axios.get(process.env.API_URL + '/places/get/' + this.id, { headers: authHeader() }).then(response => {
       this.place = response.data,
       this.ratingList = this.place.ratingList
-
-      console.log(this.ratingList)
 
       if (this.ratingList && this.ratingList.length) {
         let total = 0
@@ -53,7 +51,6 @@ export default {
     addBooking () {
       axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
         date: this.date,
-        price: this.price
       },
       {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
     },
@@ -70,9 +67,9 @@ export default {
           street: this.address.street,
           houseNumber: this.address.houseNumber,
           zipCode: this.address.zipCode},
-        ratingList: this.ratingList
+        ratingList: this.ratingList,
+        price: this.price,
       },
-      console.log(this.ratingList),
       {headers: authHeader()}).then(response => window.location.reload())
     },
 

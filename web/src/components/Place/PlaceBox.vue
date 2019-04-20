@@ -14,6 +14,7 @@
         <hr width="120%">
         <div class="description" align="left"><h3>About the Space</h3>{{ description }}</div>
         <div class="category" align="left"><h3>Available for </h3>{{ category }}</div>
+        <div class="price" align="left"><h3>Price </h3>{{price}}€ one night</div>
         <div align="left">
         <form method="post" @submit.prevent="addRating"><h4>Rate your stay</h4>
           <star-rating star-size="20" onclick="submit" v-model="rating"></star-rating>
@@ -65,7 +66,6 @@ export default {
     StarRating},
   data () {
     return {
-      price: 0,
       owner: null,
       startDate: null,
       endDate: null,
@@ -74,10 +74,10 @@ export default {
       ratingToShow: null,
       place: '',
       ratingList: [0],
-      statusText: 'Add rating',
+      statusText: 'Add rating'
     }
   },
-  props: ['id', 'name', 'description', 'address', 'category', 'bookings'],
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price'],
   mounted () {
     axios.get(process.env.API_URL + '/places/get/' + this.id).then(response => {
       this.place = response.data
@@ -101,7 +101,6 @@ export default {
         axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
           startDate: this.startDate,
           endDate: this.endDate,
-          price: this.price
         },
         {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
       }
@@ -120,9 +119,9 @@ export default {
           street: this.address.street,
           houseNumber: this.address.houseNumber,
           zipCode: this.address.zipCode},
-        ratingList: this.ratingList
+        ratingList: this.ratingList,
+        price: this.price,
       },
-      console.log(this.ratingList),
       {headers: {'Content-type': 'application/json'}})
     },
 
@@ -140,7 +139,7 @@ export default {
     border: none;
     display: inline-block;
     width: 70%;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-left: 80px;
     margin-right: 80px;
     margin-bottom: 80px;
@@ -148,7 +147,6 @@ export default {
   }
   img{
     width: 100%;
-
   }
 
   .name {

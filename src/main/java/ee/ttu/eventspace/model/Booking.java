@@ -20,7 +20,6 @@ public class Booking {
     private Long id;
     private Date startDate;
     private Date endDate;
-    private BigDecimal price;
     @OneToOne
     private User customer;
     @ManyToOne
@@ -28,10 +27,9 @@ public class Booking {
     @JsonIgnore
     private Place place;
 
-    public Booking(Date startDate,Date endDate, BigDecimal price) {
+    public Booking(Date startDate,Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.price = price;
     }
 
     public Booking() {
@@ -56,14 +54,6 @@ public class Booking {
     public Date getEndDate() { return endDate; }
 
     public void setEndDate(Date endDate) { this.endDate = endDate; }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
     public User getCustomer() {
         return customer;

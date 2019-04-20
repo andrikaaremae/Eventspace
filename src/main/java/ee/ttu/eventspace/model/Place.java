@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,7 @@ public class Place {
     private Integer maxCapacity;
     private String category;
     private Long[] ratingList;
+    private BigDecimal price;
     @Embedded
     private Address address;
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
@@ -28,13 +30,14 @@ public class Place {
     @OneToOne
     private User owner;
 
-    public Place(String name, String description, Integer maxCapacity, Address address, String category, Long[] ratingList) {
+    public Place(String name, String description, Integer maxCapacity, Address address, String category, Long[] ratingList, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.maxCapacity = maxCapacity;
         this.address = address;
         this.category = category;
         this.ratingList = ratingList;
+        this.price = price;
     }
 
     // should be used
@@ -127,6 +130,10 @@ public class Place {
         this.ratingList = ratingList;
     }
 
+    public BigDecimal getPrice() {return price;}
+
+    public void setPrice(BigDecimal price) {this.price = price;}
+
     @Override
     public String toString() {
         return "Place{" +
@@ -138,6 +145,7 @@ public class Place {
                 ", bookings=" + bookings +
                 ", owner=" + owner +
                 ", ratingList=" + ratingList +
+                ", price=" + price +
                 '}';
     }
 }
