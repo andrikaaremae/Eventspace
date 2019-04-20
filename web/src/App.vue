@@ -1,11 +1,11 @@
 <template>
   <div id="app">
       <ul>
-        <router-link class="imgclick" :to="{ name: 'HelloWorld' }"><img src="./assets/logo.png" height="50" width="160"/></router-link>
+        <router-link class="imgclick" :to="{ name: 'HomePage' }"><img src="./assets/logo.png" height="50" width="160"/></router-link>
         <li><router-link class="router" :to="{ name: 'About' }">About</router-link></li>
         <li><router-link class="router" :to="{ name: 'AllPlaces' }">Places</router-link></li>
         <li><router-link class="router" :to="{ name: 'Save' }">Add Place</router-link></li>
-        <li><router-link class="router" :to="{ name: 'HelloWorld' }">Home</router-link></li>
+        <li><router-link class="router" :to="{ name: 'HomePage' }">Home</router-link></li>
         <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>
         <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
         <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>

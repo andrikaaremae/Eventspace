@@ -63,6 +63,7 @@ public class JwtTokenProvider {
                     .signWith(SignatureAlgorithm.HS256, secretKey)
                     .compact();
     }
+
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
