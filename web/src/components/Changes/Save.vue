@@ -2,38 +2,47 @@
   <div class="save">
     <form method="post" class="" @submit.prevent="postNow">
       <div class="container">
-        <h1>Earn money as a Eventspace host</h1>
+        <h1>Earn money as a Eventspace host!</h1>
         <p>Join thousands of hosts renting their space for meetings, events, and film and photo shoots.</p>
         <hr>
         <div>
           <h1>Rent your place</h1>
-          <div><b>Place Name</b></div>
-          <input placeholder="Enter Name" type="text" v-model="name" required>
-          <div><b>Category</b></div>
-          <select v-model="category">
-            <option v-for="category in categories" >{{category}}</option>
-          </select>
-          <div><b>Description</b></div>
-          <input type="text" placeholder="Enter Description" v-model="description" required>
-          <div><b>Price</b></div>
-          <input type="number" placeholder="Enter Price" v-model="price" required>
-          <div><b>Country</b></div>
-          <input type="text" placeholder="Enter Country" v-model="country" required>
-          <div><b>State</b></div>
-          <input type="text" placeholder="Enter State" v-model="state" required>
-          <div><b>City</b></div>
-          <input type="text" placeholder="Enter City" v-model="city" required>
-          <div><b>Street</b></div>
-          <input type="text" placeholder="Enter Street" v-model="street" required>
-          <div><b>House number</b></div>
-          <input type="text" placeholder="Enter House number" v-model="houseNumber" required>
-          <div><b>Zip Code</b></div>
-          <input type="text" placeholder="Enter Zip Code" v-model="zipCode" required>
-
-          </div>
-          <hr>
-          <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="submit" class="registerButton">Add Address</button>
+          <label>Place name
+            <input placeholder="Enter name" type="text" v-model="name" required>
+          </label>
+          <label>Category
+            <select v-model="category" required>
+              <option v-for="category in categories" :key="category">{{ category }}</option>
+            </select>
+          </label>
+          <label>Description
+            <input type="text" placeholder="Enter description" v-model="description" required>
+          </label>
+          <label>Price
+            <input type="number" placeholder="Enter price" v-model="price" required>
+          </label>
+          <label>Country
+            <country-select v-model="country" :country="country" country-name placeholder="Select country" top-country="Afghanistan" required/>
+          </label>
+          <label>State
+            <region-select v-model="region" :country="country" :region="region" country-name region-name placeholder="Select state" required/>
+          </label>
+          <label>City
+            <input type="text" placeholder="Enter city" v-model="city" required>
+          </label>
+          <label>Street
+            <input type="text" placeholder="Enter street" v-model="street" required>
+          </label>
+          <label>House number
+            <input type="text" placeholder="Enter house number" v-model="houseNumber" required>
+          </label>
+          <label>Postal code
+            <input type="text" placeholder="Enter zip code" v-model="zipCode" required>
+          </label>
+        </div>
+        <hr>
+        <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
+        <button type="submit" class="registerButton">Add your event space</button>
       </div>
     </form>
   </div>
@@ -42,49 +51,45 @@
 <script>
 import axios from 'axios'
 import authHeader from '../../services/auth-header.js'
-import json from '../../assets/Categories'
+import categoriesJson from '../../assets/Categories'
 
 export default {
   name: 'App',
   data () {
     return {
-      categories: json,
+      categories: categoriesJson,
       place: '',
       category: '',
       name: '',
       description: '',
       country: '',
-      state: '',
+      region: '',
       city: '',
       street: '',
       houseNumber: '',
       zipCode: '',
       show: true,
       ratingList: [],
-      price: '',
+      price: ''
     }
   },
   methods: {
     postNow () {
-      console.log(authHeader())
       axios.post(process.env.API_URL + '/places/edit',
         { name: this.name,
           category: this.category,
           description: this.description,
           address: {country: this.country,
-            state: this.state,
+            state: this.region,
             city: this.city,
             street: this.street,
             houseNumber: this.houseNumber,
             zipCode: this.zipCode},
-        ratingList: this.ratingList,
-        price: this.price},
+          ratingList: this.ratingList,
+          price: this.price},
         { headers: authHeader()
         }).then(response => window.location = '/#/places')
     }
-  },
-  mounted () {
-
   }
 }
 </script>
