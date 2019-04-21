@@ -1,6 +1,6 @@
 package ee.ttu.eventspace.service;
 
-import ee.ttu.eventspace.exception.CustomException;
+import ee.ttu.eventspace.exception.FailedAuthenticationException;
 import ee.ttu.eventspace.model.Role;
 import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.repository.UserRepository;
@@ -13,8 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +37,7 @@ public class UserService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
         } catch (AuthenticationException e) {
-            throw new CustomException("Username or password is wrong.", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new FailedAuthenticationException("Username or password is wrong.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 

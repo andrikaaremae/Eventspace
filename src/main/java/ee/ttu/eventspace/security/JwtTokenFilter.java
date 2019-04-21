@@ -1,6 +1,6 @@
 package ee.ttu.eventspace.security;
 
-import ee.ttu.eventspace.exception.CustomException;
+import ee.ttu.eventspace.exception.FailedAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,7 +27,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Authentication auth = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (CustomException e) {
+        } catch (FailedAuthenticationException e) {
             SecurityContextHolder.clearContext();
             response.sendError(e.getHttpStatus().value(), e.getMessage());
             return;
