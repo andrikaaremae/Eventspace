@@ -154,7 +154,6 @@ export default {
     margin-left: 80px;
     margin-right: 80px;
     margin-bottom: 80px;
-
   }
   img{
     height: 500px;
