@@ -29,7 +29,7 @@ export default {
       imageURL: '',
     }
   },
-  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price'],
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL'],
   mounted () {
     axios.get(process.env.API_URL + '/places/get/' + this.id, { headers: authHeader() }).then(response => {
       this.place = response.data,

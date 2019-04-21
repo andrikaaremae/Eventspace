@@ -2,9 +2,9 @@
 <div class="booking">
   <span class="date"><b>Date:</b> {{ startDate }} - {{ endDate }}</span><br>
   <span class="price"><b>Price:</b> {{ price }}€</span>
-  <span class="canBeBooked" v-if="customer == null">Can be booked.</span><br>
+  <span class="canBeBooked" v-if="localCustomer == null">Can be booked.</span><br>
   <span class="alreadyBooked" v-if="localCustomer != null">Booked by {{ this.localCustomer.username }}</span>
-  <form v-if="customer == null" @submit.prevent="book">
+  <form v-if="localCustomer == null" @submit.prevent="book">
     <input type="text" placeholder="Username" v-model="username">
     <button class="placeButton" type="submit">Book</button>
   </form>
@@ -27,32 +27,6 @@ export default {
   methods: {
     book() {
       this.localCustomer = {username: this.username}
-    },
-
-    dateDifference() {
-      getDatesBetween = (startDate, endDate) => {
-        const dates = [];
-
-        // Strip hours minutes seconds etc.
-        let currentDate = new Date(
-          startDate.getFullYear(),
-          startDate.getMonth(),
-          startDate.getDate()
-        );
-
-        while (currentDate <= endDate) {
-          dates.push(currentDate);
-
-          currentDate = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            currentDate.getDate() + 1, // Will increase month if over range
-          );
-        }
-        return dates;
-        console.log(dates)
-        console.log(startDate+"&"+endDate)
-      }
     }
   }
 }
@@ -61,6 +35,7 @@ export default {
 <style scoped>
   .booking {
     border: 1px solid;
+    width: 341px;
 
 }
   .canBeBooked {

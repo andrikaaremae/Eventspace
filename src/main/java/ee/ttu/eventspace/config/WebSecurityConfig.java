@@ -57,7 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .headers().frameOptions().disable() // for H2 console
             .and()
             .authorizeRequests()
-                //FULLYAUTHENTICATED
             .anyRequest().authenticated()
             .and()
             .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));

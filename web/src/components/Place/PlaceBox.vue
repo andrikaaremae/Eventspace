@@ -201,9 +201,11 @@ export default {
     width: 30%;
     margin-top: 20px;
   }
-
   .status {
     float: right;
     color: lightgreen;
+  }
+  .addBookingForm {
+    margin-top: 20px;
   }
 </style>

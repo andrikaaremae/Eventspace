@@ -10,15 +10,24 @@
         <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
         <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>
       </ul>
+    <li class="router">Logged in as: {{username}}</li>
     <router-view/>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
+
 export default {
   name: 'App',
+  data () {
+    return {
+      username: '',
+    }
+  },
   computed: {
     isLoggedIn () {
+      axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data });
       return this.$store.state.authentication.status.loggedIn
     }
   },
@@ -26,7 +35,7 @@ export default {
     $route (to, from) {
       this.$store.dispatch('alert/clear')
     }
-  }
+  },
 }
 </script>
 
