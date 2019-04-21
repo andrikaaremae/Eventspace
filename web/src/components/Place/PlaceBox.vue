@@ -1,7 +1,7 @@
 <template>
   <div class="place">
 
-      <img src="../../assets/placepic.jpg"  >
+      <img :src="imageURL" />
 
     <section>
       <div class="name" align="left"><h1>{{ name }}</h1></div>
@@ -77,7 +77,7 @@ export default {
       statusText: 'Add rating'
     }
   },
-  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price'],
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL'],
   mounted () {
     axios.get(process.env.API_URL + '/places/get/' + this.id).then(response => {
       this.place = response.data
@@ -121,6 +121,7 @@ export default {
           zipCode: this.address.zipCode},
         ratingList: this.ratingList,
         price: this.price,
+        imageURL: this.imageURL,
       },
       {headers: {'Content-type': 'application/json'}})
     },
@@ -146,7 +147,8 @@ export default {
 
   }
   img{
-    width: 100%;
+    height: 500px;
+    width: 1100px;
   }
 
   .name {

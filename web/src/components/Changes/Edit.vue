@@ -29,6 +29,8 @@
           <input type="text" placeholder="Enter House number" v-model="houseNumber" required>
           <div><b>Zip Code</b></div>
           <input type="text" placeholder="Enter Zip Code" v-model="zipCode" required>
+          <div><b>Image URL</b></div>
+          <input type="text" placeholder="Enter image URL" v-model="imageURL" required>
         </div>
         <hr>
         <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
@@ -59,6 +61,7 @@ export default {
       zipCode: '',
       show: true,
       price: '',
+      imageURL: ''
     }
   },
   props: ['ratingList'],
@@ -76,7 +79,8 @@ export default {
             houseNumber: this.houseNumber,
             zipCode: this.zipCode},
           ratingList: this.ratingList,
-          price: this.price},
+          price: this.price,
+          imageURL: this.imageURL},
         { headers: authHeader()
         }).then(response => window.location = '/#/place?id=' + this.$route.query.id)
     }
@@ -94,7 +98,8 @@ export default {
       this.houseNumber = this.place.address.houseNumber,
       this.zipCode = this.place.address.zipCode,
       this.ratingList = this.place.ratingList,
-        this.price = this.place.price
+        this.price = this.place.price,
+        this.imageURL = this.place.imageURL
     })
   }
 }

@@ -39,6 +39,9 @@
           <label>Postal code
             <input type="text" placeholder="Enter zip code" v-model="zipCode" required>
           </label>
+          <label>Image URL
+            <input type="text" placeholder="Enter image URL" v-model="imageURL" required>
+          </label>
         </div>
         <hr>
         <p>By adding an Eventspace you agree to our <a href="#">Terms & Privacy</a>.</p>
@@ -70,7 +73,8 @@ export default {
       zipCode: '',
       show: true,
       ratingList: [],
-      price: ''
+      price: '',
+      imageURL: '',
     }
   },
   methods: {
@@ -86,7 +90,8 @@ export default {
             houseNumber: this.houseNumber,
             zipCode: this.zipCode},
           ratingList: this.ratingList,
-          price: this.price},
+          price: this.price,
+        imageURL: this.imageURL},
         { headers: authHeader()
         }).then(response => window.location = '/#/places')
     }

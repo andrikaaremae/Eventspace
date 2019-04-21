@@ -1,6 +1,6 @@
 <template>
   <div class="place">
-    <div class="photo"><img src="../../assets/house.jpg" alt="Photo" height="160px" width="240px"></div>
+    <div class="photo"><img :src="imageURL"></div>
     <div class="name"><h1>{{ name }}</h1></div>
     <div class="category"> <h4>{{ category }}</h4></div>
     <div class="price"> <h4>Price: {{price}}€</h4></div>
@@ -25,10 +25,11 @@ export default {
       rating: null,
       ratingToShow: null,
       ratingList: [],
-      place: ''
+      place: '',
+      imageURL: '',
     }
   },
-  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price'],
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL'],
   mounted () {
     axios.get(process.env.API_URL + '/places/get/' + this.id, { headers: authHeader() }).then(response => {
       this.place = response.data,
@@ -69,6 +70,7 @@ export default {
           zipCode: this.address.zipCode},
         ratingList: this.ratingList,
         price: this.price,
+        imageURL: this.imageURL,
       },
       {headers: authHeader()}).then(response => window.location.reload())
     },
@@ -115,7 +117,7 @@ export default {
     -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
     box-shadow: 0 1px 2px rgba(0,0,0,.2);
-    margin: 10px 0 10px 5px;
+    margin: 10px 0 10px 275px;
   }
   .placeButton:hover {
     background: whitesmoke;
@@ -128,7 +130,9 @@ export default {
   }
   img {
     border-radius: 20px;
-    margin-top: 35px;
+    margin: 40px 0 0 50px;
+    height: 175px;
+    width: 250px;
   }
 
 </style>

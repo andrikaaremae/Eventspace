@@ -23,6 +23,7 @@ public class Place {
     private String category;
     private Long[] ratingList;
     private BigDecimal price;
+    private String imageURL;
     @Embedded
     private Address address;
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
@@ -30,7 +31,7 @@ public class Place {
     @OneToOne
     private User owner;
 
-    public Place(String name, String description, Integer maxCapacity, Address address, String category, Long[] ratingList, BigDecimal price) {
+    public Place(String name, String description, Integer maxCapacity, Address address, String category, Long[] ratingList, BigDecimal price, String imageURL) {
         this.name = name;
         this.description = description;
         this.maxCapacity = maxCapacity;
@@ -38,6 +39,7 @@ public class Place {
         this.category = category;
         this.ratingList = ratingList;
         this.price = price;
+        this.imageURL = imageURL;
     }
 
     // should be used
@@ -134,6 +136,10 @@ public class Place {
 
     public void setPrice(BigDecimal price) {this.price = price;}
 
+    public String getImageURL() { return imageURL; }
+
+    public void setImageURL(String imageURL) { this.imageURL = imageURL; }
+
     @Override
     public String toString() {
         return "Place{" +
@@ -146,6 +152,7 @@ public class Place {
                 ", owner=" + owner +
                 ", ratingList=" + ratingList +
                 ", price=" + price +
+                ", imageURL=" + imageURL +
                 '}';
     }
 }
