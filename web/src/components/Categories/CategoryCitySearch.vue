@@ -1,6 +1,6 @@
 <template>
   <div class="categories">
-    <PlaceBoxes v-for="place in places" v-if="place.category==category && place.address.city==city" v-bind="place" v-bind:key="place.id"></PlaceBoxes>
+    <PlaceBoxes v-for="place in places"  v-if="place.address.city==city" v-bind="place" v-bind:key="place.id"></PlaceBoxes>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted () {
-    axios.get(process.env.API_URL + '/places/getCategory').then(response => { this.places = response.data })
+    axios.get(process.env.API_URL + '/places/getCategory/' + this.category ).then(response => { this.places = response.data })
   }
 }
 </script>

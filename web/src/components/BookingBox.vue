@@ -13,6 +13,8 @@
 
 <script>
 import axios from 'axios'
+
+
 export default {
   name: 'BookingBox',
   data () {
@@ -21,10 +23,36 @@ export default {
       localCustomer: this.customer
     }
   },
-  props: ['id', 'startDate','endDate', 'price', 'customer'],
+  props: ['id', 'startDate','endDate', 'customer', 'price'],
   methods: {
-    book () {
+    book() {
       this.localCustomer = {username: this.username}
+    },
+
+    dateDifference() {
+      getDatesBetween = (startDate, endDate) => {
+        const dates = [];
+
+        // Strip hours minutes seconds etc.
+        let currentDate = new Date(
+          startDate.getFullYear(),
+          startDate.getMonth(),
+          startDate.getDate()
+        );
+
+        while (currentDate <= endDate) {
+          dates.push(currentDate);
+
+          currentDate = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            currentDate.getDate() + 1, // Will increase month if over range
+          );
+        }
+        return dates;
+        console.log(dates)
+        console.log(startDate+"&"+endDate)
+      }
     }
   }
 }
@@ -33,6 +61,7 @@ export default {
 <style scoped>
   .booking {
     border: 1px solid;
+
 }
   .canBeBooked {
     color: green;
