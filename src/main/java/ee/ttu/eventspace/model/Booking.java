@@ -26,13 +26,23 @@ public class Booking {
     @JoinColumn
     @JsonIgnore
     private Place place;
+    private BigDecimal price;
 
-    public Booking(Date startDate,Date endDate) {
+    public Booking(Date startDate,Date endDate,BigDecimal price) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.price=price;
     }
 
     public Booking() {
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Long getId() {

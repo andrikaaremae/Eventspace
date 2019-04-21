@@ -58,6 +58,7 @@ import StarRating from 'vue-star-rating'
 import BookingBox from '../BookingBox'
 import axios from 'axios'
 import authHeader from '../../services/auth-header'
+import moment from 'moment'
 
 export default {
   name: 'App',
@@ -96,14 +97,23 @@ export default {
     })
   },
   methods: {
+
     addBooking () {
-      if (this.endDate < this.startDate) { return alert('Start date can not be greater than end date! ') } else {
+      let startDate = moment(this.startDate, "YYYY-MM-DD")
+      let endDate = moment(this.endDate, "YYYY-MM-DD")
+      let duration = moment.duration(endDate.diff(startDate));
+      let days = duration.asDays();
+
+      if (this.endDate < this.startDate) {
+        return alert('Start date can not be greater than end date! ') }
+      else {
         axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
           startDate: this.startDate,
           endDate: this.endDate,
+          price: this.price * days,
         },
         {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
-      }
+      }console.log(days)
     },
     addRating () {
       this.statusText = 'Voted!';
