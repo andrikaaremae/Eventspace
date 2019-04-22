@@ -98,25 +98,38 @@ export default {
         this.ratingToShow = 0
       }
     })
+    axios.get(process.env.API_URL + '/user/username').then(response =>
+    { this.username = response.data, axios.get(process.env.API_URL + '/user/getUser/'+this.username)
+      .then(response => { this.customer = response.data, console.log(this.customer.username)},);});
   },
   methods: {
 
     addBooking () {
-      let startDate = moment(this.startDate, "YYYY-MM-DD")
-      let endDate = moment(this.endDate, "YYYY-MM-DD")
+      let startDate = moment(this.startDate, "YYYY-MM-DD");
+      let endDate = moment(this.endDate, "YYYY-MM-DD");
       let duration = moment.duration(endDate.diff(startDate));
       let days = duration.asDays();
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth()+1;
+      let yyyy = today.getFullYear();
+      if(dd<10) {dd='0'+dd;}
+      if(mm<10) {mm='0'+mm;}
+      let now = yyyy+'-'+mm+'-'+dd;
 
-      if (this.endDate < this.startDate) {
-        return alert('Start date can not be greater than end date! ') }
+      if (this.endDate < this.startDate ) {
+        return alert('Start date can not be greater than end date!') }
+      if (this.startDate < now  ) {
+        return alert('Start date must be equal or greater than current date!') }
       else {
         axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
-          startDate: this.startDate,
-          endDate: this.endDate,
-          price: this.price * days,
-        },
-        {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
-      }console.log(days)
+            startDate: this.startDate,
+            endDate: this.endDate,
+            price: this.price * days,
+            customer: this.customer
+          },
+          {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
+      }
     },
     addRating () {
       this.statusText = 'Voted!';

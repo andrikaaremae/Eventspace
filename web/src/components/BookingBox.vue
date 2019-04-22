@@ -2,12 +2,7 @@
 <div class="booking">
   <span class="date"><b>Date:</b> {{ startDate }} - {{ endDate }}</span><br>
   <span class="price"><b>Price:</b> {{ price }}€</span>
-  <span class="canBeBooked" v-if="localCustomer == null">Can be booked.</span><br>
-  <span class="alreadyBooked" v-if="localCustomer != null">Booked by {{ this.localCustomer.username }}</span>
-  <form v-if="localCustomer == null" @submit.prevent="book">
-    <input type="text" placeholder="Username" v-model="username">
-    <button class="placeButton" type="submit">Book</button>
-  </form>
+  <span class="price"><b>Booked by:</b> {{ customer.username }}</span>
 </div>
 </template>
 
@@ -18,17 +13,10 @@ import axios from 'axios'
 export default {
   name: 'BookingBox',
   data () {
-    return {
-      username: '',
-      localCustomer: this.customer
-    }
+    return {}
   },
-  props: ['id', 'startDate','endDate', 'customer', 'price'],
-  methods: {
-    book() {
-      this.localCustomer = {username: this.username}
-    }
-  }
+  props: ['id', 'startDate','endDate', 'price','customer'],
+
 }
 </script>
 
