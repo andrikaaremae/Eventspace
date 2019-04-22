@@ -23,8 +23,8 @@
         </div>
       </section>
       <section>
-        <div align="right">
-        <button  v-on:click="deletePlace"  class="placeButton">Delete</button>
+        <div v-if="username==owner.username" align="right">
+        <button v-on:click="deletePlace"  class="placeButton">Delete</button>
         <router-link  class="placeButton" :to="{ name: 'Edit', query: {id: id}} ">Edit</router-link>
         </div>
       </section>
@@ -75,11 +75,14 @@ export default {
       ratingToShow: null,
       place: '',
       ratingList: [0],
-      statusText: 'Add rating'
+      statusText: 'Add rating',
+      username: '',
+
     }
   },
-  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL'],
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL', 'owner'],
   mounted () {
+    axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data });
     axios.get(process.env.API_URL + '/places/get/' + this.id).then(response => {
       this.place = response.data
       this.ratingList = this.place.ratingList

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -41,4 +42,7 @@ public class UserController {
     public String currentUserName(Principal principal) {
         return principal.getName();
     }
+
+    @GetMapping("/getUser/{username}")
+    public Optional<User> getByUsername(@PathVariable String username) { return userService.findByUsername(username); }
 }

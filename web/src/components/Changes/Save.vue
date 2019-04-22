@@ -75,7 +75,19 @@ export default {
       ratingList: [],
       price: '',
       imageURL: '',
+
+      username: '',
+      owner:'',
     }
+  },
+  mounted() {
+
+    //Molemad tootavad
+    axios.get(process.env.API_URL + '/user/username').then(response =>
+    { this.username = response.data, axios.get(process.env.API_URL + '/user/getUser/'+this.username)
+      .then(response => { this.owner = response.data},);});
+
+
   },
   methods: {
     postNow () {
@@ -91,7 +103,8 @@ export default {
             zipCode: this.zipCode},
           ratingList: this.ratingList,
           price: this.price,
-        imageURL: this.imageURL},
+        imageURL: this.imageURL,
+        owner: this.owner},
         { headers: authHeader()
         }).then(response => window.location = '/#/places')
     }

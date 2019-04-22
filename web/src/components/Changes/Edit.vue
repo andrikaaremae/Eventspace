@@ -64,7 +64,7 @@ export default {
       imageURL: ''
     }
   },
-  props: ['ratingList'],
+  props: ['ratingList', 'owner'],
   methods: {
     editNow () {
       axios.post(process.env.API_URL + '/places/edit',
@@ -80,7 +80,8 @@ export default {
             zipCode: this.zipCode},
           ratingList: this.ratingList,
           price: this.price,
-          imageURL: this.imageURL},
+          imageURL: this.imageURL,
+          owner: this.owner},
         { headers: authHeader()
         }).then(response => window.location = '/#/place?id=' + this.$route.query.id)
     }
@@ -99,7 +100,8 @@ export default {
       this.zipCode = this.place.address.zipCode,
       this.ratingList = this.place.ratingList,
         this.price = this.place.price,
-        this.imageURL = this.place.imageURL
+        this.imageURL = this.place.imageURL,
+      this.owner = this.place.owner
     })
   }
 }
