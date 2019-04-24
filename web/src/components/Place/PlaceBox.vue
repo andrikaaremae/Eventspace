@@ -29,10 +29,10 @@
         </div>
       </section>
     </section>
-    <aside>
+    <aside class="bookingBoxAside">
       <h1>Book your stay</h1>
       <hr>
-      <section >
+      <section>
       <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
       <div class="addBookingForm">
         <form method="post" @submit.prevent="addBooking">
@@ -80,9 +80,8 @@ export default {
 
     }
   },
-  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL', 'owner'],
+  props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL', 'owner', 'username'],
   mounted () {
-    axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data });
     axios.get(process.env.API_URL + '/places/get/' + this.id).then(response => {
       this.place = response.data
       this.ratingList = this.place.ratingList
@@ -148,6 +147,7 @@ export default {
         ratingList: this.ratingList,
         price: this.price,
         imageURL: this.imageURL,
+        owner:this.owner,
       },
       {headers: {'Content-type': 'application/json'}})
     },
@@ -212,6 +212,7 @@ export default {
   }
   aside {
     border: 1px solid;
+    border-radius: 5px;
     float: right;
     margin: 0 1.5%;
     width: 30%;
@@ -224,4 +225,9 @@ export default {
   .addBookingForm {
     margin-top: 20px;
   }
+  .bookingBoxAside {
+    width: auto;
+    align-content: center;
+  }
+
 </style>

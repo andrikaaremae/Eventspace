@@ -21,36 +21,36 @@
     <div class="background">
       <h1 class="categoriesHeading">Event categories</h1>
       <div>
-        <li>
+        <section>
           <router-link class="router" :to="{ name: 'Categories', query: {category: 'Birthday Party'}}">
         <ul><img src="../assets/Birthday.jpg"/></ul>
         <ul><h2 class="categoriesHeading">Birthday Party</h2></ul>
           </router-link>
-        </li>
+        </section>
       </div>
       <div>
-        <li>
+        <section>
           <router-link class="router" :to="{ name: 'Categories', query: {category: 'Meeting'}}">
           <ul><img src="../assets/Meeting.jpg"/></ul>
           <ul><h2 class="categoriesHeading">Meeting</h2></ul>
           </router-link>
-        </li>
+        </section>
       </div>
       <div>
-        <li>
+        <section>
           <router-link class="router" :to="{ name: 'Categories', query: {category: 'Performance'}}">
           <ul><img src="../assets/Performance.jpg"/></ul>
           <ul><h2 class="categoriesHeading">Performance</h2></ul>
           </router-link>
-        </li>
+        </section>
       </div>
       <div>
-        <li>
+        <section>
           <router-link class="router" :to="{ name: 'Categories', query: {category: 'Wedding'}}">
           <ul><img src="../assets/Wedding.jpg"/></ul>
           <ul><h2 class="categoriesHeading">Wedding</h2></ul>
           </router-link>
-        </li>
+        </section>
       </div>
     </div>
   </div>
@@ -107,7 +107,7 @@ import json from '@/assets/Categories'
     font-size: 38px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     color: black;
-    padding-left: 27px;
+    text-align: center;
   }
   select {
     height: 40px;
@@ -119,8 +119,9 @@ import json from '@/assets/Categories'
   }
   img {
     height: 200px;
-    width: 250px;
+    width: 75%;
     border-radius: 20px;
+    margin-left: 45px;
   }
   li {
     list-style: none;
@@ -128,8 +129,6 @@ import json from '@/assets/Categories'
     margin-right: 0;
   }
   ul {
-    margin-left:45px;
-    margin-right: 0;
     background-color: white;
   }
   .searchboxes {
@@ -165,5 +164,9 @@ import json from '@/assets/Categories'
   }
   .searchBtn:hover {
     background: lightgrey;
+  }
+  section {
+    float: left;
+    width: 25%;
   }
 </style>

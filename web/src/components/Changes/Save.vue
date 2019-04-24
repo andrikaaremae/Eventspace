@@ -83,9 +83,9 @@ export default {
   mounted() {
 
     //Molemad tootavad
-    axios.get(process.env.API_URL + '/user/username').then(response =>
-    { this.username = response.data, axios.get(process.env.API_URL + '/user/getUser/'+this.username)
-      .then(response => { this.owner = response.data},);});
+    axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data,
+      axios.get(process.env.API_URL + '/user/getUser/'+this.username)
+      .then(response => { this.owner = response.data, console.log(this.owner.username)},);});
 
 
   },

@@ -25,9 +25,11 @@ export default {
       username: '',
     }
   },
+  mounted() {
+    axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data });
+  },
   computed: {
     isLoggedIn () {
-      axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data });
       return this.$store.state.authentication.status.loggedIn
     }
   },
