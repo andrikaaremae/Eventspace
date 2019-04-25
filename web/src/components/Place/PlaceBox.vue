@@ -107,6 +107,12 @@ export default {
       let endDate = moment(this.endDate, "YYYY-MM-DD");
       let duration = moment.duration(endDate.diff(startDate));
       let days = duration.asDays();
+      let bookedDays;
+      if (days == 0) {
+         bookedDays = 1;
+      }else {
+         bookedDays = days;
+      }
       let today = new Date();
       let dd = today.getDate();
       let mm = today.getMonth()+1;
@@ -123,7 +129,7 @@ export default {
         axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
             startDate: this.startDate,
             endDate: this.endDate,
-            price: this.price * days,
+            price: this.price * bookedDays,
             customer: this.customer
           },
           {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
