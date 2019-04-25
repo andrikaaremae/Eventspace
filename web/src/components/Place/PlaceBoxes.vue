@@ -21,7 +21,6 @@ export default {
     return {
       owner: null,
       date: null,
-      customer: null,
       rating: null,
       ratingToShow: null,
       ratingList: [],

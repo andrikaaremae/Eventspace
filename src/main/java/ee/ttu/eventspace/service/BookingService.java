@@ -51,4 +51,6 @@ public class BookingService {
         booking.setCustomer(customer);
         bookingRepository.save(booking);
     }
+
+    public void deleteById(Long id){bookingRepository.deleteById(id);}
 }

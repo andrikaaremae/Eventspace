@@ -6,14 +6,7 @@ import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,5 +41,9 @@ public class BookingController {
     @PatchMapping("/setCustomer/{id}")
     public void setCustomer(@PathVariable Long id, @RequestBody User customer) {
         bookingService.book(id, customer);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteBooking (@PathVariable ("id") Long id){bookingService.deleteById(id);
     }
 }

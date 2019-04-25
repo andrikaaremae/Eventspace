@@ -3,15 +3,14 @@
 
       <img :src="imageURL" />
 
-    <section>
+    <section class="infoSection">
       <div class="name" align="left"><h1>{{ name }}</h1></div>
       <section>
         <span class="address"  style="float:left">{{ address.country }}, {{ address.state}}, {{ address.city}}, {{ address.street}}, {{ address.houseNumber }}</span>
-        <span style="float:right"><star-rating :show-rating="false" :star-size="20" :rating="this.ratingToShow" :read-only="true" :increment="1"></star-rating></span>
+        <span class="rating"><star-rating :show-rating="false" :star-size="20" :rating="this.ratingToShow" :read-only="true" :increment="1"></star-rating></span>
       </section>
 
-      <section>
-        <hr width="120%">
+      <section class="infoSection">
         <div class="description" align="left"><h3>About the Space</h3>{{ description }}</div>
         <div class="category" align="left"><h3>Available for </h3>{{ category }}</div>
         <div class="price" align="left"><h3>Price </h3>{{price}}€ one night</div>
@@ -34,7 +33,7 @@
       <hr>
       <section>
       <div class="bookingBox"><BookingBox v-for="booking in bookings" v-bind="booking" v-bind:key="booking.id">></BookingBox></div>
-      <div class="addBookingForm">
+      <div>
         <form method="post" @submit.prevent="addBooking">
           <label>
             Start Date:
@@ -99,7 +98,7 @@ export default {
     })
     axios.get(process.env.API_URL + '/user/username').then(response =>
     { this.username = response.data, axios.get(process.env.API_URL + '/user/getUser/'+this.username)
-      .then(response => { this.customer = response.data, console.log(this.customer.username)},);});
+      .then(response => { this.customer = response.data},);});
   },
   methods: {
 
@@ -154,7 +153,7 @@ export default {
 
     deletePlace () {
       axios.delete(process.env.API_URL + '/places/delete/' + this.id,
-        {headers: authHeader()}).then(response => window.location = 'http://localhost:8081/#/places')
+        {headers: authHeader()}).then(response => window.location.reload())
     }
 
   }
@@ -166,10 +165,7 @@ export default {
     border: none;
     display: inline-block;
     width: 70%;
-    margin-top: 20px;
-    margin-left: 80px;
-    margin-right: 80px;
-    margin-bottom: 80px;
+    margin: 20px 80px 80px 80px;
   }
   img{
     height: 500px;
@@ -218,16 +214,15 @@ export default {
     width: 30%;
     margin-top: 20px;
   }
-  .status {
-    float: right;
-    color: lightgreen;
-  }
-  .addBookingForm {
-    margin-top: 20px;
-  }
   .bookingBoxAside {
-    width: auto;
-    align-content: center;
+    width: 400px;
+  }
+  .infoSection {
+    width: 50%;
+  }
+  .rating {
+    float: left;
+    margin-top: 10px;
   }
 
 </style>
