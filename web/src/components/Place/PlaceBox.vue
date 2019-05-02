@@ -36,6 +36,7 @@
         </div>
       </section>
       <section>
+
         <div v-if="username==owner.username" align="right">
           <button v-on:click="deletePlace"  class="placeButton">Delete</button>
           <router-link  class="placeButton" :to="{ name: 'Edit', query: {id: id}} ">Edit</router-link>

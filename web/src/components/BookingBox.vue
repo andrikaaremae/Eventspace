@@ -1,8 +1,8 @@
 <template>
 <section class="booking">
-  <span class="date"><b>Date:</b> {{ startDate }} - {{ endDate }}</span><br>
-  <span class="price"><b>Price:</b> {{ price }}€</span><br>
-  <span class="price"><b>Booked by:</b> {{ customer.username }}</span><br>
+  <span class="value" ><b>Date:</b> {{ startDate }} - {{ endDate }}</span><br>
+  <span class="value" ><b>Price:</b> {{ price }}€</span><br>
+  <span class="value" ><b>Booked by:</b> {{ customer.username }}</span><br>
   <button v-on:click="deleteBooking"  class="bookingButton">Delete</button>
 </section>
 </template>
@@ -34,9 +34,11 @@ export default {
 
 <style scoped>
   .booking {
+
     border: 1px solid;
     border-radius: 5px;
-    width: 100%;
+    width: 150%;
+    margin-bottom: 10px;
 }
   .bookingButton {
     display: inline-block;
@@ -63,6 +65,10 @@ export default {
     background: whitesmoke;
   }
 
+  .value{
+    margin-left: 10px;
+    float: left;
+  }
 
 
 </style>

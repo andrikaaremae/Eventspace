@@ -40,45 +40,11 @@ export default {
           total += this.ratingList[i]
         }
         let avg = total / this.ratingList.length
-
         this.ratingToShow = avg.toFixed(0)
       } else {
         this.ratingToShow = 0
       }
     })
-  },
-  methods: {
-    addBooking () {
-      axios.post(process.env.API_URL + '/bookings/save/' + this.id, {
-        date: this.date,
-      },
-      {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
-    },
-    addRating () {
-      this.ratingList.push(this.rating),
-      axios.post(process.env.API_URL + '/places/edit', {
-        id: this.id,
-        name: this.name,
-        category: this.category,
-        description: this.description,
-        address: {country: this.address.country,
-          state: this.address.state,
-          city: this.address.city,
-          street: this.address.street,
-          houseNumber: this.address.houseNumber,
-          zipCode: this.address.zipCode},
-        ratingList: this.ratingList,
-        price: this.price,
-        imageURL: this.imageURL,
-      },
-      {headers: authHeader()}).then(response => window.location.reload())
-    },
-
-    deletePlace () {
-      axios.delete(process.env.API_URL + '/places/delete/' + this.id,
-        {headers: authHeader()}).then(response => window.location.reload())
-    }
-
   }
 }
 </script>
@@ -91,7 +57,6 @@ export default {
     margin: 10px 0 10px 0;
     border-radius: 10px;
     background-image: url('../../assets/AsfaltBackground.png');
-
   }
 
   .name {
@@ -121,12 +86,15 @@ export default {
   .placeButton:hover {
     background: whitesmoke;
   }
+
   router-link {
     background-color: darkred;
   }
+
   h1{
     color: black;
   }
+
   img {
     border-radius: 20px;
     margin: 40px 0 0 50px;
