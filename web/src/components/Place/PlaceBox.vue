@@ -30,7 +30,7 @@
         <div class="price" align="left"><h3>Price </h3>{{price}}€ one night</div>
         <div align="left">
           <form method="post" @submit.prevent="addRating"><h4>Rate your stay</h4>
-            <star-rating star-size="20" onclick="submit" v-model="rating"></star-rating>
+            <star-rating star-size="20" v-model="rating"></star-rating>
             <button class="placeButton">{{statusText}}</button>
           </form>
         </div>
@@ -101,26 +101,30 @@
     },
     props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL', 'owner', 'username', 'bookingList'],
     mounted () {
-      axios.get(process.env.API_URL + '/places/get/' + this.id).then(response => {
-        this.place = response.data
-        this.ratingList = this.place.ratingList
-        console.log(this.ratingList)
+
+      axios.get(process.env.API_URL + '/ratings/getAll').then(response => {
+        this.ratingList = response.data
         if (this.ratingList && this.ratingList.length) {
           let total = 0
           for (let i = 0; i < this.ratingList.length; i++) {
-            total += this.ratingList[i]
+            total += this.ratingList[i].rating
           }
           let avg = total / this.ratingList.length
           this.ratingToShow = avg.toFixed(0)
         } else {
           this.ratingToShow = 0
-        }
-      })
+        }})
+
       axios.get(process.env.API_URL + '/user/username').then(response =>
       { this.username = response.data,
         axios.get(process.env.API_URL + '/user/getUser/'+this.username)
           .then(response => { this.customer = response.data},);});
-      axios.get(process.env.API_URL + '/bookings/getAll/' + this.$route.query.id , { headers: authHeader() }).then(response => { this.bookingList = response.data })
+      axios.get(process.env.API_URL + '/bookings/getAll/' + this.$route.query.id , { headers: authHeader() })
+        .then(response => { this.bookingList = response.data })
+
+      // axios.get(process.env.API_URL + '/user/username').then(response =>
+      // { this.username = response.data, axios.get(process.env.API_URL + '/ratings/getUser/'+this.username)
+      //   .then(response => { this.ratedUser = response.data, console.log('PEDE')},);});
     },
     methods: {
 
@@ -191,26 +195,13 @@
         }
 
       },
-      addRating () {
+      addRating() {
         this.statusText = 'Voted!';
-        this.ratingList.push(this.rating),
-          axios.post(process.env.API_URL + '/places/edit', {
-              id: this.id,
-              name: this.name,
-              category: this.category,
-              description: this.description,
-              address: {country: this.address.country,
-                state: this.address.state,
-                city: this.address.city,
-                street: this.address.street,
-                houseNumber: this.address.houseNumber,
-                zipCode: this.address.zipCode},
-              ratingList: this.ratingList,
-              price: this.price,
-              imageURL: this.imageURL,
-              owner:this.owner,
-            },
-            {headers: {'Content-type': 'application/json'}})
+        axios.post(process.env.API_URL + '/ratings/save/' + this.id, {
+            rating: this.rating,
+            customer: this.customer,
+          },
+          {headers: {'Content-type': 'application/json'}})
       },
 
       deletePlace () {
