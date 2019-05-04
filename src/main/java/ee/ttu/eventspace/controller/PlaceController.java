@@ -41,6 +41,11 @@ public class PlaceController {
         return placeService.findByCategoryAndCity(category, city);
     }
 
+    @GetMapping("getCitiesByCategory/{category}")
+    public List<String> findDistinctCitiesWithCategory(@PathVariable String category) {
+        return placeService.findDistinctCitiesWithCategory(category);
+    }
+
     @PostMapping("/add")
     public Place add(@RequestBody Place place) {
         return placeService.save(place);

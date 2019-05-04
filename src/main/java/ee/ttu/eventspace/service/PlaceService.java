@@ -38,5 +38,9 @@ public class PlaceService {
     public List<Place> findByCategoryAndCity(String category, String city) {
         return placeRepository.findByCategoryAndAddressCity(category, city);
     }
+
+    public List<String> findDistinctCitiesWithCategory(String category) {
+        return placeRepository.findDistinctCitiesWithCategory(category);
+    }
 }
 
