@@ -36,6 +36,11 @@ public class PlaceController {
         return placeService.findByCategory(category);
     }
 
+    @GetMapping("getAll/category={category}&city={city}")
+    public List<Place> findByCategoryAndCity(@PathVariable("category") String category, @PathVariable("city") String city) {
+        return placeService.findByCategoryAndCity(category, city);
+    }
+
     @PostMapping("/add")
     public Place add(@RequestBody Place place) {
         return placeService.save(place);

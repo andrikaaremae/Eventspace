@@ -35,9 +35,8 @@ public class PlaceService {
 
     public Place update(Place place) {return placeRepository.save(place);}
 
-    public List<Place>findAllByCategoryAndMaxCapacityLessThanEqual(String category, Integer maxCapacity) {
-        return placeRepository.findAllByCategoryAndMaxCapacityLessThanEqual(category, maxCapacity);
-    };
-
+    public List<Place> findByCategoryAndCity(String category, String city) {
+        return placeRepository.findByCategoryAndAddressCity(category, city);
+    }
 }
 
