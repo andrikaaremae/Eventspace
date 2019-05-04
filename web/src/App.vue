@@ -9,14 +9,14 @@
         <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>
         <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
         <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>
+        <li v-if="isLoggedIn" class="router">Logged in as: {{ username }}</li>
       </ul>
-    <li class="router">Logged in as: {{username}}</li>
     <router-view/>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -25,8 +25,8 @@ export default {
       username: '',
     }
   },
-  mounted() {
-    axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data });
+  mounted () {
+    axios.get(process.env.API_URL + '/user/username').then(response => { this.username = response.data })
   },
   computed: {
     isLoggedIn () {

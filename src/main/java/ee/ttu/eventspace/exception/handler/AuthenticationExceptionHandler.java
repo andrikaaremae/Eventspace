@@ -1,4 +1,4 @@
-package ee.ttu.eventspace.security;
+package ee.ttu.eventspace.exception.handler;
 
 import ee.ttu.eventspace.exception.FailedAuthenticationException;
 import org.springframework.http.ResponseEntity;
