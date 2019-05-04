@@ -15,7 +15,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     List<Place> findByCategoryAndAddressCity(String category, String city);
 
-    @Query("SELECT DISTINCT p.city FROM Place p WHERE p.category = (:category)")
+    @Query("SELECT DISTINCT p.address.city FROM Place p WHERE p.category = ?1")
     List<String> findDistinctCitiesWithCategory(String category);
 
 }
