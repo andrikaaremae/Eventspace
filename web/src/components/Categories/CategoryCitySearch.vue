@@ -1,6 +1,6 @@
 <template>
   <div class="categories">
-    <PlaceBoxes v-for="place in places"  v-if="place.address.city==city" v-bind="place" v-bind:key="place.id"></PlaceBoxes>
+    <PlaceBoxes v-for="place in places" v-bind="place" v-bind:key="place.id"></PlaceBoxes>
   </div>
 </template>
 
@@ -20,8 +20,8 @@ export default {
       city: this.$route.query.city
     }
   },
-  mounted () {
-    axios.get(process.env.API_URL + '/places/getCategory/' + this.category ).then(response => { this.places = response.data })
+  created () {
+    axios.get(process.env.API_URL + `/places/getAll/category=${this.category}&city=${this.city}`).then(response => { this.places = response.data })
   }
 }
 </script>

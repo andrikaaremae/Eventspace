@@ -22,7 +22,7 @@ export default {
   },
   mounted () {
     axios.get(process.env.API_URL + '/places/getCategory/' + this.category).then(response => { this.places = response.data })
-}
+  }
 }
 </script>
 
