@@ -4,15 +4,15 @@
       <h1>Find your perfect event space</h1>
       <form>
         <div class="searchboxes">
-          <select id="categoryInput" ref="categoryInput" type="text" @change="onChange($event)">
+          <select id="categoryInput" ref="categoryInput" @change="getCities()">
             <option value="">Choose event category</option>
-            <option  v-for="category in categories" :value="category">{{category}}</option>
+            <option  v-for="category in categories" :value="category" :key="category">{{ category }}</option>
           </select>
-          <select id="cityInput" ref="cityInput" type="text">
+          <select id="cityInput" ref="cityInput">
             <option value="">Choose city</option>
-            <option  v-for="place in places"  v-if="place.category==change" :value="place.address.city">{{place.address.city}}</option>
+            <option v-for="city in cities" :value="city" :key="city">{{ city }}</option>
           </select>
-          <router-link class="searchBtn" :to="{ name: 'CategoryCitySearch', query: {category: change, city:city}}">
+          <router-link class="searchBtn" :to="{ name: 'CategoryCitySearch', query: {category: category, city: city}}">
             <div v-on:click="getFormValues">Search</div>
           </router-link>
         </div>
@@ -58,36 +58,28 @@
 
 <script>
 import json from '@/assets/Categories'
-  import axios from 'axios'
-  export default {
+import axios from 'axios'
+
+export default {
   name: 'App',
   data () {
     return {
       categories: json,
-      change: '',
       places: [],
+      cities: [],
       category: '',
-      city: '',
+      city: ''
     }
   },
   methods: {
     getFormValues () {
-      console.log(this.$refs.categoryInput.value, this.$refs.cityInput.value);
-      this.city = this.$refs.cityInput.value;
+      console.log(this.$refs.categoryInput.value, this.$refs.cityInput.value)
+      this.category = this.$refs.categoryInput.value
+      this.city = this.$refs.cityInput.value
     },
-    onChange () {
-      this.change = event.target.value;
-    },
-
-  },
-  mounted () {
-    if (localStorage.getItem('reloaded')) {
-      localStorage.removeItem('reloaded');
-    } else {
-      localStorage.setItem('reloaded', '1');
-      location.reload();
+    getCities () {
+      axios.get(`${process.env.API_URL}/places/getCitiesByCategory/${this.$refs.categoryInput.value}`).then(response => { this.cities = response.data })
     }
-    axios.get(process.env.API_URL + '/places/getAll').then(response => { this.places = response.data })
   }
 }
 </script>
