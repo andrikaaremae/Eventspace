@@ -1,6 +1,7 @@
 package ee.ttu.eventspace.repository;
 
 import ee.ttu.eventspace.model.Place;
+import ee.ttu.eventspace.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,9 +14,12 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     List<Place> findByCategory(String category);
 
+//    List<Place> findByOwner(Long userId);
+
     List<Place> findByCategoryAndAddressCity(String category, String city);
 
     @Query("SELECT DISTINCT p.address.city FROM Place p WHERE p.category = ?1")
     List<String> findDistinctCitiesWithCategory(String category);
 
+    List<Place> findByOwner(User username);
 }

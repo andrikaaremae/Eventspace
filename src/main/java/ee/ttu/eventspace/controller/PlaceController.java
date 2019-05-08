@@ -1,10 +1,12 @@
 package ee.ttu.eventspace.controller;
 
 import ee.ttu.eventspace.model.Place;
+import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.repository.BookingRepository;
 import ee.ttu.eventspace.repository.PlaceRepository;
 import ee.ttu.eventspace.service.BookingService;
 import ee.ttu.eventspace.service.PlaceService;
+import ee.ttu.eventspace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,5 +58,9 @@ public class PlaceController {
 
     @DeleteMapping("/delete/{id}")
     public void deletePlace (@PathVariable ("id") Long id){placeService.deleteById(id);
+    }
+    @GetMapping("/getMyPlaces/{username}")
+    public List<Place> findByOwner(@PathVariable String username) {
+        return placeService.findByOwner(username);
     }
 }

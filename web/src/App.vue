@@ -9,6 +9,7 @@
         <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>
         <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
         <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>
+        <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'YourPlace' }">Your places</router-link></li>
         <li v-if="isLoggedIn" class="router">Logged in as: {{ username }}</li>
       </ul>
     <router-view/>
