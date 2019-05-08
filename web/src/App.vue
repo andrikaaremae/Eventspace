@@ -2,15 +2,15 @@
   <div id="app">
       <ul>
         <router-link class="imgclick" :to="{ name: 'HomePage' }"><img src="./assets/logo.png" height="50" width="160"/></router-link>
+        <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>
+        <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
+        <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>
         <li><router-link class="router" :to="{ name: 'About' }">About</router-link></li>
         <li><router-link class="router" :to="{ name: 'AllPlaces' }">Places</router-link></li>
+        <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'YourPlace' }">Your places</router-link></li>
         <li><router-link class="router" :to="{ name: 'Save' }">Add Place</router-link></li>
         <li><router-link class="router" :to="{ name: 'HomePage' }">Home</router-link></li>
-        <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Register' }">Register</router-link></li>
-        <li><router-link v-if="!isLoggedIn" class="router" :to="{ name: 'Login' }">Login</router-link></li>
-        <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'Login' }">Logout</router-link></li>
-        <li><router-link v-if="isLoggedIn" class="router" :to="{ name: 'YourPlace' }">Your places</router-link></li>
-        <li v-if="isLoggedIn" class="router">Logged in as: {{ username }}</li>
+<!--        <li class="text" v-if="isLoggedIn" >Logged in as: {{ username }}</li>-->
       </ul>
     <router-view/>
   </div>
@@ -64,6 +64,13 @@ export default {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     align-content: center;
     font-size: large;
+  }
+
+  .text {
+    color: whitesmoke;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    align-content: center;
+    font-size: small;
   }
 
   ul {

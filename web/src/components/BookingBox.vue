@@ -17,11 +17,13 @@ export default {
   data () {
     return {
       loggedIn: '',
+      username:''
     }
   },
   props: ['id', 'startDate','endDate', 'price','customer'],
+
   mounted() {
-    axios.get(process.env.API_URL + '/user/username').then(response => { this.loggedIn = response.data});
+    axios.get(process.env.API_URL + '/user/username').then(response => { this.loggedIn = response.data})
   },
   methods: {
     deleteBooking () {

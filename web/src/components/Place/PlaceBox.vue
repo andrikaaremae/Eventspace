@@ -192,7 +192,7 @@
               price: this.price * bookedDays,
               customer: this.customer
             },
-            {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response))
+            {headers: authHeader()}).then(response => response.data).then(response => this.bookings.push(response)).then(response =>location.reload())
         }
 
       },

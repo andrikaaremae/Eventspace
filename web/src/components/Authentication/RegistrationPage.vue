@@ -87,6 +87,7 @@ export default {
     display: inline-block;
     box-sizing: border-box;
     text-align: left;
+    margin-top: 30px;
   }
   label {
     font-weight: bold;
