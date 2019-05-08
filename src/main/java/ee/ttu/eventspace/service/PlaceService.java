@@ -3,6 +3,7 @@ package ee.ttu.eventspace.service;
 import ee.ttu.eventspace.model.Place;
 import ee.ttu.eventspace.model.User;
 import ee.ttu.eventspace.repository.PlaceRepository;
+import ee.ttu.eventspace.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,13 @@ public class PlaceService {
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public  List<Place> findByOwner(String username) {
+        return placeRepository.findByOwner(userRepository.findByUsername(username));
+    }
 
     public Place save(Place place) {
         return placeRepository.save(place);

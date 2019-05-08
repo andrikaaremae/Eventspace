@@ -11,6 +11,7 @@ import LoginPage from '../components/Authentication/LoginPage'
 import Edit from '../components/Changes/Edit'
 import PlaceDetails from '../components/Place/PlaceDetails'
 import PlaceBoxes from '../components/Place/PlaceBoxes'
+import YourPlace from "../components/Place/YourPlace";
 Vue.use(Router)
 
 const router = new Router({
@@ -69,6 +70,11 @@ const router = new Router({
       path: '/placeBoxes',
       name: 'PlaceBoxes',
       component: PlaceBoxes
+    },
+    {
+      path: '/yourPlace',
+      name: 'YourPlace',
+      component: YourPlace
     }
   ]
 })
