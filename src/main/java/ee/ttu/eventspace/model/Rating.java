@@ -3,15 +3,15 @@ package ee.ttu.eventspace.model;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {"customer_id", "place_id"})})
+//@Table(uniqueConstraints={
+//        @UniqueConstraint(columnNames = {"customer_id", "place_id"})})
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer rating;
     @OneToOne
-    private User customer;
+    private User user;
     @OneToOne
     private Place place;
 
@@ -36,16 +36,16 @@ public class Rating {
 
     public void setRating(Integer rating) { this.rating = rating; }
 
-    public User getCustomer() { return customer; }
+    public User getUser() { return user; }
 
-    public void setCustomer(User customer) { this.customer = customer; }
+    public void setUser(User user) { this.user = user; }
 
     @Override
     public String toString() {
         return "Rating{" +
                 "place=" + place +
                 ", rating=" + rating +
-                ", customer=" + customer +
+                ", user=" + user +
                 '}';
     }
 }

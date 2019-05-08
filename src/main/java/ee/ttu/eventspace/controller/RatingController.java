@@ -19,8 +19,10 @@ public class RatingController {
     @GetMapping("/get/{id}")
     public Optional<Rating> findById(@PathVariable Long id) { return ratingService.findById(id); }
 
-    @GetMapping("/getCustomer/{username}")
-    public Optional<Rating> findByCustomer(@PathVariable String username) { return ratingService.findByCustomer(username); }
+    @GetMapping("/getAll/{username}")
+    public List<Rating> findRatingsByUser(@PathVariable String username) {
+        return ratingService.findRatingsByUsername(username);
+    }
 
     @GetMapping("/getAll")
     public List<Rating> findAll() {

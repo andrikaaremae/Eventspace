@@ -96,7 +96,8 @@
         username: '',
         startDateTest:'',
         endDateTest:'',
-        dateListTest:[]
+        dateListTest:[],
+        userRatings: [],
       }
     },
     props: ['id', 'name', 'description', 'address', 'category', 'bookings', 'price', 'imageURL', 'owner', 'username', 'bookingList'],
@@ -118,13 +119,13 @@
       axios.get(process.env.API_URL + '/user/username').then(response =>
       { this.username = response.data,
         axios.get(process.env.API_URL + '/user/getUser/'+this.username)
-          .then(response => { this.customer = response.data},);});
-      axios.get(process.env.API_URL + '/bookings/getAll/' + this.$route.query.id , { headers: authHeader() })
-        .then(response => { this.bookingList = response.data })
+          .then(response => { this.customer = response.data,
+            axios.get(process.env.API_URL + '/ratings/getAll/' + this.username, { headers: authHeader() })
+              .then(response => { this.userRatings = response.data, console.log(this.userRatings)});},);});
 
-      // axios.get(process.env.API_URL + '/user/username').then(response =>
-      // { this.username = response.data, axios.get(process.env.API_URL + '/ratings/getUser/'+this.username)
-      //   .then(response => { this.ratedUser = response.data, console.log('PEDE')},);});
+      axios.get(process.env.API_URL + '/bookings/getAll/' + this.$route.query.id , { headers: authHeader() })
+        .then(response => { this.bookingList = response.data });
+
     },
     methods: {
 
@@ -199,7 +200,7 @@
         this.statusText = 'Voted!';
         axios.post(process.env.API_URL + '/ratings/save/' + this.id, {
             rating: this.rating,
-            customer: this.customer,
+            user: this.customer,
           },
           {headers: {'Content-type': 'application/json'}})
       },

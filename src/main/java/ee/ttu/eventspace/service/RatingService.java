@@ -3,6 +3,7 @@ package ee.ttu.eventspace.service;
 import ee.ttu.eventspace.model.Rating;
 import ee.ttu.eventspace.repository.PlaceRepository;
 import ee.ttu.eventspace.repository.RatingRepository;
+import ee.ttu.eventspace.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class RatingService {
     @Autowired
     private PlaceRepository placeRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public Rating save(Long placeId, Rating rating) {
         rating.setPlace(placeRepository.findById(placeId).orElseThrow(IllegalArgumentException::new));
         return ratingRepository.save(rating);
@@ -31,7 +35,9 @@ public class RatingService {
         return ratingRepository.findAll();
     }
 
-    public Optional<Rating> findByCustomer(String username) { return ratingRepository.findByCustomer(username); }
+    public List<Rating> findRatingsByUsername(String username) {
+
+        return ratingRepository.findRatingsByUser(userRepository.findByUsername(username));}
 
     public void deleteById(Long id){ratingRepository.deleteById(id);}
 }
