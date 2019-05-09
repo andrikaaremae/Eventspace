@@ -9,10 +9,12 @@ group = 'ee.ttu'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-
-
 repositories {
 	mavenCentral()
+}
+
+bootJar {
+	launchScript()
 }
 
 dependencies {
@@ -20,13 +22,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.h2database:h2'
-//	runtimeOnly 'mysql:mysql-connector-java'
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
-
 }
